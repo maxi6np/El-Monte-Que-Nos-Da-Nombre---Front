@@ -7,18 +7,19 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
+import Inicio from './inicio';
 import { makeStyles } from '@mui/material';
+import { orange } from '@mui/material/colors';
 
 
 
 function App() {
-  const [nombre, setContraseña] = useState([]);
 
   return (
     <>
       <BrowserRouter>
         <Box sx={{ flexGrow: 1 }}>
-          <AppBar className='mb-5' position="static">
+          <AppBar className='mb-5' position="static" sx={{bgcolor:'darkorange'}}>
             <Toolbar>
               <IconButton
                 size="large"
@@ -36,6 +37,7 @@ function App() {
         </Box>
         <Routes>
           <Route path='/' element={<Login></Login>}></Route>
+          <Route path='/inicio' element={<Inicio></Inicio>}></Route>
         </Routes>
       </BrowserRouter>
     </>
