@@ -4,17 +4,18 @@ import Error from "./Error";
 
 const Registro = () => {
   const [usuario, setUsuario] = useState({});
-  const [nombre, setNombre] = useState();
-  const [nombreUsuario, setNombreUsuario] = useState();
-  const [apellidos, setApellidos] = useState();
-  const [email, setEmail] = useState();
-  const [fechaNacimiento, setFechaNacimiento] = useState();
-  const [contrasenia, setContrasenia] = useState();
-  const [confirmarContrasenia, setConfirmarContrasenia] = useState();
+  const [nombre, setNombre] = useState("");
+  const [nombreUsuario, setNombreUsuario] = useState("");
+  const [apellidos, setApellidos] = useState("");
+  const [email, setEmail] = useState("");
+  const [fechaNacimiento, setFechaNacimiento] = useState("");
+  const [contrasenia, setContrasenia] = useState("");
+  const [confirmarContrasenia, setConfirmarContrasenia] = useState("");
   const [error, setError] = useState(false);
   const [mensaje, setMensaje] = useState();
 
   const handleRegistrar = (event) => {
+    setError(false);
     event.preventDefault();
     if (
       [
@@ -27,8 +28,8 @@ const Registro = () => {
         confirmarContrasenia,
       ].includes("")
     ) {
-      setError(true);
       setMensaje("Rellene todos los campos");
+      setError(true);
     } else if (contrasenia !== confirmarContrasenia) {
       setError(true);
       setMensaje("Las contraseñas no coinciden");
@@ -114,7 +115,6 @@ const Registro = () => {
               required
             />
             {error && <Error>{mensaje}</Error>}
-
             <Button
               type="submit"
               variant="contained"
