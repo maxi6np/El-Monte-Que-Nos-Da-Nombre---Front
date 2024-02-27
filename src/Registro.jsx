@@ -1,6 +1,8 @@
 import { Button, Grid, Paper, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import Error from "./Error";
+import { redirect, useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
 const Registro = () => {
   const [usuario, setUsuario] = useState({});
@@ -13,6 +15,8 @@ const Registro = () => {
   const [confirmarContrasenia, setConfirmarContrasenia] = useState("");
   const [error, setError] = useState(false);
   const [mensaje, setMensaje] = useState();
+  const [cookies, setCookie, removeCookie] = useCookies(['usuario']);
+  const navigate = useNavigate();
 
   const handleRegistrar = (event) => {
     setError(false);
@@ -33,6 +37,29 @@ const Registro = () => {
     } else if (contrasenia !== confirmarContrasenia) {
       setError(true);
       setMensaje("Las contraseñas no coinciden");
+    } else {
+
+      let body = JSON.stringify({
+        nombre_usuario: nombreUsuario,
+        email: email,
+        password: contrasenia,
+        nombre: nombre,
+        apellidos: apellidos,
+        fecha_nacimiento: fechaNacimiento
+      })
+
+      fetch('http://127.0.0.1:8000/register', { method: 'post', body: body, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', } })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data)
+          if (data.message === 'Usuario registrado correctamente') {
+            setCookie('session', data.token, { path: '/' });
+            navigate("/inicio");
+          } else {
+            setMensaje(data.message);
+            setError(true);
+          }
+        })
     }
   };
 
