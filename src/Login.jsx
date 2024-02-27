@@ -16,7 +16,7 @@ function Login() {
     const [error, setError] = useState(false);
     const[mensaje, setMensaje] = useState();
     const navigate = useNavigate();
-    const [cookies, setCookie, removeCookie] = useCookies(['usuario']);
+    const [cookies, setCookie, removeCookie] = useCookies(['session']);
    
 
     const login = (usuario, contraseña) => {
@@ -30,10 +30,10 @@ function Login() {
                 password:contraseña
             })
             
-            fetch('http://127.0.0.1:8000/login', {method:'post', body:body, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', }})
+            fetch('http://127.0.0.1:8000/login', {method:'post', body:body, headers: {'Accept':'application/json', 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', }})
             .then(response => response.json())
             .then(data => {if (data.message == 'correcto') {
-                setCookie('sesion', data.token, {path:'/'});
+                setCookie('session', {'email':data.email, 'token': data.token} , {path:'/'});
                 navigate("/inicio");
 
             }else{
