@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link, json } from 'react-router-dom';
 import Input from '@mui/material/Input';
 import Grid from '@mui/material/Unstable_Grid2/Grid2';
 import Button from '@mui/material/Button';
@@ -7,17 +8,22 @@ import { FormControl } from '@mui/material';
 import { Container } from '@mui/material';
 import { InputLabel } from '@mui/material';
 import { makeStyles } from '@mui/material';
-import {useCookies} from 'react-cookie';
+import { useCookies } from 'react-cookie';
 import Error from './Error';
 function Login() {
-    
+
     const [usuario, setUsuario] = useState();
     const [contraseña, setContraseña] = useState();
     const [error, setError] = useState(false);
-    const[mensaje, setMensaje] = useState();
+    const [mensaje, setMensaje] = useState();
     const navigate = useNavigate();
+<<<<<<< HEAD
     const [cookies, setCookie, removeCookie] = useCookies(['session']);
    
+=======
+    const [cookies, setCookie, removeCookie] = useCookies(['usuario']);
+
+>>>>>>> 38b97fe961492a4adba5588ac8d60b9b46abe838
 
     const login = (usuario, contraseña) => {
         if ([usuario, contraseña].includes('')) {
@@ -26,31 +32,42 @@ function Login() {
         }
         else {
             let body = JSON.stringify({
-                email:usuario,
-                password:contraseña
+                email: usuario,
+                password: contraseña
             })
+<<<<<<< HEAD
             
             fetch('http://127.0.0.1:8000/login', {method:'post', body:body, headers: {'Accept':'application/json', 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', }})
             .then(response => response.json())
             .then(data => {if (data.message == 'correcto') {
                 setCookie('session', {'email':data.email, 'token': data.token} , {path:'/'});
                 navigate("/inicio");
+=======
+>>>>>>> 38b97fe961492a4adba5588ac8d60b9b46abe838
 
-            }else{
-                setMensaje(data.message)
-                setError(true);
-            }})
-            
+            fetch('http://127.0.0.1:8000/login', { method: 'post', body: body, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', } })
+                .then(response => response,json())
+                .then(data => {
+                    if (data.message == 'correcto') {
+                        setCookie('session', data.token, { path: '/' });
+                        navigate("/inicio");
+
+                    } else {
+                        setMensaje(data.message)
+                        setError(true);
+                    }
+                })
+
 
         }
     }
 
     return (
-        <>  
-            
+        <>
+
             <Container maxWidth='md'>
-            {error && <Error>{mensaje}</Error>}
-                <form method='post' onSubmit={(e) => {e.preventDefault(); login(usuario, contraseña)}}>
+                {error && <Error>{mensaje}</Error>}
+                <form method='post' onSubmit={(e) => { e.preventDefault(); login(usuario, contraseña) }}>
                     <Grid container spacing={2}>
                         <Grid xs={12} >
 
@@ -66,11 +83,13 @@ function Login() {
                             <Button type='submit' variant="contained" sx={{ bgcolor: 'darkorange' }}>Iniciar Sesion</Button>
                         </Grid>
                         <Grid xs={2}>
-                            <Button variant="contained" sx={{ bgcolor: 'darkorange' }}>Registrarse</Button>
+                            <Link to='/registro'>
+                                <Button variant="contained" sx={{ bgcolor: 'darkorange' }}>Registrarse</Button>
+                            </Link>
                         </Grid>
                     </Grid>
                 </form>
-                
+
             </Container>
         </>
     )
