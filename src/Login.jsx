@@ -42,38 +42,38 @@ function Login() {
             }})
             
 
-        }
-    }
-
     return (
-        <>  
-            
+        <>
+
             <Container maxWidth='md'>
-            {error && <Error>{mensaje}</Error>}
-                <form method='post' onSubmit={(e) => {e.preventDefault(); login(usuario, contraseña)}}>
+                {error && <Error>{mensaje}</Error>}
+                <form method='post' onSubmit={(e) => { e.preventDefault(); login(usuario, contraseña) }}>
                     <Grid container spacing={2}>
                         <Grid xs={12} >
 
-                            <InputLabel htmlFor="usuario">Email</InputLabel>
-                            <Input fullWidth id="usuario" type="email" required value={usuario} onChange={(e) => setUsuario(e.target.value)} />
+                                    <InputLabel htmlFor="usuario">Email</InputLabel>
+                                    <Input fullWidth id="usuario" type="email" required value={usuario} onChange={(e) => setUsuario(e.target.value)} />
 
-                        </Grid>
-                        <Grid xs={12}>
-                            <InputLabel htmlFor="contraseña">Contraseña</InputLabel>
-                            <Input fullWidth id="contraseña" type="password" required value={contraseña} onChange={(e) => setContraseña(e.target.value)} />
-                        </Grid>
-                        <Grid xs={3}>
-                            <Button type='submit' variant="contained" sx={{ bgcolor: 'darkorange' }}>Iniciar Sesion</Button>
-                        </Grid>
-                        <Grid xs={2}>
-                            <Button variant="contained" sx={{ bgcolor: 'darkorange' }}>Registrarse</Button>
-                        </Grid>
-                    </Grid>
-                </form>
-                
-            </Container>
-        </>
-    )
+                                </Grid>
+                                <Grid xs={12}>
+                                    <InputLabel htmlFor="contraseña">Contraseña</InputLabel>
+                                    <Input fullWidth id="contraseña" type="password" required value={contraseña} onChange={(e) => setContraseña(e.target.value)} />
+                                </Grid>
+                                <Grid xs={3}>
+                                    <Button type='submit' variant="contained" sx={{ bgcolor: 'darkorange' }}>Iniciar Sesion</Button>
+                                </Grid>
+                                <Grid xs={2}>
+                                    <Link to='/registro'>
+                                        <Button variant="contained" sx={{ bgcolor: 'darkorange' }}>Registrarse</Button>
+                                    </Link>
+                                </Grid>
+                            </Grid>
+                        </form>
+
+                    </Container>
+                </>
+            )
+        }
+    }
 }
-
 export default Login
