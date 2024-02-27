@@ -33,7 +33,7 @@ function Login() {
             fetch('http://127.0.0.1:8000/login', {method:'post', body:body, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', }})
             .then(response => response.json())
             .then(data => {if (data.message == 'correcto') {
-                setCookie('usuario', usuario, {path:'/'});
+                setCookie('sesion', data.token, {path:'/'});
                 navigate("/inicio");
 
             }else{
