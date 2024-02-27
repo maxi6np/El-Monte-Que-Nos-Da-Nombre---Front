@@ -12,14 +12,12 @@ import Error from './Error';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled'
 import ImagenPortada from './img/iesmontenaranco.png'
-
-
 function Login() {
 
-    const [usuario, setUsuario] = useState();
-    const [contraseña, setContraseña] = useState();
+    const [usuario, setUsuario] = useState('');
+    const [contraseña, setContraseña] = useState('');
     const [error, setError] = useState(false);
-    const [mensaje, setMensaje] = useState();
+    const [mensaje, setMensaje] = useState('');
     const navigate = useNavigate();
     const [cookies, setCookie, removeCookie] = useCookies(['session']);
 
@@ -42,7 +40,7 @@ function Login() {
                 .then(response => response.json())
                 .then(data => {
                     if (data.message == 'correcto') {
-                        setCookie('session', { 'email': data.email, 'token': data.token }, { path: '/' });
+                        setCookie('session', { token: data.token }, { path: '/' });
                         navigate("/");
 
                     } else {
@@ -55,30 +53,34 @@ function Login() {
 
 
     return (
-        <Container sx={{display:'flex'}}>
-            <Container maxWidth='sm' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-                <img src={ImagenPortada} alt="IES MONTE NARANCO" />
+        <>
+
+            <Container sx={{ display: 'flex' }}>
+                <Container maxWidth='sm' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                    <img src={ImagenPortada} alt="IES MONTE NARANCO" />
+                </Container>
+                <Container maxWidth='sm' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', marginTop: '2rem' }}>
+                    {error && <Error>{mensaje}</Error>}
+                    <form method='post' onSubmit={(e) => { e.preventDefault(); login(usuario, contraseña) }}>
+                        <Grid container spacing={2}>
+                            <Grid xs={12} >
+                                <InputLabel htmlFor="usuario">Email</InputLabel>
+                                <Input fullWidth id="usuario" type="email" required value={usuario} onChange={(e) => setUsuario(e.target.value)} />
+                            </Grid>
+                            <Grid xs={12}>
+                                <InputLabel htmlFor="contraseña">Contraseña</InputLabel>
+                                <Input fullWidth id="contraseña" type="password" required value={contraseña} onChange={(e) => setContraseña(e.target.value)} />
+                            </Grid>
+                            <Grid xs={12}>
+                                <Button type='submit' variant="contained" sx={{ bgcolor: 'darkorange' }}>Iniciar Sesión</Button>
+                            </Grid>
+                        </Grid>
+                        <div style={{ marginTop: '1rem', textAlign: 'center' }}>¿Aún no tienes cuenta? <Link to='/registro'>Regístrate</Link></div>
+                    </form>
+                </Container>
             </Container>
-            <Container maxWidth='sm' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', marginTop: '2rem' }}>
-                {error && <Error>{mensaje}</Error>}
-                <form method='post' onSubmit={(e) => { e.preventDefault(); login(usuario, contraseña) }}>
-                    <Grid container spacing={2}>
-                        <Grid xs={12} >
-                            <InputLabel htmlFor="usuario">Email</InputLabel>
-                            <Input fullWidth id="usuario" type="email" required value={usuario} onChange={(e) => setUsuario(e.target.value)} />
-                        </Grid>
-                        <Grid xs={12}>
-                            <InputLabel htmlFor="contraseña">Contraseña</InputLabel>
-                            <Input fullWidth id="contraseña" type="password" required value={contraseña} onChange={(e) => setContraseña(e.target.value)} />
-                        </Grid>
-                        <Grid xs={12}>
-                            <Button type='submit' variant="contained" sx={{ bgcolor: 'darkorange' }}>Iniciar Sesión</Button>
-                        </Grid>
-                    </Grid>
-                    <div style={{ marginTop: '1rem', textAlign: 'center' }}>¿Aún no tienes cuenta? <Link to='/registro'>Regístrate</Link></div>
-                </form>
-            </Container>
-        </Container>
+        </>
+
 
     )
 
