@@ -1,6 +1,8 @@
 import { Button, Grid, Paper, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import Error from "./Error";
+import { redirect, useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
 const Registro = () => {
   const [usuario, setUsuario] = useState({});
@@ -13,6 +15,8 @@ const Registro = () => {
   const [confirmarContrasenia, setConfirmarContrasenia] = useState();
   const [error, setError] = useState(false);
   const [mensaje, setMensaje] = useState();
+  const [cookies, setCookie, removeCookie] = useCookies(['usuario']);
+  const navigate = useNavigate();
 
   const handleRegistrar = (event) => {
     event.preventDefault();
@@ -47,11 +51,11 @@ const Registro = () => {
         .then(response => response.json())
         .then(data => {
           console.log(data)
-          if (data.message == 'correcto') {
+          if (data.message === 'Usuario registrado correctamente') {
             setCookie('session', data.token, { path: '/' });
             navigate("/inicio");
           } else {
-            setMensaje(data.message)
+            setMensaje(data.message);
             setError(true);
           }
         })

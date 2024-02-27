@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, json } from 'react-router-dom';
 import Input from '@mui/material/Input';
 import Grid from '@mui/material/Unstable_Grid2/Grid2';
 import Button from '@mui/material/Button';
@@ -32,7 +32,7 @@ function Login() {
             })
 
             fetch('http://127.0.0.1:8000/login', { method: 'post', body: body, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', } })
-                .then(response => console.log(response.json()))
+                .then(response => response,json())
                 .then(data => {
                     if (data.message == 'correcto') {
                         setCookie('session', data.token, { path: '/' });
