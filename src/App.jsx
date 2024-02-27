@@ -7,7 +7,7 @@ import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import Login from "./Login";
 import Registro from "./Registro";
-import Inicio from "./inicio";
+import Inicio from "./Inicio";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import { Cookies, useCookies } from 'react-cookie';
@@ -29,7 +29,7 @@ function App() {
     <>
       <BrowserRouter>
         <Box sx={{ flexGrow: 1 }}>
-          <AppBar
+          {/* <AppBar
             className="mb-5"
             position="static"
             sx={{ bgcolor: "darkorange" }}
@@ -47,7 +47,7 @@ function App() {
               </Typography>
               {cookies.session ? <Button color="inherit" onClick={() => logout()}>Logout</Button> : <Link to='/'> <Button>Login</Button></Link>}
             </Toolbar>
-          </AppBar>
+          </AppBar> */}
         </Box>
         <Routes>
           <Route path="/" element={<Inicio />}></Route>
