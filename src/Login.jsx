@@ -32,10 +32,10 @@ function Login() {
             })
 
             fetch('http://127.0.0.1:8000/login', { method: 'post', body: body, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', } })
-                .then(response => response.json())
+                .then(response => console.log(response.json()))
                 .then(data => {
                     if (data.message == 'correcto') {
-                        setCookie('sesion', data.token, { path: '/' });
+                        setCookie('session', data.token, { path: '/' });
                         navigate("/inicio");
 
                     } else {

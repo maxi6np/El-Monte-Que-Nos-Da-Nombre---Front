@@ -32,6 +32,29 @@ const Registro = () => {
     } else if (contrasenia !== confirmarContrasenia) {
       setError(true);
       setMensaje("Las contraseñas no coinciden");
+    } else {
+
+      let body = JSON.stringify({
+        nombre_usuario: nombreUsuario,
+        email: email,
+        password: contrasenia,
+        nombre: nombre,
+        apellidos: apellidos,
+        fecha_nacimiento: fechaNacimiento
+      })
+
+      fetch('http://127.0.0.1:8000/register', { method: 'post', body: body, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', } })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data)
+          if (data.message == 'correcto') {
+            setCookie('session', data.token, { path: '/' });
+            navigate("/inicio");
+          } else {
+            setMensaje(data.message)
+            setError(true);
+          }
+        })
     }
   };
 
