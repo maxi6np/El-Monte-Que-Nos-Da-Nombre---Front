@@ -6,8 +6,6 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import Login from "./Login";
 import Registro from "./Registro";
 import Inicio from "./inicio";
-import { Button } from "@mui/material";
-import { Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
 function App() {
