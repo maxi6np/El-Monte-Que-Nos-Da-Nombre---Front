@@ -19,6 +19,7 @@ import {
   
 
 function MapaPuntos() {
+    const [cookies, setCookie, removeCookie] = useCookies(["session"]);
 
     useEffect(() => {
         const map = L.map('map').setView([43.3736, -5.8500], 13);
