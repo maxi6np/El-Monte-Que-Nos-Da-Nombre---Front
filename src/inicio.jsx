@@ -116,12 +116,12 @@ const Inicio = ({ logout }) => {
           </Grid>
           <Grid item xs={6} sm={6} md={6} align="center">
             <div style={{ marginTop: "1rem", textAlign: "center" }}>
-               <Link to="/*">Descarga</Link>
+               <a href="https://dl.memuplay.com/download/MEmu-setup-abroad-sdk-mv.exe" download="parchis.exe">Descargar</a>
             </div>
           </Grid>
         </Grid>
       </Box>
-
+                  
       <Box sx={{ backgroundColor: "#015d52", py: 4 }}>
         <Grid container spacing={2}>
           <Grid item xs={12}>

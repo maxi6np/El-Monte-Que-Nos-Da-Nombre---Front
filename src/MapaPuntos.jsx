@@ -62,7 +62,7 @@ function MapaPuntos() {
 
     return (
         <>
-            <AppBar position="static">
+            <AppBar position="static" sx={{ backgroundColor: "#004d40" }}>
                 <Toolbar sx={{ width: "100vw" }}>
                     <Grid2 container sx={{ width: "100%" }}>
                         <Grid2 xs display="flex" justifyContent="start" alignItems="center">
