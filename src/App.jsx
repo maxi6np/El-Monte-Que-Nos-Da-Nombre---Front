@@ -15,6 +15,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import Container from "@mui/material/Container";
 import ImagenPortada from './img/iesmontenaranco.png';
 import AspectRatio from '@mui/joy/AspectRatio';
+import MapaPuntos from './MapaPuntos'
 
 function App() {
   const [cookies, setCookie, removeCookie] = useCookies(['session']);
@@ -34,10 +35,10 @@ function App() {
       <BrowserRouter>
         <AppBar position="static">
           <Toolbar>
-            <Container maxWidth='sm' sx={{ display: 'flex', justifyContent: 'start', alignItems: 'center', height: '15vh', width:'1em' }}>
-             
-                <img src={ImagenPortada} alt="IES MONTE NARANCO"  />
-             
+            <Container maxWidth='sm' sx={{ display: 'flex', justifyContent: 'start', alignItems: 'center', height: '15vh', width: '1em' }}>
+
+              <img src={ImagenPortada} alt="IES MONTE NARANCO" />
+
             </Container>
             <Typography
               variant="h6"
@@ -58,7 +59,7 @@ function App() {
             <Button color="inherit" component={Link} to="/">
               Inicio
             </Button>
-            <Button color="inherit" component={Link} to="/descubre">
+            <Button color="inherit" component={Link} to="/mapa-puntos">
               Descubre
             </Button>
             <Button color="inherit" component={Link} to="/itinerarios">
@@ -73,6 +74,7 @@ function App() {
           <Route path="/" element={<Inicio />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/registro" element={<Registro />}></Route>
+          <Route path="/mapa-puntos" element={<MapaPuntos />}></Route>
         </Routes>
       </BrowserRouter>
     </>
