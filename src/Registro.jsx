@@ -4,7 +4,7 @@ import Error from "./Error";
 import { redirect, useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import { Link } from 'react-router-dom';
-import ImagenPortada from './img/iesmontenaranco.png'
+import LogoFinal from './img/logo_final.png';
 
 
 const Registro = () => {
@@ -167,7 +167,7 @@ const Registro = () => {
       </Grid>
 
       <Container maxWidth='sm' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-        <img src={ImagenPortada} alt="IES MONTE NARANCO" />
+        <img src={LogoFinal} alt="IES MONTE NARANCO" />
       </Container>
 
     </Container>

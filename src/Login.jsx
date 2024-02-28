@@ -11,7 +11,7 @@ import { useCookies } from 'react-cookie';
 import Error from './Error';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled'
-import ImagenPortada from './img/iesmontenaranco.png'
+import LogoFinal from './img/logo_final.png';
 function Login() {
 
     const [usuario, setUsuario] = useState('');
@@ -57,7 +57,7 @@ function Login() {
 
             <Container sx={{ display: 'flex' }}>
                 <Container maxWidth='sm' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-                    <img src={ImagenPortada} alt="IES MONTE NARANCO" />
+                    <img src={LogoFinal} alt="IES MONTE NARANCO" />
                 </Container>
                 <Container maxWidth='sm' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', marginTop: '2rem' }}>
                     {error && <Error>{mensaje}</Error>}
