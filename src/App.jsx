@@ -12,17 +12,20 @@ import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import { Cookies, useCookies } from 'react-cookie';
 import PersonIcon from "@mui/icons-material/Person";
+import Container from "@mui/material/Container";
+import ImagenPortada from './img/iesmontenaranco.png';
+import AspectRatio from '@mui/joy/AspectRatio';
 
 function App() {
   const [cookies, setCookie, removeCookie] = useCookies(['session']);
 
 
   const logout = () => {
-    fetch('http://127.0.0.1:8000/logout', { method: 'post',  headers: { 'Accept': 'application/json', 'Content-type': 'application/json', 'Authorization':'Bearer ' + cookies.session.token,  'Access-Control-Allow-Origin': '*' } })
+    fetch('http://127.0.0.1:8000/logout', { method: 'post', headers: { 'Accept': 'application/json', 'Content-type': 'application/json', 'Authorization': 'Bearer ' + cookies.session.token, 'Access-Control-Allow-Origin': '*' } })
       .then(response => response.json())
       .then(data => {
         removeCookie('session');
-        
+
       }
       )
   }
@@ -31,6 +34,11 @@ function App() {
       <BrowserRouter>
         <AppBar position="static">
           <Toolbar>
+            <Container maxWidth='sm' sx={{ display: 'flex', justifyContent: 'start', alignItems: 'center', height: '15vh', width:'1em' }}>
+             
+                <img src={ImagenPortada} alt="IES MONTE NARANCO"  />
+             
+            </Container>
             <Typography
               variant="h6"
               component="div"
@@ -39,7 +47,7 @@ function App() {
               El Monte que nos da el nombre
             </Typography>
             <PersonIcon />
-            {cookies.session ? <Button color="inherit" onClick={() => logout()} component={Link} to="/">Logout</Button> :<Button color="inherit" component={Link} to="/login">Login</Button>}
+            {cookies.session ? <Button color="inherit" onClick={() => logout()} component={Link} to="/">Logout</Button> : <Button color="inherit" component={Link} to="/login">Login</Button>}
             {!cookies.session && <Button color="inherit" component={Link} to="/registro">
               Registrarse
             </Button>}
