@@ -1,25 +1,17 @@
-import {
-  AppBar,
-  Box,
-  Button,
-  Container,
-  Grid,
-  Toolbar,
-  Typography,
-} from "@mui/material";
-import React from "react";
-import { Link } from "react-router-dom";
 import PersonIcon from "@mui/icons-material/Person";
-import LogoFinal from './img/logo_final.png';
-import AspectRatio from '@mui/joy/AspectRatio';
-import { Cookies, useCookies } from 'react-cookie';
+import AspectRatio from "@mui/joy/AspectRatio";
+import { AppBar, Box, Button, Grid, Toolbar, Typography } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
-const Inicio = ({logout}) => {
- const [cookies, setCookie, removeCookie] = useCookies(['session']);
+import React from "react";
+import { useCookies } from "react-cookie";
+import { Link } from "react-router-dom";
+import LogoFinal from "./img/logo_final.png";
+const Inicio = ({ logout }) => {
+  const [cookies, setCookie, removeCookie] = useCookies(["session"]);
 
   return (
     <div>
-      <AppBar position="static">
+      <AppBar position="static" sx={{ backgroundColor: "#004d40" }}>
         <Toolbar sx={{ width: "100vw" }}>
           <Grid2 container sx={{ width: "100%" }}>
             <Grid2 xs display="flex" justifyContent="start" alignItems="center">
@@ -81,7 +73,7 @@ const Inicio = ({logout}) => {
           <Button color="inherit" component={Link} to="/">
             Inicio
           </Button>
-          <Button color="inherit" component={Link} to="/descubre">
+          <Button color="inherit" component={Link} to="/mapa-puntos">
             Descubre
           </Button>
           <Button color="inherit" component={Link} to="/itinerarios">
@@ -110,7 +102,7 @@ const Inicio = ({logout}) => {
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <Typography variant="h4" align="center" gutterBottom>
-              Itinerarios
+              Descarga la App
             </Typography>
           </Grid>
         </Grid>
