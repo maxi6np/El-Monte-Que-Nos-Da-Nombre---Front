@@ -18,7 +18,6 @@ const Registro = () => {
   const [confirmarContrasenia, setConfirmarContrasenia] = useState("");
   const [error, setError] = useState(false);
   const [mensaje, setMensaje] = useState();
-  const [cookies, setCookie, removeCookie] = useCookies(['usuario']);
   const navigate = useNavigate();
 
   const handleRegistrar = (event) => {
@@ -56,8 +55,7 @@ const Registro = () => {
         .then(data => {
           console.log(data)
           if (data.message === 'Usuario registrado correctamente') {
-            setCookie('session', data.token, { path: '/' });
-            navigate("/");
+            navigate("/login");
           } else {
             setMensaje(data.message);
             setError(true);
