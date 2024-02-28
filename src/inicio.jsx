@@ -5,7 +5,9 @@ import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import React from "react";
 import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
+import iconoMovil from "./img/iconoMovil.png";
 import LogoFinal from "./img/logo_final.png";
+
 const Inicio = ({ logout }) => {
   const [cookies, setCookie, removeCookie] = useCookies(["session"]);
 
@@ -34,11 +36,11 @@ const Inicio = ({ logout }) => {
               alignItems="center"
             >
               <Typography
-                variant="h6"
+                variant="h5"
                 component="div"
                 sx={{ textAlign: "center" }}
               >
-                El Monte que nos da el nombre
+                EL MONTE QUE NOS DA NOMBRE
               </Typography>
             </Grid2>
             <Grid2 xs display="flex" justifyContent="end" alignItems="center">
@@ -99,20 +101,63 @@ const Inicio = ({ logout }) => {
       </Box>
 
       <Box sx={{ backgroundColor: "#a5d6a7", py: 4 }}>
-        <Grid container spacing={2}>
+        <Grid container spacing={2} alignItems="center">
           <Grid item xs={12}>
             <Typography variant="h4" align="center" gutterBottom>
-              Descarga la App
+              Descarga nuestra App
             </Typography>
+          </Grid>
+          <Grid item xs={6} sm={6} md={6} align="center">
+            <img
+              src={iconoMovil}
+              alt="Imagen icono App"
+              style={{ width: "100%", height: "auto", maxWidth: "275px" }}
+            />
+          </Grid>
+          <Grid item xs={6} sm={6} md={6} align="center">
+            <div style={{ marginTop: "1rem", textAlign: "center" }}>
+               <a href="https://dl.memuplay.com/download/MEmu-setup-abroad-sdk-mv.exe" download="parchis.exe">Descargar</a>
+            </div>
           </Grid>
         </Grid>
       </Box>
-
-      <Box sx={{ backgroundColor: "#c8e6c9", py: 4 }}>
-        <Grid container spacing={2}>
+                  
+      <Box sx={{ backgroundColor: "#015d52", py: 4 }}>
+        <Grid container justifyContent="center" spacing={2}>
+          <Grid item xs={12} md={6}>
+            <Box sx={{ pl: 2 }}>
+              <Typography variant="h4" align="center" gutterBottom>
+                Contacto
+              </Typography>
+              <Typography variant="body1" align="left" gutterBottom>
+                <strong>Dirección:</strong> Pedro Caravia 9. CP 33012. Oviedo
+                (ASTURIAS)
+              </Typography>
+              <Typography variant="body1" align="left" gutterBottom>
+                <strong>Teléfono:</strong> <a href="tel:985292464">985292464</a>
+              </Typography>
+              <Typography variant="body1" align="left" gutterBottom>
+                <strong>Fax:</strong> 985292247
+              </Typography>
+              <Typography variant="body1" align="left" gutterBottom>
+                <strong>Correo:</strong>{" "}
+                <a href="mailto:naranco@educastur.org">naranco@educastur.org</a>
+              </Typography>
+              <Typography variant="body1" align="left" gutterBottom>
+                <strong>Web:</strong>{" "}
+                <Link
+                  href="https://alojaweb.educastur.es/web/iesmontenaranco"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  https://alojaweb.educastur.es/web/iesmontenaranco
+                </Link>
+              </Typography>
+            </Box>
+          </Grid>
           <Grid item xs={12}>
-            <Typography variant="h4" align="center" gutterBottom>
-              Información del Proyecto
+            <Typography variant="body1" align="center" gutterBottom>
+              Copyright 2024 iesmontenaranco | Todos los derechos reservados
             </Typography>
           </Grid>
         </Grid>
