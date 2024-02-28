@@ -40,9 +40,9 @@ function App() {
             </Typography>
             <PersonIcon />
             {cookies.session ? <Button color="inherit" onClick={() => logout()} component={Link} to="/">Logout</Button> :<Button color="inherit" component={Link} to="/login">Login</Button>}
-            <Button color="inherit" component={Link} to="/registro">
+            {!cookies.session && <Button color="inherit" component={Link} to="/registro">
               Registrarse
-            </Button>
+            </Button>}
           </Toolbar>
         </AppBar>
         <AppBar position="static" className="mb-5">
