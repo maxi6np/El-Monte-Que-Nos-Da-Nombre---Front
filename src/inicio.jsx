@@ -5,7 +5,9 @@ import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import React from "react";
 import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
+import iconoMovil from "./img/iconoMovil.png";
 import LogoFinal from "./img/logo_final.png";
+
 const Inicio = ({ logout }) => {
   const [cookies, setCookie, removeCookie] = useCookies(["session"]);
 
@@ -99,20 +101,32 @@ const Inicio = ({ logout }) => {
       </Box>
 
       <Box sx={{ backgroundColor: "#a5d6a7", py: 4 }}>
-        <Grid container spacing={2}>
+        <Grid container spacing={2} alignItems="center">
           <Grid item xs={12}>
             <Typography variant="h4" align="center" gutterBottom>
-              Descarga la App
+              Descarga nuestra App
             </Typography>
+          </Grid>
+          <Grid item xs={6} sm={6} md={6} align="center">
+            <img
+              src={iconoMovil}
+              alt="Imagen icono App"
+              style={{ width: "100%", height: "auto", maxWidth: "275px" }}
+            />
+          </Grid>
+          <Grid item xs={6} sm={6} md={6} align="center">
+            <div style={{ marginTop: "1rem", textAlign: "center" }}>
+               <Link to="/*">Descarga</Link>
+            </div>
           </Grid>
         </Grid>
       </Box>
 
-      <Box sx={{ backgroundColor: "#c8e6c9", py: 4 }}>
+      <Box sx={{ backgroundColor: "#015d52", py: 4 }}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <Typography variant="h4" align="center" gutterBottom>
-              Información del Proyecto
+              Contacta
             </Typography>
           </Grid>
         </Grid>
