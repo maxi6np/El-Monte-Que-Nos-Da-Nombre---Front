@@ -36,11 +36,11 @@ const Inicio = ({ logout }) => {
               alignItems="center"
             >
               <Typography
-                variant="h6"
+                variant="h5"
                 component="div"
                 sx={{ textAlign: "center" }}
               >
-                El Monte que nos da el nombre
+                EL MONTE QUE NOS DA NOMBRE
               </Typography>
             </Grid2>
             <Grid2 xs display="flex" justifyContent="end" alignItems="center">
@@ -116,17 +116,48 @@ const Inicio = ({ logout }) => {
           </Grid>
           <Grid item xs={6} sm={6} md={6} align="center">
             <div style={{ marginTop: "1rem", textAlign: "center" }}>
-               <Link to="/*">Descarga</Link>
+              <Link to="/*">Descarga</Link>
             </div>
           </Grid>
         </Grid>
       </Box>
 
       <Box sx={{ backgroundColor: "#015d52", py: 4 }}>
-        <Grid container spacing={2}>
+        <Grid container justifyContent="center" spacing={2}>
+          <Grid item xs={12} md={6}>
+            <Box sx={{ pl: 2 }}>
+              <Typography variant="h4" align="center" gutterBottom>
+                Contacto
+              </Typography>
+              <Typography variant="body1" align="left" gutterBottom>
+                <strong>Dirección:</strong> Pedro Caravia 9. CP 33012. Oviedo
+                (ASTURIAS)
+              </Typography>
+              <Typography variant="body1" align="left" gutterBottom>
+                <strong>Teléfono:</strong> <a href="tel:985292464">985292464</a>
+              </Typography>
+              <Typography variant="body1" align="left" gutterBottom>
+                <strong>Fax:</strong> 985292247
+              </Typography>
+              <Typography variant="body1" align="left" gutterBottom>
+                <strong>Correo:</strong>{" "}
+                <a href="mailto:naranco@educastur.org">naranco@educastur.org</a>
+              </Typography>
+              <Typography variant="body1" align="left" gutterBottom>
+                <strong>Web:</strong>{" "}
+                <Link
+                  href="https://alojaweb.educastur.es/web/iesmontenaranco"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  https://alojaweb.educastur.es/web/iesmontenaranco
+                </Link>
+              </Typography>
+            </Box>
+          </Grid>
           <Grid item xs={12}>
-            <Typography variant="h4" align="center" gutterBottom>
-              Contacta
+            <Typography variant="body1" align="center" gutterBottom>
+              Copyright 2024 iesmontenaranco | Todos los derechos reservados
             </Typography>
           </Grid>
         </Grid>
