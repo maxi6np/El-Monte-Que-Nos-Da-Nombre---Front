@@ -3,7 +3,6 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 function MapaPuntos() {
-    const [puntos, setPuntos] = useState(null)
 
     useEffect(() => {
         const map = L.map('map').setView([43.3736, -5.8500], 13);
@@ -12,18 +11,11 @@ function MapaPuntos() {
         }).addTo(map);
 
         let marker = null;
-        const myIcon = L.icon({
-            iconUrl: './img/balon.svg',
-            iconSize: [35, 35],
-            iconAnchor: [17, 35],
-            popupAnchor: [0, -35]
-        });
 
-        fetch('http://127.0.0.1:8000/mapa-puntos')
+        fetch('http://127.0.0.1:8000/mapa-puntos', {method:'get'})
             .then(response => response.json())
             .then(data => {
                 console.log(data);
-                setPuntos(data);
 
                 // Iterar sobre puntos aquí, después de que puntos esté definido
                 data.forEach(punto => {

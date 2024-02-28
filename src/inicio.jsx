@@ -81,7 +81,7 @@ const Inicio = ({logout}) => {
           <Button color="inherit" component={Link} to="/">
             Inicio
           </Button>
-          <Button color="inherit" component={Link} to="/descubre">
+          <Button color="inherit" component={Link} to="/mapa-puntos">
             Descubre
           </Button>
           <Button color="inherit" component={Link} to="/itinerarios">
