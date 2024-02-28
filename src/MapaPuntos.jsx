@@ -1,64 +1,48 @@
 import React, { useEffect, useState } from 'react';
-import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import {
     AppBar,
     Box,
     Button,
-    Container,
-    Grid,
     Toolbar,
     Typography,
-  } from "@mui/material";
-  import { Link } from "react-router-dom";
-  import PersonIcon from "@mui/icons-material/Person";
-  import LogoFinal from './img/logo_final.png';
-  import AspectRatio from '@mui/joy/AspectRatio';
-  import { Cookies, useCookies } from 'react-cookie';
-  import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
-  
+} from "@mui/material";
+import { Link } from "react-router-dom";
+import PersonIcon from "@mui/icons-material/Person";
+import LogoFinal from './img/logo_final.png';
+import AspectRatio from '@mui/joy/AspectRatio';
+import { Cookies, useCookies } from 'react-cookie';
+import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
+import { MapContainer, TileLayer, seMapEvents } from 'react-leaflet'
+import Markers from './Markers';
+
 
 function MapaPuntos() {
-    const [cookies, setCookie, removeCookie] = useCookies(["session"]);
-
+    const [puntos, setPuntos] = useState([])
+    const [cookies, setCookie, removeCookie] = useCookies(['session']);
+    const zoomLevel = 13;
+    const latlong = [43.3736, -5.8500]
+    
+   const ZoomReset = () =>{
+    const map = useMapEvents({
+        contextmenu() {
+           map.setView(latlong,zoomLevel);
+        }
+    })
+}
+    
     useEffect(() => {
-        const map = L.map('map').setView([43.3736, -5.8500], 13);
-        const tiles = L.tileLayer('https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(map);
+       
 
-        let marker = null;
+        fetch('http://127.0.0.1:8000/mapa-puntos', { method: 'get' })
+                .then(response => response.json())
+             .then(data => setPuntos(data))
+                 
 
-        fetch('http://127.0.0.1:8000/mapa-puntos', {method:'get'})
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
 
-                // Iterar sobre puntos aquí, después de que puntos esté definido
-                data.forEach(punto => {
-                    marker = L.marker([punto.latitud, punto.longitud]).addTo(map)
-                        .bindPopup(`<b>${punto.nombre}</b>`);
-                    marker.on('click', function (e) {
-                        map.setView(this.getLatLng(), 20);
-                    });
-                });
-            })
-        // .catch(error => {
-        //     console.error('Error en la solicitud fetch:', error);
-        // });
 
-        map.on('contextmenu', () => {
-            map.setView([40, -3.7], 6);
-            map.closePopup();
-        });
 
-        // Clean up function
-        return () => {
-            map.off(); // Remove all event listeners
-            map.remove(); // Remove the map instance
-        };
-
-    }, []); // Run this effect only once on mount
+    }, []); 
 
     return (
         <>
@@ -135,8 +119,16 @@ function MapaPuntos() {
                     </Button>
                 </Toolbar>
             </AppBar>
+            <MapContainer center={latlong} zoom={zoomLevel} scrollWheelZoom={true} style={{height:'80vh', width:'80%'}}>
+                <TileLayer 
+                    attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                    url="https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}"
+                />
+               <Markers puntos={puntos}></Markers>
+               <ZoomReset></ZoomReset>
+                
+            </MapContainer>
 
-            <div id="map" style={{ width: '80%', height: '80vh' }}></div>
         </>
     );
 }
