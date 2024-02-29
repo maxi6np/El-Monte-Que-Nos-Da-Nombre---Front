@@ -13,7 +13,7 @@ import LogoFinal from './img/logo_final.png';
 import AspectRatio from '@mui/joy/AspectRatio';
 import { Cookies, useCookies } from 'react-cookie';
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
-import { MapContainer, TileLayer, seMapEvents } from 'react-leaflet'
+import { MapContainer, TileLayer, useMapEvents } from 'react-leaflet'
 import Markers from './Markers';
 
 
