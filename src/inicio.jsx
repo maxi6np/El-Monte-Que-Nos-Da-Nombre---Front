@@ -1,15 +1,18 @@
+import LogoutIcon from "@mui/icons-material/Logout";
 import PersonIcon from "@mui/icons-material/Person";
-import LogoutIcon from '@mui/icons-material/Logout';
 import AspectRatio from "@mui/joy/AspectRatio";
 import { AppBar, Box, Button, Grid, Toolbar, Typography } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import React from "react";
 import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
-import icono_movil2 from "./img/icono_movil2.png";
-import LogoFinal from "./img/logo_final.png";
 import Cita from "./Cita";
 import Video from "./Video";
+import icono_movil2 from "./img/icono_movil2.png";
+import iesmontenaranco from "./img/iesmontenaranco.png";
+import LogoFinal from "./img/logo_final.png";
+import logoasturias from "./img/logoasturias.png";
+import logoeducastur from "./img/logoeducastur.png";
 
 const Inicio = ({ logout }) => {
   const [cookies, setCookie, removeCookie] = useCookies(["session"]);
@@ -29,7 +32,10 @@ const Inicio = ({ logout }) => {
                   justifySelf: "start",
                 }}
               >
-                <Link to='/'> <img src={LogoFinal} alt="IES MONTE NARANCO" /></Link>
+                <Link to="/">
+                  {" "}
+                  <img src={LogoFinal} alt="IES MONTE NARANCO" />
+                </Link>
               </AspectRatio>
             </Grid2>
             <Grid2
@@ -48,8 +54,6 @@ const Inicio = ({ logout }) => {
             </Grid2>
             <Grid2 xs display="flex" justifyContent="end" alignItems="center">
               <Box component="div">
-
-
                 {cookies.session ? (
                   <Button
                     color="inherit"
@@ -57,17 +61,26 @@ const Inicio = ({ logout }) => {
                     component={Link}
                     to="/"
                     startIcon={<LogoutIcon></LogoutIcon>}
-
                   >
                     Logout
                   </Button>
                 ) : (
-                  <Button color="inherit" component={Link} to="/login" startIcon={<PersonIcon fontSize="large"></PersonIcon>}>
+                  <Button
+                    color="inherit"
+                    component={Link}
+                    to="/login"
+                    startIcon={<PersonIcon fontSize="large"></PersonIcon>}
+                  >
                     Login
                   </Button>
                 )}
                 {!cookies.session && (
-                  <Button color="inherit" component={Link} to="/registro" sx={{ ':hover': { backgroundColor: '#00897b' } }}>
+                  <Button
+                    color="inherit"
+                    component={Link}
+                    to="/registro"
+                    sx={{ ":hover": { backgroundColor: "#00897b" } }}
+                  >
                     Registrarse
                   </Button>
                 )}
@@ -93,10 +106,10 @@ const Inicio = ({ logout }) => {
         </Toolbar>
       </AppBar>
 
-      <Cita/>
-      <Video/>
+      <Cita />
+      <Video />
 
-      <Box sx={{ backgroundColor: "#F5FCF8", py: 4 }}>
+      <Box sx={{ py: 4 }}>
         <Grid container spacing={2} alignItems="center" justifyContent="center">
           <a
             href="https://dl.memuplay.com/download/MEmu-setup-abroad-sdk-mv.exe"
@@ -132,46 +145,88 @@ const Inicio = ({ logout }) => {
       </Box>
 
       <Box sx={{ backgroundColor: "#015d52", py: 4 }}>
-        <Grid container justifyContent="center" spacing={2}>
-          <Grid item xs={12} md={6}>
-            <Box sx={{ pl: 2 }}>
-              <Typography variant="h4" align="center" gutterBottom>
-                Contacto
-              </Typography>
+        <Grid item xs={12} md={6} textAlign="center">
+          <Typography
+            variant="h4"
+            align="center"
+            sx={{ color: "white" }}
+            gutterBottom
+          >
+            Contacto
+          </Typography>
+        </Grid>
+
+        <Grid item xs={12} md={6} sx={{ paddingLeft: 5, py: 3 }}>
+          <Grid container>
+            <Grid item xs={12} md={6} textAlign={{ xs: "center", md: "left" }}>
               <Typography variant="body1" align="left" gutterBottom>
                 <strong>Dirección:</strong> Pedro Caravia 9. CP 33012. Oviedo
                 (ASTURIAS)
               </Typography>
               <Typography variant="body1" align="left" gutterBottom>
-                <strong>Teléfono:</strong> <a href="tel:985292464">985292464</a>
+                <strong>Teléfono:</strong>{" "}
+                <a href="tel:985292464" style={{ color: "white" }}>
+                  985292464
+                </a>
               </Typography>
               <Typography variant="body1" align="left" gutterBottom>
                 <strong>Fax:</strong> 985292247
               </Typography>
               <Typography variant="body1" align="left" gutterBottom>
                 <strong>Correo:</strong>{" "}
-                <a href="mailto:naranco@educastur.org">naranco@educastur.org</a>
+                <a
+                  href="mailto:naranco@educastur.org"
+                  style={{ color: "white" }}
+                >
+                  naranco@educastur.org
+                </a>
               </Typography>
               <Typography variant="body1" align="left" gutterBottom>
                 <strong>Web:</strong>{" "}
-                <Link
+                <a
                   href="https://alojaweb.educastur.es/web/iesmontenaranco"
                   target="_blank"
-                  rel="noopener"
+                  style={{ color: "white" }}
                 >
                   https://alojaweb.educastur.es/web/iesmontenaranco
-                </Link>
+                </a>
               </Typography>
-            </Box>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography variant="body1" align="center" gutterBottom>
-              Copyright 2024 iesmontenaranco | Todos los derechos reservados
-            </Typography>
+            </Grid>
+            <Grid item xs={12} md={6} textAlign={{ xs: "center", md: "right" }}>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  marginRight: "40px",
+                }}
+              >
+                <img
+                  src={iesmontenaranco}
+                  alt="IES MONTE NARANCO"
+                  style={{ width: "130px", marginRight: "20px" }}
+                />
+                <img
+                  src={logoasturias}
+                  alt="IES MONTE NARANCO"
+                  style={{ width: "25s0px", marginRight: "20px" }}
+                />
+                <img
+                  src={logoeducastur}
+                  alt="IES MONTE NARANCO"
+                  style={{ width: "250px" }}
+                />
+              </div>
+            </Grid>
           </Grid>
         </Grid>
+
+        <Grid item xs={12}>
+          <Typography variant="body1" align="center" gutterBottom>
+            Copyright 2024 iesmontenaranco | Todos los derechos reservados
+          </Typography>
+        </Grid>
       </Box>
-    </div >
+    </div>
   );
 };
 
