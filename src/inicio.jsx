@@ -1,18 +1,16 @@
+import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
 import PersonIcon from "@mui/icons-material/Person";
-import AspectRatio from "@mui/joy/AspectRatio";
 import { AppBar, Box, Button, Grid, Toolbar, Typography } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import React from "react";
 import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
-import icono_movil2 from "./img/icono_movil2.png";
-import LogoFinalBanner from "./img/logo_final_Banner.png";
-import LoginIcon from '@mui/icons-material/Login';
 import Cita from "./Cita";
 import Video from "./Video";
+import icono_movil2 from "./img/icono_movil2.png";
 import iesmontenaranco from "./img/iesmontenaranco.png";
-import LogoFinal from "./img/logo_final.png";
+import LogoFinalBanner from "./img/logo_final_Banner.png";
 import logoasturias from "./img/logoasturias.png";
 import logoeducastur from "./img/logoeducastur.png";
 
@@ -26,17 +24,22 @@ const Inicio = ({ logout }) => {
           <Grid2 container sx={{ width: "100%" }}>
             <Grid2 xs display="flex" justifyContent="start" alignItems="center">
               <Box
-                component='div'
-             
+                component="div"
                 sx={{
                   flexBasis: "100px",
                   justifySelf: "start",
-                  marginTop: '1rem',
-                  marginBottom:'1rem'
-                 
+                  marginTop: "1rem",
+                  marginBottom: "1rem",
                 }}
               >
-                <Link to='/'> <img src={LogoFinalBanner} alt="IES MONTE NARANCO" style={{height:'100%', width:'100%'}} /></Link>
+                <Link to="/">
+                  {" "}
+                  <img
+                    src={LogoFinalBanner}
+                    alt="IES MONTE NARANCO"
+                    style={{ height: "100%", width: "100%" }}
+                  />
+                </Link>
               </Box>
             </Grid2>
             <Grid2
@@ -62,17 +65,29 @@ const Inicio = ({ logout }) => {
                     component={Link}
                     to="/"
                     startIcon={<LogoutIcon></LogoutIcon>}
-                    sx={{ ':hover': { backgroundColor: '#00897b' } }}
+                    sx={{ ":hover": { backgroundColor: "#00897b" } }}
                   >
                     Cerrar Sesión
                   </Button>
                 ) : (
-                  <Button color="inherit" component={Link} to="/login" startIcon={<LoginIcon></LoginIcon>}>
+                  <Button
+                    color="inherit"
+                    component={Link}
+                    to="/login"
+                    startIcon={<LoginIcon></LoginIcon>}
+                    sx={{ ":hover": { backgroundColor: "#00897b" } }}
+                  >
                     Iniciar Sesión
                   </Button>
                 )}
                 {!cookies.session && (
-                  <Button color="inherit" component={Link} to="/registro" startIcon={<PersonIcon></PersonIcon>} sx={{ ':hover': { backgroundColor: '#00897b' } }}>
+                  <Button
+                    color="inherit"
+                    component={Link}
+                    to="/registro"
+                    startIcon={<PersonIcon></PersonIcon>}
+                    sx={{ ":hover": { backgroundColor: "#00897b" } }}
+                  >
                     Registrarse
                   </Button>
                 )}
@@ -82,17 +97,37 @@ const Inicio = ({ logout }) => {
         </Toolbar>
       </AppBar>
       <AppBar position="static" sx={{ backgroundColor: "#004d40" }}>
-        <Toolbar sx={{height:'100%'}}>
-          <Button color="inherit" component={Link} to="/" sx={{ height:'100%', ':hover': { backgroundColor: '#00897b' } }}>
+        <Toolbar sx={{ height: "100%" }}>
+          <Button
+            color="inherit"
+            component={Link}
+            to="/"
+            sx={{ height: "100%", ":hover": { backgroundColor: "#00897b" } }}
+          >
             Inicio
           </Button>
-          <Button color="inherit" component={Link} to="/mapa-puntos" sx={{ ':hover': { backgroundColor: '#00897b' } }}>
+          <Button
+            color="inherit"
+            component={Link}
+            to="/mapa-puntos"
+            sx={{ ":hover": { backgroundColor: "#00897b" } }}
+          >
             Descubre
           </Button>
-          <Button color="inherit" component={Link} to="/itinerarios" sx={{ ':hover': { backgroundColor: '#00897b' } }}>
+          <Button
+            color="inherit"
+            component={Link}
+            to="/itinerarios"
+            sx={{ ":hover": { backgroundColor: "#00897b" } }}
+          >
             Itinerarios
           </Button>
-          <Button color="inherit" component={Link} to="/informacion" sx={{ ':hover': { backgroundColor: '#00897b' } }}>
+          <Button
+            color="inherit"
+            component={Link}
+            to="/informacion"
+            sx={{ ":hover": { backgroundColor: "#00897b" } }}
+          >
             Información del Proyecto
           </Button>
         </Toolbar>
@@ -137,18 +172,7 @@ const Inicio = ({ logout }) => {
       </Box>
 
       <Box sx={{ backgroundColor: "#015d52", py: 4 }}>
-        <Grid item xs={12} md={6} textAlign="center">
-          <Typography
-            variant="h4"
-            align="center"
-            sx={{ color: "white" }}
-            gutterBottom
-          >
-            Contacto
-          </Typography>
-        </Grid>
-
-        <Grid item xs={12} md={6} sx={{ paddingLeft: 5, py: 3 }}>
+        <Grid item xs={12} md={6} sx={{ paddingLeft: 9, py: 3 }}>
           <Grid container>
             <Grid item xs={12} md={6} textAlign={{ xs: "center", md: "left" }}>
               <Typography variant="body1" align="left" gutterBottom>
@@ -157,7 +181,7 @@ const Inicio = ({ logout }) => {
               </Typography>
               <Typography variant="body1" align="left" gutterBottom>
                 <strong>Teléfono:</strong>{" "}
-                <a href="tel:985292464" style={{ color: "white" }}>
+                <a href="tel:985292464" style={{ color: "inherit" }}>
                   985292464
                 </a>
               </Typography>
@@ -168,7 +192,7 @@ const Inicio = ({ logout }) => {
                 <strong>Correo:</strong>{" "}
                 <a
                   href="mailto:naranco@educastur.org"
-                  style={{ color: "white" }}
+                  style={{ color: "inherit" }}
                 >
                   naranco@educastur.org
                 </a>
@@ -178,7 +202,7 @@ const Inicio = ({ logout }) => {
                 <a
                   href="https://alojaweb.educastur.es/web/iesmontenaranco"
                   target="_blank"
-                  style={{ color: "white" }}
+                  style={{ color: "inherit" }}
                 >
                   https://alojaweb.educastur.es/web/iesmontenaranco
                 </a>
@@ -210,11 +234,12 @@ const Inicio = ({ logout }) => {
               </div>
             </Grid>
           </Grid>
-          <Grid item xs={12}>
-            <Typography variant="body1" align="center" gutterBottom>
-              Copyright &copy; 2024 IESMONTENARANCO | Todos los derechos reservados
-            </Typography>
-          </Grid>
+        </Grid>
+
+        <Grid item xs={12}>
+          <Typography variant="body1" align="center" gutterBottom>
+            Copyright&copy;2024 iesmontenaranco | Todos los derechos reservados
+          </Typography>
         </Grid>
       </Box>
     </div>
