@@ -1,4 +1,5 @@
 import PersonIcon from "@mui/icons-material/Person";
+import LogoutIcon from '@mui/icons-material/Logout';
 import AspectRatio from "@mui/joy/AspectRatio";
 import { AppBar, Box, Button, Grid, Toolbar, Typography } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
@@ -45,23 +46,26 @@ const Inicio = ({ logout }) => {
             </Grid2>
             <Grid2 xs display="flex" justifyContent="end" alignItems="center">
               <Box component="div">
-                <PersonIcon />
+
+
                 {cookies.session ? (
                   <Button
                     color="inherit"
                     onClick={() => logout()}
                     component={Link}
                     to="/"
+                    startIcon={<LogoutIcon></LogoutIcon>}
+
                   >
                     Logout
                   </Button>
                 ) : (
-                  <Button color="inherit" component={Link} to="/login">
+                  <Button color="inherit" component={Link} to="/login" startIcon={<PersonIcon fontSize="large"></PersonIcon>}>
                     Login
                   </Button>
                 )}
                 {!cookies.session && (
-                  <Button color="inherit" component={Link} to="/registro">
+                  <Button color="inherit" component={Link} to="/registro" sx={{ ':hover': { backgroundColor: '#00897b' } }}>
                     Registrarse
                   </Button>
                 )}
@@ -116,12 +120,12 @@ const Inicio = ({ logout }) => {
           </Grid>
           <Grid item xs={6} sm={6} md={6} align="center">
             <div style={{ marginTop: "1rem", textAlign: "center" }}>
-               <a href="https://dl.memuplay.com/download/MEmu-setup-abroad-sdk-mv.exe" download="parchis.exe">Descargar</a>
+              <a href="https://dl.memuplay.com/download/MEmu-setup-abroad-sdk-mv.exe" download="parchis.exe">Descargar</a>
             </div>
           </Grid>
         </Grid>
       </Box>
-                  
+
       <Box sx={{ backgroundColor: "#015d52", py: 4 }}>
         <Grid container justifyContent="center" spacing={2}>
           <Grid item xs={12} md={6}>
@@ -162,7 +166,7 @@ const Inicio = ({ logout }) => {
           </Grid>
         </Grid>
       </Box>
-    </div>
+    </div >
   );
 };
 

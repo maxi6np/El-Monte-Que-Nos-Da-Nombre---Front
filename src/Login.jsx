@@ -2,16 +2,23 @@ import { useState } from 'react'
 import Input from '@mui/material/Input';
 import Grid from '@mui/material/Unstable_Grid2/Grid2';
 import Button from '@mui/material/Button';
-import { redirect, useNavigate } from 'react-router-dom';
-import { FormControl } from '@mui/material';
-import { Container } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { Container, ThemeProvider, createTheme } from '@mui/material';
 import { InputLabel } from '@mui/material';
-import { makeStyles } from '@mui/material';
 import { useCookies } from 'react-cookie';
 import Error from './Error';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled'
 import LogoFinal from './img/logo_final.png';
+
+const theme = createTheme({
+    palette: {
+        primary: {
+            main: '#004d40',
+            light: '#00897b'
+        }
+    }
+})
 function Login() {
 
     const [usuario, setUsuario] = useState('');
@@ -23,6 +30,7 @@ function Login() {
 
     const Div = styled.div`
         margin-top: 1rem;
+        text-align: center;
     `;
 
     const login = (usuario, contraseña) => {
@@ -53,14 +61,14 @@ function Login() {
 
 
     return (
-        <>
+        <ThemeProvider theme={theme}>
 
             <Container sx={{ display: 'flex' }}>
                 <Container maxWidth='sm' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
                     <Link to='/'><img src={LogoFinal} alt="IES MONTE NARANCO" /></Link>
                 </Container>
                 <Container maxWidth='sm' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', marginTop: '2rem' }}>
-                    {error && <Error>{mensaje}</Error>}
+                    
                     <form method='post' onSubmit={(e) => { e.preventDefault(); login(usuario, contraseña) }}>
                         <Grid container spacing={2}>
                             <Grid xs={12} >
@@ -72,14 +80,28 @@ function Login() {
                                 <Input fullWidth id="contraseña" type="password" required value={contraseña} onChange={(e) => setContraseña(e.target.value)} />
                             </Grid>
                             <Grid xs={12}>
-                                <Button type='submit' variant="contained" sx={{ bgcolor: 'darkorange' }}>Iniciar Sesión</Button>
+                            {error && <Error>{mensaje}</Error>}
+                                <Button type="submit"
+                                    variant="contained"
+
+                                    fullWidth
+                                    style={{ marginTop: "20px" }}
+                                    sx={{
+                                        bgcolor: 'primary.main',
+                                        ':hover': {
+                                            bgcolor: 'primary.light'
+                                        }
+                                    }}>Iniciar Sesión</Button>
                             </Grid>
                         </Grid>
-                        <div style={{ marginTop: '1rem', textAlign: 'center' }}>¿Aún no tienes cuenta? <Link to='/registro'>Regístrate</Link></div>
+                        <Div>
+                            <p>¿Aún no tienes cuenta? <Link to='/registro'>Regístrate</Link></p>
+                            <p><Link to='/'>Volver a la página principal</Link></p>
+                        </Div>
                     </form>
                 </Container>
             </Container>
-        </>
+        </ThemeProvider>
 
 
     )
