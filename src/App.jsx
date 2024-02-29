@@ -16,7 +16,7 @@ import AspectRatio from '@mui/joy/AspectRatio';
 import MapaPuntos from './MapaPuntos'
 
 function App() {
-  const [cookies, setCookie ,removeCookie] = useCookies(["session"]);
+  const [cookies, setCookie, removeCookie] = useCookies(["session"]);
 
   const logout = () => {
     fetch("http://127.0.0.1:8000/logout", {
@@ -36,7 +36,6 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        
         <Routes>
           <Route path="/" element={<Inicio logout={logout} />}></Route>
           <Route path="/login" element={<Login />}></Route>
