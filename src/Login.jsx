@@ -11,14 +11,7 @@ import { Link } from 'react-router-dom';
 import styled from '@emotion/styled'
 import LogoFinal from './img/logo_final.png';
 
-const theme = createTheme({
-    palette: {
-        primary: {
-            main: '#004d40',
-            light: '#00897b'
-        }
-    }
-})
+
 function Login() {
 
     const [usuario, setUsuario] = useState('');
@@ -61,7 +54,6 @@ function Login() {
 
 
     return (
-        <ThemeProvider theme={theme}>
 
             <Container sx={{ display: 'flex' }}>
                 <Container maxWidth='sm' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
@@ -101,7 +93,6 @@ function Login() {
                     </form>
                 </Container>
             </Container>
-        </ThemeProvider>
 
 
     )
