@@ -5,14 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import LogoFinal from './img/logo_final.png';
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#004d40',
-      light: '#00897b'
-    }
-  }
-})
 
 const Registro = () => {
   const [usuario, setUsuario] = useState({});
@@ -72,7 +64,6 @@ const Registro = () => {
   };
 
   return (
-    <ThemeProvider theme={theme}>
       <Container sx={{ display: 'flex' }}>
         <Grid container spacing={1} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '2rem' }}>
           <form>
@@ -190,7 +181,6 @@ const Registro = () => {
         </Container>
 
       </Container>
-    </ThemeProvider>
   );
 };
 
