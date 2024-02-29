@@ -61,11 +61,11 @@ const Inicio = ({ logout }) => {
                     startIcon={<LogoutIcon></LogoutIcon>}
                     sx={{ ':hover': { backgroundColor: '#00897b' } }}
                   >
-                    Logout
+                    Cerrar Sesión
                   </Button>
                 ) : (
-                  <Button color="inherit" component={Link} to="/login" startIcon={<LoginIcon></LoginIcon>} sx={{ ':hover': { backgroundColor: '#00897b' } }}>
-                    Login
+                  <Button color="inherit" component={Link} to="/login" startIcon={<PersonIcon fontSize="large"></PersonIcon>}>
+                    Iniciar Sesión
                   </Button>
                 )}
                 {!cookies.session && (
@@ -98,7 +98,7 @@ const Inicio = ({ logout }) => {
       <Cita/>
       <Video/>
 
-      <Box sx={{ backgroundColor: "#F5FCF8", py: 4 }}>
+      <Box sx={{ py: 4 }}>
         <Grid container spacing={2} alignItems="center" justifyContent="center">
           <a
             href="https://dl.memuplay.com/download/MEmu-setup-abroad-sdk-mv.exe"
@@ -168,7 +168,7 @@ const Inicio = ({ logout }) => {
           </Grid>
           <Grid item xs={12}>
             <Typography variant="body1" align="center" gutterBottom>
-              Copyright 2024 iesmontenaranco | Todos los derechos reservados
+              Copyright &copy; 2024 IESMONTENARANCO | Todos los derechos reservados
             </Typography>
           </Grid>
         </Grid>

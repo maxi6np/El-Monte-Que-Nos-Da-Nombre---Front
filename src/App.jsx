@@ -58,6 +58,7 @@ const theme = createTheme({
 function App() {
   const [cookies, setCookie, removeCookie] = useCookies(["session"]);
 
+
   const logout = () => {
     fetch("http://127.0.0.1:8000/logout", {
       method: "post",
@@ -77,7 +78,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline></CssBaseline>
       <BrowserRouter>
-
+        
         <Routes>
           <Route path="/" element={<Inicio logout={logout} />}></Route>
           <Route path="/login" element={<Login />}></Route>
