@@ -1,19 +1,15 @@
 import PersonIcon from "@mui/icons-material/Person";
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
-import LogoFinal from './img/logo_final.png';
-import AspectRatio from '@mui/joy/AspectRatio';
+import LogoFinalBanner from "./img/logo_final_Banner.png";
 import { useCookies } from 'react-cookie';
-import AspectRatio from "@mui/joy/AspectRatio";
 import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import "leaflet/dist/leaflet.css";
 import React, { useEffect, useState } from "react";
-import { useCookies } from "react-cookie";
+import Markers from "./Markers";
 import { MapContainer, TileLayer, useMapEvents } from "react-leaflet";
 import { Link } from "react-router-dom";
-import Markers from "./Markers";
-import LogoFinal from "./img/logo_final.png";
 
 function MapaPuntos({ logout }) {
     const [puntos, setPuntos] = useState([])
@@ -52,13 +48,14 @@ function MapaPuntos({ logout }) {
                                 component='div'
 
                                 sx={{
-                                    flexBasis: "200px",
+                                    flexBasis: "100px",
                                     justifySelf: "start",
-                                    marginBottom: '-2em',
-                                    marginTop: '-2em'
+                                    marginTop: '1rem',
+                                    marginBottom: '1rem'
+
                                 }}
                             >
-                                <Link to='/'> <img src={LogoFinal} alt="IES MONTE NARANCO" style={{ height: '100%', width: '100%' }} /></Link>
+                                <Link to='/'> <img src={LogoFinalBanner} alt="IES MONTE NARANCO" style={{ height: '100%', width: '100%' }} /></Link>
                             </Box>
                         </Grid2>
                         <Grid2
@@ -88,11 +85,11 @@ function MapaPuntos({ logout }) {
                                         startIcon={<LogoutIcon></LogoutIcon>}
                                         sx={{ ':hover': { backgroundColor: '#00897b' } }}
                                     >
-                                        Logout
+                                        Cerrar Sesión
                                     </Button>
                                 ) : (
                                     <Button color="inherit" component={Link} to="/login" startIcon={<LoginIcon></LoginIcon>} sx={{ ':hover': { backgroundColor: '#00897b' } }}>
-                                        Login
+                                        Iniciar Sesión
                                     </Button>
                                 )}
                                 {!cookies.session && (

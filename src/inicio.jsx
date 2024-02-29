@@ -1,13 +1,12 @@
 import PersonIcon from "@mui/icons-material/Person";
 import LogoutIcon from '@mui/icons-material/Logout';
-import AspectRatio from "@mui/joy/AspectRatio";
-import { AppBar, Box, Button, Grid, Toolbar, Typography , ThemeProvider, createTheme} from "@mui/material";
+import { AppBar, Box, Button, Grid, Toolbar, Typography} from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import React from "react";
 import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
 import icono_movil2 from "./img/icono_movil2.png";
-import LogoFinal from "./img/logo_final.png";
+import LogoFinalBanner from "./img/logo_final_Banner.png";
 import LoginIcon from '@mui/icons-material/Login';
 import Cita from "./Cita";
 import Video from "./Video";
@@ -25,13 +24,14 @@ const Inicio = ({ logout }) => {
                 component='div'
              
                 sx={{
-                  flexBasis: "200px",
+                  flexBasis: "100px",
                   justifySelf: "start",
-                  marginBottom:'-2em',
-                  marginTop: '-2em'
+                  marginTop: '1rem',
+                  marginBottom:'1rem'
+                 
                 }}
               >
-                <Link to='/'> <img src={LogoFinal} alt="IES MONTE NARANCO" style={{height:'100%', width:'100%'}} /></Link>
+                <Link to='/'> <img src={LogoFinalBanner} alt="IES MONTE NARANCO" style={{height:'100%', width:'100%'}} /></Link>
               </Box>
             </Grid2>
             <Grid2
@@ -64,7 +64,7 @@ const Inicio = ({ logout }) => {
                     Cerrar Sesión
                   </Button>
                 ) : (
-                  <Button color="inherit" component={Link} to="/login" startIcon={<PersonIcon fontSize="large"></PersonIcon>}>
+                  <Button color="inherit" component={Link} to="/login" startIcon={<LoginIcon></LoginIcon>}>
                     Iniciar Sesión
                   </Button>
                 )}
