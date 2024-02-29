@@ -1,13 +1,13 @@
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import Login from "./Login";
-import Registro from "./Registro";
-import Inicio from "./Inicio";
+import Login from "./Login/Login";
+import Registro from "./Registro/Registro";
+import Inicio from "./Inicio/Inicio";
 import PlayfairDisplay from './assets/fonts/PlayfairDisplay-VariableFont_wght.ttf'
 import {createStyles} from "@mui/material/styles";
 import { Cookies, useCookies } from 'react-cookie';
-import MapaPuntos from './MapaPuntos'
+import MapaPuntos from './Descubre/MapaPuntos'
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 

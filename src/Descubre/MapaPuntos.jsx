@@ -27,16 +27,9 @@ function MapaPuntos({ logout }) {
     }
 
     useEffect(() => {
-
-
         fetch('http://127.0.0.1:8000/mapa-puntos', { method: 'get' })
             .then(response => response.json())
             .then(data => setPuntos(data))
-
-
-
-
-
     }, []);
 
     return (

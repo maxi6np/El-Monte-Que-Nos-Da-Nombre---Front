@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { Container, ThemeProvider, createTheme } from '@mui/material';
 import { InputLabel } from '@mui/material';
 import { useCookies } from 'react-cookie';
-import Error from './Error';
+import Error from '../Error';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled'
 import LogoFinal from './img/logo_final.png';

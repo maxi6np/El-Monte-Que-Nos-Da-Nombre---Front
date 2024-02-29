@@ -238,7 +238,7 @@ const Inicio = ({ logout }) => {
 
         <Grid item xs={12}>
           <Typography variant="body1" align="center" gutterBottom>
-            Copyright&copy;2024 iesmontenaranco | Todos los derechos reservados
+            &copy; 2024 IES MONTE NARANCO | Todos los derechos reservados
           </Typography>
         </Grid>
       </Box>
