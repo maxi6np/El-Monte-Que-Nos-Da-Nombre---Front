@@ -11,7 +11,6 @@ import LogoFinalBanner from "./img/logo_final_Banner.png";
 import LoginIcon from '@mui/icons-material/Login';
 import Cita from "./Cita";
 import Video from "./Video";
-import icono_movil2 from "./img/icono_movil2.png";
 import iesmontenaranco from "./img/iesmontenaranco.png";
 import LogoFinal from "./img/logo_final.png";
 import logoasturias from "./img/logoasturias.png";
