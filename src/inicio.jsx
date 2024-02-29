@@ -7,6 +7,8 @@ import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
 import iconoMovil from "./img/iconoMovil.png";
 import LogoFinal from "./img/logo_final.png";
+import Cita from "./Cita";
+import Video from "./Video";
 
 const Inicio = ({ logout }) => {
   const [cookies, setCookie, removeCookie] = useCookies(["session"]);
@@ -87,18 +89,8 @@ const Inicio = ({ logout }) => {
         </Toolbar>
       </AppBar>
 
-      <Box sx={{ backgroundColor: "#F5FCF8", py: 4 }}>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <Typography variant="h4" align="center" gutterBottom>
-              "El Naranco que da para todo"
-            </Typography>
-            <Typography variant="h4" align="center" gutterBottom>
-              M. A. Macía
-            </Typography>
-          </Grid>
-        </Grid>
-      </Box>
+      <Cita/>
+      <Video/>
 
       <Box sx={{ backgroundColor: "#a5d6a7", py: 4 }}>
         <Grid container spacing={2} alignItems="center">

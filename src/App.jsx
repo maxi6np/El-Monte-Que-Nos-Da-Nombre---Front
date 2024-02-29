@@ -5,7 +5,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import Login from "./Login";
 import Registro from "./Registro";
-import Inicio from "./inicio";
+import Inicio from "./Inicio";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import { Cookies, useCookies } from 'react-cookie';
