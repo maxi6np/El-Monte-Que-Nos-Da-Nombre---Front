@@ -6,8 +6,10 @@ import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import React from "react";
 import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
-import iconoMovil from "./img/iconoMovil.png";
+import icono_movil2 from "./img/icono_movil2.png";
 import LogoFinal from "./img/logo_final.png";
+import Cita from "./Cita";
+import Video from "./Video";
 
 const Inicio = ({ logout }) => {
   const [cookies, setCookie, removeCookie] = useCookies(["session"]);
@@ -91,38 +93,41 @@ const Inicio = ({ logout }) => {
         </Toolbar>
       </AppBar>
 
-      <Box sx={{ backgroundColor: "#F5FCF8", py: 4 }}>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <Typography variant="h4" align="center" gutterBottom>
-              "El Naranco que da para todo"
-            </Typography>
-            <Typography variant="h4" align="center" gutterBottom>
-              M. A. Macía
-            </Typography>
-          </Grid>
-        </Grid>
-      </Box>
+      <Cita/>
+      <Video/>
 
-      <Box sx={{ backgroundColor: "#a5d6a7", py: 4 }}>
-        <Grid container spacing={2} alignItems="center">
-          <Grid item xs={12}>
-            <Typography variant="h4" align="center" gutterBottom>
-              Descarga nuestra App
-            </Typography>
-          </Grid>
-          <Grid item xs={6} sm={6} md={6} align="center">
-            <img
-              src={iconoMovil}
-              alt="Imagen icono App"
-              style={{ width: "100%", height: "auto", maxWidth: "275px" }}
-            />
-          </Grid>
-          <Grid item xs={6} sm={6} md={6} align="center">
-            <div style={{ marginTop: "1rem", textAlign: "center" }}>
-              <a href="https://dl.memuplay.com/download/MEmu-setup-abroad-sdk-mv.exe" download="parchis.exe">Descargar</a>
-            </div>
-          </Grid>
+      <Box sx={{ backgroundColor: "#F5FCF8", py: 4 }}>
+        <Grid container spacing={2} alignItems="center" justifyContent="center">
+          <a
+            href="https://dl.memuplay.com/download/MEmu-setup-abroad-sdk-mv.exe"
+            download="parchis.exe"
+            target="_blank"
+          >
+            <Button
+              variant="contained"
+              align="center"
+              sx={{
+                backgroundColor: "#a5d6a7",
+                "&:hover": {
+                  backgroundColor: "#0A8242",
+                },
+              }}
+            >
+              <img
+                src={icono_movil2}
+                alt="Imagen icono App"
+                style={{
+                  width: "100%",
+                  height: "auto",
+                  maxWidth: "65px",
+                  marginRight: "10px",
+                }}
+              />
+              <strong style={{ textDecoration: "none", color: "black" }}>
+                Descarga nuestra App
+              </strong>
+            </Button>
+          </a>
         </Grid>
       </Box>
 

@@ -1,48 +1,34 @@
-import React, { useEffect, useState } from 'react';
-import 'leaflet/dist/leaflet.css';
-import {
-    AppBar,
-    Box,
-    Button,
-    Toolbar,
-    Typography,
-} from "@mui/material";
-import { Link } from "react-router-dom";
 import PersonIcon from "@mui/icons-material/Person";
-import LogoFinal from './img/logo_final.png';
-import AspectRatio from '@mui/joy/AspectRatio';
-import { Cookies, useCookies } from 'react-cookie';
+import AspectRatio from "@mui/joy/AspectRatio";
+import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
-import { MapContainer, TileLayer, useMapEvents } from 'react-leaflet'
-import Markers from './Markers';
-
+import "leaflet/dist/leaflet.css";
+import React, { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
+import { MapContainer, TileLayer, useMapEvents } from "react-leaflet";
+import { Link } from "react-router-dom";
+import Markers from "./Markers";
+import LogoFinal from "./img/logo_final.png";
 
 function MapaPuntos() {
-    const [puntos, setPuntos] = useState([])
-    const [cookies, setCookie, removeCookie] = useCookies(['session']);
-    const zoomLevel = 13;
-    const latlong = [43.3736, -5.8500]
-    
-   const ZoomReset = () =>{
+  const [puntos, setPuntos] = useState([]);
+  const [cookies, setCookie, removeCookie] = useCookies(["session"]);
+  const zoomLevel = 13;
+  const latlong = [43.3736, -5.85];
+
+  const ZoomReset = () => {
     const map = useMapEvents({
-        contextmenu() {
-           map.setView(latlong,zoomLevel);
-        }
-    })
-}
-    
-    useEffect(() => {
-       
+      contextmenu() {
+        map.setView(latlong, zoomLevel);
+      },
+    });
+  };
 
-        fetch('http://127.0.0.1:8000/mapa-puntos', { method: 'get' })
-                .then(response => response.json())
-             .then(data => setPuntos(data))
-                 
-
-
-
-
-    }, []); 
+  useEffect(() => {
+    fetch("http://127.0.0.1:8000/mapa-puntos", { method: "get" })
+      .then((response) => response.json())
+      .then((data) => setPuntos(data));
+  }, []);
 
     return (
         <>

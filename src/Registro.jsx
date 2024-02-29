@@ -51,7 +51,7 @@ const Registro = () => {
       let body = JSON.stringify({
         nombre_usuario: nombreUsuario,
         email: email,
-        password: contrasenia,
+        password: contrasenia, 
         nombre: nombre,
         apellidos: apellidos,
         fecha_nacimiento: fechaNacimiento
