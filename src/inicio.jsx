@@ -6,6 +6,9 @@ import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import React from "react";
 import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
+import icono_movil2 from "./img/icono_movil2.png";
+import LogoFinalBanner from "./img/logo_final_Banner.png";
+import LoginIcon from '@mui/icons-material/Login';
 import Cita from "./Cita";
 import Video from "./Video";
 import icono_movil2 from "./img/icono_movil2.png";
@@ -23,20 +26,19 @@ const Inicio = ({ logout }) => {
         <Toolbar sx={{ width: "100vw" }}>
           <Grid2 container sx={{ width: "100%" }}>
             <Grid2 xs display="flex" justifyContent="start" alignItems="center">
-              <AspectRatio
-                className="mt-2 mb-2"
-                variant="plain"
+              <Box
+                component='div'
+             
                 sx={{
-                  flexBasis: "200px",
-                  overflow: "auto",
+                  flexBasis: "100px",
                   justifySelf: "start",
+                  marginTop: '1rem',
+                  marginBottom:'1rem'
+                 
                 }}
               >
-                <Link to="/">
-                  {" "}
-                  <img src={LogoFinal} alt="IES MONTE NARANCO" />
-                </Link>
-              </AspectRatio>
+                <Link to='/'> <img src={LogoFinalBanner} alt="IES MONTE NARANCO" style={{height:'100%', width:'100%'}} /></Link>
+              </Box>
             </Grid2>
             <Grid2
               xs
@@ -61,26 +63,17 @@ const Inicio = ({ logout }) => {
                     component={Link}
                     to="/"
                     startIcon={<LogoutIcon></LogoutIcon>}
+                    sx={{ ':hover': { backgroundColor: '#00897b' } }}
                   >
-                    Logout
+                    Cerrar Sesión
                   </Button>
                 ) : (
-                  <Button
-                    color="inherit"
-                    component={Link}
-                    to="/login"
-                    startIcon={<PersonIcon fontSize="large"></PersonIcon>}
-                  >
-                    Login
+                  <Button color="inherit" component={Link} to="/login" startIcon={<LoginIcon></LoginIcon>}>
+                    Iniciar Sesión
                   </Button>
                 )}
                 {!cookies.session && (
-                  <Button
-                    color="inherit"
-                    component={Link}
-                    to="/registro"
-                    sx={{ ":hover": { backgroundColor: "#00897b" } }}
-                  >
+                  <Button color="inherit" component={Link} to="/registro" startIcon={<PersonIcon></PersonIcon>} sx={{ ':hover': { backgroundColor: '#00897b' } }}>
                     Registrarse
                   </Button>
                 )}
@@ -90,17 +83,17 @@ const Inicio = ({ logout }) => {
         </Toolbar>
       </AppBar>
       <AppBar position="static" sx={{ backgroundColor: "#004d40" }}>
-        <Toolbar>
-          <Button color="inherit" component={Link} to="/">
+        <Toolbar sx={{height:'100%'}}>
+          <Button color="inherit" component={Link} to="/" sx={{ height:'100%', ':hover': { backgroundColor: '#00897b' } }}>
             Inicio
           </Button>
-          <Button color="inherit" component={Link} to="/mapa-puntos">
+          <Button color="inherit" component={Link} to="/mapa-puntos" sx={{ ':hover': { backgroundColor: '#00897b' } }}>
             Descubre
           </Button>
-          <Button color="inherit" component={Link} to="/itinerarios">
+          <Button color="inherit" component={Link} to="/itinerarios" sx={{ ':hover': { backgroundColor: '#00897b' } }}>
             Itinerarios
           </Button>
-          <Button color="inherit" component={Link} to="/informacion">
+          <Button color="inherit" component={Link} to="/informacion" sx={{ ':hover': { backgroundColor: '#00897b' } }}>
             Información del Proyecto
           </Button>
         </Toolbar>
@@ -218,12 +211,11 @@ const Inicio = ({ logout }) => {
               </div>
             </Grid>
           </Grid>
-        </Grid>
-
-        <Grid item xs={12}>
-          <Typography variant="body1" align="center" gutterBottom>
-            Copyright 2024 iesmontenaranco | Todos los derechos reservados
-          </Typography>
+          <Grid item xs={12}>
+            <Typography variant="body1" align="center" gutterBottom>
+              Copyright &copy; 2024 IESMONTENARANCO | Todos los derechos reservados
+            </Typography>
+          </Grid>
         </Grid>
       </Box>
     </div>
