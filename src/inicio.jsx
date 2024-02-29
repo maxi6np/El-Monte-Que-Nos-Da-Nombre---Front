@@ -145,18 +145,7 @@ const Inicio = ({ logout }) => {
       </Box>
 
       <Box sx={{ backgroundColor: "#015d52", py: 4 }}>
-        <Grid item xs={12} md={6} textAlign="center">
-          <Typography
-            variant="h4"
-            align="center"
-            sx={{ color: "white" }}
-            gutterBottom
-          >
-            Contacto
-          </Typography>
-        </Grid>
-
-        <Grid item xs={12} md={6} sx={{ paddingLeft: 5, py: 3 }}>
+        <Grid item xs={12} md={6} sx={{ paddingLeft: 9, py: 3 }}>
           <Grid container>
             <Grid item xs={12} md={6} textAlign={{ xs: "center", md: "left" }}>
               <Typography variant="body1" align="left" gutterBottom>
@@ -165,7 +154,7 @@ const Inicio = ({ logout }) => {
               </Typography>
               <Typography variant="body1" align="left" gutterBottom>
                 <strong>Teléfono:</strong>{" "}
-                <a href="tel:985292464" style={{ color: "white" }}>
+                <a href="tel:985292464" style={{ color: "inherit" }}>
                   985292464
                 </a>
               </Typography>
@@ -176,7 +165,7 @@ const Inicio = ({ logout }) => {
                 <strong>Correo:</strong>{" "}
                 <a
                   href="mailto:naranco@educastur.org"
-                  style={{ color: "white" }}
+                  style={{ color: "inherit" }}
                 >
                   naranco@educastur.org
                 </a>
@@ -186,7 +175,7 @@ const Inicio = ({ logout }) => {
                 <a
                   href="https://alojaweb.educastur.es/web/iesmontenaranco"
                   target="_blank"
-                  style={{ color: "white" }}
+                  style={{ color: "inherit" }}
                 >
                   https://alojaweb.educastur.es/web/iesmontenaranco
                 </a>
@@ -208,7 +197,7 @@ const Inicio = ({ logout }) => {
                 <img
                   src={logoasturias}
                   alt="IES MONTE NARANCO"
-                  style={{ width: "25s0px", marginRight: "20px" }}
+                  style={{ width: "250px", marginRight: "20px" }}
                 />
                 <img
                   src={logoeducastur}
@@ -222,7 +211,7 @@ const Inicio = ({ logout }) => {
 
         <Grid item xs={12}>
           <Typography variant="body1" align="center" gutterBottom>
-            Copyright 2024 iesmontenaranco | Todos los derechos reservados
+            Copyright&copy;2024 iesmontenaranco | Todos los derechos reservados
           </Typography>
         </Grid>
       </Box>
