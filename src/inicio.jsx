@@ -200,7 +200,7 @@ const Inicio = ({ logout }) => {
                 <img
                   src={logoasturias}
                   alt="IES MONTE NARANCO"
-                  style={{ width: "25s0px", marginRight: "20px" }}
+                  style={{ width: "250px", marginRight: "20px" }}
                 />
                 <img
                   src={logoeducastur}
