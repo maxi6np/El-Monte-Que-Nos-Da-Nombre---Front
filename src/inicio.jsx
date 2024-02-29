@@ -26,7 +26,7 @@ const Inicio = ({ logout }) => {
                   justifySelf: "start",
                 }}
               >
-                <img src={LogoFinal} alt="IES MONTE NARANCO" />
+                <Link to='/'> <img src={LogoFinal} alt="IES MONTE NARANCO" /></Link>
               </AspectRatio>
             </Grid2>
             <Grid2

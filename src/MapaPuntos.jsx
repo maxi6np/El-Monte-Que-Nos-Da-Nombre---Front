@@ -13,7 +13,7 @@ import LogoFinal from './img/logo_final.png';
 import AspectRatio from '@mui/joy/AspectRatio';
 import { Cookies, useCookies } from 'react-cookie';
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
-import { MapContainer, TileLayer, seMapEvents } from 'react-leaflet'
+import { MapContainer, TileLayer, useMapEvents } from 'react-leaflet'
 import Markers from './Markers';
 
 
@@ -59,7 +59,7 @@ function MapaPuntos() {
                                     justifySelf: "start",
                                 }}
                             >
-                                <img src={LogoFinal} alt="IES MONTE NARANCO" />
+                               <Link to='/'><img src={LogoFinal} alt="IES MONTE NARANCO" /></Link> 
                             </AspectRatio>
                         </Grid2>
                         <Grid2
@@ -69,11 +69,11 @@ function MapaPuntos() {
                             alignItems="center"
                         >
                             <Typography
-                                variant="h6"
+                                variant="h5"
                                 component="div"
                                 sx={{ textAlign: "center" }}
                             >
-                                El Monte que nos da el nombre
+                                EL MONTE QUE NOS DA NOMBRE
                             </Typography>
                         </Grid2>
                         <Grid2 xs display="flex" justifyContent="end" alignItems="center">

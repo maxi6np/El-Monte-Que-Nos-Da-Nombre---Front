@@ -24,7 +24,8 @@ function Markers({ puntos }) {
                     position={[marker.latitud,marker.longitud]}
                 >
                     <Popup>
-                        <span>{marker.nombre}</span>
+                        <span><b>{marker.nombre}</b></span><br></br>
+                        <span>{marker.descripcion}</span>
                     </Popup>
                 </Marker>
             );

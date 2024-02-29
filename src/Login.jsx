@@ -57,7 +57,7 @@ function Login() {
 
             <Container sx={{ display: 'flex' }}>
                 <Container maxWidth='sm' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-                    <img src={LogoFinal} alt="IES MONTE NARANCO" />
+                    <Link to='/'><img src={LogoFinal} alt="IES MONTE NARANCO" /></Link>
                 </Container>
                 <Container maxWidth='sm' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', marginTop: '2rem' }}>
                     {error && <Error>{mensaje}</Error>}
