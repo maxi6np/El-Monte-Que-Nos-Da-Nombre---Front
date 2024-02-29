@@ -21,6 +21,7 @@ function MapaPuntos({ logout }) {
         const map = useMapEvents({
             contextmenu() {
                 map.setView(latlong, zoomLevel);
+                map.closePopup()
             }
         })
     }

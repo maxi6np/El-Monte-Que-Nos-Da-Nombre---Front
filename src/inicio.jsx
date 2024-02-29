@@ -64,7 +64,7 @@ const Inicio = ({ logout }) => {
                     Cerrar Sesión
                   </Button>
                 ) : (
-                  <Button color="inherit" component={Link} to="/login" startIcon={<LoginIcon></LoginIcon>}>
+                  <Button color="inherit" component={Link} to="/login" startIcon={<LoginIcon></LoginIcon>} sx={{ ':hover': { backgroundColor: '#00897b' } }}>
                     Iniciar Sesión
                   </Button>
                 )}
