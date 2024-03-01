@@ -8,6 +8,7 @@ import Login from "./Login/Login";
 import Registro from "./Registro/Registro";
 import PlayfairDisplay from "./assets/fonts/PlayfairDisplay-VariableFont_wght.ttf";
 import Descubre from "./Descubre/Descubre";
+import { useState } from "react";
 
 const theme = createTheme({
   palette: {
@@ -52,6 +53,7 @@ const theme = createTheme({
 
 function App() {
   const [cookies, setCookie, removeCookie] = useCookies(["session"]);
+  const [activeButton, setActiveButton] = useState(null);
 
   const logout = () => {
     fetch("http://127.0.0.1:8000/logout", {
@@ -73,12 +75,10 @@ function App() {
       <CssBaseline></CssBaseline>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Inicio logout={logout} />}></Route>
+          <Route path="/" element={<Inicio logout={logout} activeButton={activeButton } setActiveButton={setActiveButton} />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/registro" element={<Registro />}></Route>
-          <Route
-            path="/mapa-puntos"
-            element={<Descubre logout={logout} />}
+          <Route path="/mapa-puntos" element={<Descubre logout={logout} activeButton={activeButton} setActiveButton={setActiveButton} />}
           ></Route>
         </Routes>
       </BrowserRouter>

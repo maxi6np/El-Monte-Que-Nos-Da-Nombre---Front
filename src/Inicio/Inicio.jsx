@@ -3,7 +3,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import PersonIcon from "@mui/icons-material/Person";
 import { AppBar, Box, Button, Grid, Toolbar, Typography } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
-import React from "react";
+import {React, useState} from "react";
 import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
 import Cita from "./Cita";
@@ -14,8 +14,12 @@ import LogoFinalBanner from "../img/logo_final_Banner.png";
 import logoasturias from "../img/logoasturias.png";
 import logoeducastur from "../img/logoeducastur.png";
 
-const Inicio = ({ logout }) => {
+const Inicio = ({ logout, activeButton, setActiveButton }) => {
   const [cookies, setCookie, removeCookie] = useCookies(["session"]);
+
+  const handleButtonClick = (buttonName) => {
+    setActiveButton(buttonName);
+  };
 
   return (
     <div>
@@ -38,6 +42,7 @@ const Inicio = ({ logout }) => {
                     src={LogoFinalBanner}
                     alt="IES MONTE NARANCO"
                     style={{ height: "100%", width: "100%" }}
+                    onClick={() => handleButtonClick("Inicio")}
                   />
                 </Link>
               </Box>
@@ -102,7 +107,12 @@ const Inicio = ({ logout }) => {
             color="inherit"
             component={Link}
             to="/"
-            sx={{ height: "100%", ":hover": { backgroundColor: "#00897b" } }}
+            sx={{
+              height: "100%",
+              ":hover": { backgroundColor: activeButton === "Inicio" ? "#00897b" : null },
+              backgroundColor: activeButton === "Inicio" ? "#00897b" : null
+            }}
+            onClick={() => handleButtonClick("Inicio")}
           >
             Inicio
           </Button>
@@ -110,7 +120,11 @@ const Inicio = ({ logout }) => {
             color="inherit"
             component={Link}
             to="/mapa-puntos"
-            sx={{ ":hover": { backgroundColor: "#00897b" } }}
+            sx={{
+              ":hover": { backgroundColor: activeButton === "Descubre" ? "#00897b" : null },
+              backgroundColor: activeButton === "Descubre" ? "#00897b" : null
+            }}
+            onClick={() => handleButtonClick("Descubre")}
           >
             Descubre
           </Button>
@@ -118,7 +132,11 @@ const Inicio = ({ logout }) => {
             color="inherit"
             component={Link}
             to="/itinerarios"
-            sx={{ ":hover": { backgroundColor: "#00897b" } }}
+            sx={{
+              ":hover": { backgroundColor: activeButton === "Itinerarios" ? "#00897b" : null },
+              backgroundColor: activeButton === "Itinerarios" ? "#00897b" : null
+            }}
+            onClick={() => handleButtonClick("Itinerarios")}
           >
             Itinerarios
           </Button>
@@ -126,7 +144,11 @@ const Inicio = ({ logout }) => {
             color="inherit"
             component={Link}
             to="/informacion"
-            sx={{ ":hover": { backgroundColor: "#00897b" } }}
+            sx={{
+              ":hover": { backgroundColor: activeButton === "Información" ? "#00897b" : null },
+              backgroundColor: activeButton === "Información" ? "#00897b" : null
+            }}
+            onClick={() => handleButtonClick("Información")}
           >
             Información del Proyecto
           </Button>
