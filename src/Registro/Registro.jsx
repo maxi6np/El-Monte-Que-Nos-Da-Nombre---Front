@@ -19,9 +19,11 @@ const Registro = () => {
   const [mensaje, setMensaje] = useState();
   const navigate = useNavigate();
 
-  const handleRegistrar = (event) => {
+  const handleRegistrar = (e) => {
+    let email = new RegExp(/^[\w-.]+@([\w-]+.)+[\w-]{2,4}$/)
     setError(false);
-    event.preventDefault();
+    e.preventDefault();
+
     if (
       [
         nombre,
@@ -38,12 +40,18 @@ const Registro = () => {
     } else if (contrasenia !== confirmarContrasenia) {
       setError(true);
       setMensaje("Las contraseñas no coinciden");
+    } else if (contrasenia.length <= 8) {
+      setError(true);
+      setMensaje("La contraseña debe tener más de 8 caracteres")
+    } else if (!email.test(usuario)) {
+      setError(true)
+      setMensaje('Introduzca un email válido')
     } else {
 
       let body = JSON.stringify({
         nombre_usuario: nombreUsuario,
         email: email,
-        password: contrasenia, 
+        password: contrasenia,
         nombre: nombre,
         apellidos: apellidos,
         fecha_nacimiento: fechaNacimiento
@@ -64,123 +72,146 @@ const Registro = () => {
   };
 
   return (
-      <Container sx={{ display: 'flex' }}>
-        <Grid container spacing={1} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '2rem' }}>
-          <form>
-            <Grid container spacing={1}>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  label="Nombre"
-                  variant="outlined"
-                  fullWidth
-                  value={usuario.nombre}
-                  onChange={(e) => setNombre(e.target.value)}
-                  required
-                />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  label="Apellidos"
-                  variant="outlined"
-                  fullWidth
-                  value={usuario.apellidos}
-                  onChange={(e) => setApellidos(e.target.value)}
-                  required
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  label="Nombre de usuario"
-                  variant="outlined"
-                  fullWidth
-                  value={usuario.nombreUsuario}
-                  onChange={(e) => setNombreUsuario(e.target.value)}
-                  required
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  label="Email"
-                  type="email"
-                  variant="outlined"
-                  fullWidth
-                  value={usuario.email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  label="Fecha de Nacimiento"
-                  type="date"
-                  variant="outlined"
-                  fullWidth
-                  margin="normal"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  value={usuario.fechaNacimiento}
-                  onChange={(e) => setFechaNacimiento(e.target.value)}
-                  required
-                />
-              </Grid>
-              <Grid item xs={12} >
-                <TextField
-                  label="Contraseña"
-                  type="password"
-                  variant="outlined"
-                  fullWidth
-                  value={usuario.contrasenia}
-                  onChange={(e) => setContrasenia(e.target.value)}
-                  required
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  label="Confirmar contraseña"
-                  type="password"
-                  variant="outlined"
-                  fullWidth
-                  value={usuario.confirmarContrasenia}
-                  onChange={(e) => setConfirmarContrasenia(e.target.value)}
-                  required
-                />
-              </Grid >
-              <Grid item xs={12}>
-                {error && <Error>{mensaje}</Error>}
-
-                <Button
-                  type="submit"
-                  variant="contained"
-
-                  fullWidth
-                  style={{ marginTop: "20px" }}
-                  sx={{
-                    bgcolor: 'primary.main',
-                    ':hover': {
-                      bgcolor: 'primary.light'
-                    }
-                  }}
-                  onClick={handleRegistrar}
-
-                >
-                  Registrarse
-                </Button>
-              </Grid >
+    <Container sx={{ display: 'flex' }}>
+      <Grid container spacing={1} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '2rem' }}>
+        <form>
+          <Grid container spacing={1}>
+            <Grid item xs={12} md={6}>
+              <TextField
+                label="Nombre"
+                variant="outlined"
+                fullWidth
+                value={usuario.nombre}
+                onChange={
+                  (e) => {
+                    setNombre(e.target.value)
+                    setError(false)
+                  }
+                }
+                required
+              />
             </Grid>
-            <div style={{ marginTop: '1rem', textAlign: 'center' }} >
-              <p>¿Ya tienes cuenta? <Link to='/login'>Inicia sesión</Link></p>
-              <p><Link to='/'>Volver a la página principal</Link></p>
-            </div>
-          </form>
+            <Grid item xs={12} md={6}>
+              <TextField
+                label="Apellidos"
+                variant="outlined"
+                fullWidth
+                value={usuario.apellidos}
+                onChange={(e) => {
+                  setApellidos(e.target.value)
+                  setError(false)
+                }}
+                required
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Nombre de usuario"
+                variant="outlined"
+                fullWidth
+                value={usuario.nombreUsuario}
+                onChange={(e) => {
+                  setNombreUsuario(e.target.value)
+                  setError(false)
+                }}
+                required
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Email"
+                type="text"
+                variant="outlined"
+                fullWidth
+                value={usuario.email}
+                onChange={(e) => {
+                  setEmail(e.target.value)
+                  setError(false)
+                }}
+                required
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Fecha de Nacimiento"
+                type="date"
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                value={usuario.fechaNacimiento}
+                onChange={(e) => {
+                  setFechaNacimiento(e.target.value)
+                  setError(false)
+                }}
+                required
+              />
+            </Grid>
+            <Grid item xs={12} >
+              <TextField
+                label="Contraseña"
+                type="password"
+                variant="outlined"
+                fullWidth
+                value={usuario.contrasenia}
+                onChange={(e) => {
+                  setContrasenia(e.target.value)
+                  setError(false)
+                }}
+                required
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Confirmar contraseña"
+                type="password"
+                variant="outlined"
+                fullWidth
+                value={usuario.confirmarContrasenia}
+                onChange={(e) => {
+                  setConfirmarContrasenia(e.target.value)
+                  setError(false)
+                }}
+                required
+              />
+            </Grid >
+            <Grid item xs={12}>
+              {error && <Error>{mensaje}</Error>}
 
-        </Grid>
+              <Button
+                type="submit"
+                variant="contained"
 
-        <Container maxWidth='sm' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-          <Link to='/'><img src={LogoFinal} alt="IES MONTE NARANCO" /></Link>
-        </Container>
+                fullWidth
+                style={{ marginTop: "20px" }}
+                sx={{
+                  bgcolor: 'primary.main',
+                  ':hover': {
+                    bgcolor: 'primary.light'
+                  }
+                }}
+                onClick={handleRegistrar}
 
+              >
+                Registrarse
+              </Button>
+            </Grid >
+          </Grid>
+          <div style={{ marginTop: '1rem', textAlign: 'center' }} >
+            <p>¿Ya tienes cuenta? <Link to='/login'>Inicia sesión</Link></p>
+            <p><Link to='/'>Volver a la página principal</Link></p>
+          </div>
+        </form>
+
+      </Grid>
+
+      <Container maxWidth='sm' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <Link to='/'><img src={LogoFinal} alt="IES MONTE NARANCO" /></Link>
       </Container>
+
+    </Container>
   );
 };
 

@@ -55,48 +55,44 @@ function Login() {
 
     return (
 
-            <Container sx={{ display: 'flex' }}>
-                <Container maxWidth='sm' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-                    <Link to='/'><img src={LogoFinal} alt="IES MONTE NARANCO" /></Link>
-                </Container>
-                <Container maxWidth='sm' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', marginTop: '2rem' }}>
-                    
-                    <form method='post' onSubmit={(e) => { e.preventDefault(); login(usuario, contraseña) }}>
-                        <Grid container spacing={2}>
-                            <Grid xs={12} >
-                                <InputLabel htmlFor="usuario">Email</InputLabel>
-                                <Input fullWidth id="usuario" type="email" required value={usuario} onChange={(e) => setUsuario(e.target.value)} />
-                            </Grid>
-                            <Grid xs={12}>
-                                <InputLabel htmlFor="contraseña">Contraseña</InputLabel>
-                                <Input fullWidth id="contraseña" type="password" required value={contraseña} onChange={(e) => setContraseña(e.target.value)} />
-                            </Grid>
-                            <Grid xs={12}>
-                            {error && <Error>{mensaje}</Error>}
-                                <Button type="submit"
-                                    variant="contained"
-
-                                    fullWidth
-                                    style={{ marginTop: "20px" }}
-                                    sx={{
-                                        bgcolor: 'primary.main',
-                                        ':hover': {
-                                            bgcolor: 'primary.light'
-                                        }
-                                    }}>Iniciar Sesión</Button>
-                            </Grid>
-                        </Grid>
-                        <Div>
-                            <p>¿Aún no tienes cuenta? <Link to='/registro'>Regístrate</Link></p>
-                            <p><Link to='/'>Volver a la página principal</Link></p>
-                        </Div>
-                    </form>
-                </Container>
+        <Container sx={{ display: 'flex' }}>
+            <Container maxWidth='sm' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                <Link to='/'><img src={LogoFinal} alt="IES MONTE NARANCO" /></Link>
             </Container>
+            <Container maxWidth='sm' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', marginTop: '2rem' }}>
 
+                <form method='post' onSubmit={(e) => { e.preventDefault(); login(usuario, contraseña) }}>
+                    <Grid container spacing={2}>
+                        <Grid xs={12} >
+                            <InputLabel htmlFor="usuario">Email</InputLabel>
+                            <Input fullWidth id="usuario" type="email" required value={usuario} onChange={(e) => setUsuario(e.target.value)} />
+                        </Grid>
+                        <Grid xs={12}>
+                            <InputLabel htmlFor="contraseña">Contraseña</InputLabel>
+                            <Input fullWidth id="contraseña" type="password" required value={contraseña} onChange={(e) => setContraseña(e.target.value)} />
+                        </Grid>
+                        <Grid xs={12}>
+                            {error && <Error>{mensaje}</Error>}
+                            <Button type="submit"
+                                variant="contained"
 
+                                fullWidth
+                                style={{ marginTop: "20px" }}
+                                sx={{
+                                    bgcolor: 'primary.main',
+                                    ':hover': {
+                                        bgcolor: 'primary.light'
+                                    }
+                                }}>Iniciar Sesión</Button>
+                        </Grid>
+                    </Grid>
+                    <Div>
+                        <p>¿Aún no tienes cuenta? <Link to='/registro'>Regístrate</Link></p>
+                        <p><Link to='/'>Volver a la página principal</Link></p>
+                    </Div>
+                </form>
+            </Container>
+        </Container>
     )
-
-
 }
 export default Login
