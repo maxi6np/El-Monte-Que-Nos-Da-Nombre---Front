@@ -40,7 +40,7 @@ const Registro = () => {
     } else if (contrasenia !== confirmarContrasenia) {
       setError(true);
       setMensaje("Las contraseñas no coinciden");
-    } else if (contrasenia.length <= 8) {
+    } else if (contrasenia.length < 8) {
       setError(true);
       setMensaje("La contraseña debe tener más de 8 caracteres")
     } else if (!reg.test(email)) {
