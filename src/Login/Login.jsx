@@ -74,30 +74,26 @@ function Login() {
                             </Grid>
                             <Grid xs={12}>
                             {error && <Error>{mensaje}</Error>}
-                                <Button type="submit"
-                                    variant="contained"
+                            <Button type="submit"
+                                variant="contained"
 
-                                    fullWidth
-                                    style={{ marginTop: "20px" }}
-                                    sx={{
-                                        bgcolor: 'primary.main',
-                                        ':hover': {
-                                            bgcolor: 'primary.light'
-                                        }
-                                    }}>Iniciar Sesión</Button>
-                            </Grid>
+                                fullWidth
+                                style={{ marginTop: "20px" }}
+                                sx={{
+                                    bgcolor: 'primary.main',
+                                    ':hover': {
+                                        bgcolor: 'primary.light'
+                                    }
+                                }}>Iniciar Sesión</Button>
                         </Grid>
-                        <Div>
-                            <p>¿Aún no tienes cuenta? <Link to='/registro'>Regístrate</Link></p>
-                            <p><Link to='/'>Volver a la página principal</Link></p>
-                        </Div>
-                    </form>
-                </Container>
+                    </Grid>
+                    <Div>
+                        <p>¿Aún no tienes cuenta? <Link to='/registro'>Regístrate</Link></p>
+                        <p><Link to='/'>Volver a la página principal</Link></p>
+                    </Div>
+                </form>
             </Container>
-
-
+        </Container>
     )
-
-
 }
 export default Login
