@@ -9,6 +9,7 @@ import Registro from "./Registro/Registro";
 import PlayfairDisplay from "./assets/fonts/PlayfairDisplay-VariableFont_wght.ttf";
 import Descubre from "./Descubre/Descubre";
 import { useState } from "react";
+import Itinerarios from "./Itinerarios/Itinerarios";
 
 const theme = createTheme({
   palette: {
@@ -80,6 +81,7 @@ function App() {
           <Route path="/registro" element={<Registro />}></Route>
           <Route path="/mapa-puntos" element={<Descubre logout={logout} activeButton={activeButton} setActiveButton={setActiveButton} />}
           ></Route>
+          <Route path="/itinerarios" element={<Itinerarios></Itinerarios>}></Route>
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
