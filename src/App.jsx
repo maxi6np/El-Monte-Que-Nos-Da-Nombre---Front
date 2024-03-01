@@ -8,6 +8,7 @@ import Login from "./Login/Login";
 import Registro from "./Registro/Registro";
 import PlayfairDisplay from "./assets/fonts/PlayfairDisplay-VariableFont_wght.ttf";
 import Descubre from "./Descubre/Descubre";
+import Itinerarios from "./Itinerarios/Itinerarios";
 
 const theme = createTheme({
   palette: {
@@ -80,6 +81,7 @@ function App() {
             path="/mapa-puntos"
             element={<Descubre logout={logout} />}
           ></Route>
+          <Route path="/itinerarios" element={<Itinerarios></Itinerarios>}></Route>
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
- function Itinerario(){
+ function Itinerarios(){
 const [rutas, setRutas] = useState([]);
 
     useEffect(()=>{
@@ -9,3 +9,6 @@ const [rutas, setRutas] = useState([]);
             .then(data => {setRutas(data.data); console.log(rutas)});
     }, []);
  }
+
+
+ export default Itinerarios
