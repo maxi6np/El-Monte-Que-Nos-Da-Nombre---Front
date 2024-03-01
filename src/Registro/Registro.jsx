@@ -20,7 +20,7 @@ const Registro = () => {
   const navigate = useNavigate();
 
   const handleRegistrar = (e) => {
-    let email = new RegExp(/^[\w-.]+@([\w-]+.)+[\w-]{2,4}$/)
+    let reg = new RegExp(/^[\w-.]+@([\w-]+.)+[\w-]{2,4}$/)
     setError(false);
     e.preventDefault();
 
@@ -43,7 +43,7 @@ const Registro = () => {
     } else if (contrasenia.length <= 8) {
       setError(true);
       setMensaje("La contraseña debe tener más de 8 caracteres")
-    } else if (!email.test(usuario)) {
+    } else if (!reg.test(email)) {
       setError(true)
       setMensaje('Introduzca un email válido')
     } else {
