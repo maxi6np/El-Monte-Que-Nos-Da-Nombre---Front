@@ -8,11 +8,11 @@ import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
 import Cita from "./Cita";
 import Video from "./Video";
-import icono_movil2 from "./img/icono_movil2.png";
-import iesmontenaranco from "./img/iesmontenaranco.png";
-import LogoFinalBanner from "./img/logo_final_Banner.png";
-import logoasturias from "./img/logoasturias.png";
-import logoeducastur from "./img/logoeducastur.png";
+import icono_movil2 from "../img/icono_movil2.png";
+import iesmontenaranco from "../img/iesmontenaranco.png";
+import LogoFinalBanner from "../img/logo_final_Banner.png";
+import logoasturias from "../img/logoasturias.png";
+import logoeducastur from "../img/logoeducastur.png";
 
 const Inicio = ({ logout }) => {
   const [cookies, setCookie, removeCookie] = useCookies(["session"]);

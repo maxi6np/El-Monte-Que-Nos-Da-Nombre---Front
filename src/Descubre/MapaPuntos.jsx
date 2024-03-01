@@ -1,7 +1,7 @@
 import PersonIcon from "@mui/icons-material/Person";
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
-import LogoFinalBanner from "./img/logo_final_Banner.png";
+import LogoFinalBanner from "../img/logo_final_Banner.png";
 import { useCookies } from 'react-cookie';
 import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";

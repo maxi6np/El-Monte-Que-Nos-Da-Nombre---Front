@@ -9,7 +9,7 @@ import { useCookies } from 'react-cookie';
 import Error from '../Error';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled'
-import LogoFinal from './img/logo_final.png';
+import LogoFinal from '../img/logo_final.png';
 
 
 function Login() {
