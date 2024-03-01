@@ -54,7 +54,7 @@ const theme = createTheme({
 
 function App() {
   const [cookies, setCookie, removeCookie] = useCookies(["session"]);
-  const [activeButton, setActiveButton] = useState(null);
+  const [activeButton, setActiveButton] = useState('Inicio');
 
   const logout = () => {
     fetch("http://127.0.0.1:8000/logout", {
@@ -79,7 +79,7 @@ function App() {
           <Route path="/" element={<Inicio logout={logout} activeButton={activeButton } setActiveButton={setActiveButton} />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/registro" element={<Registro />}></Route>
-          <Route path="/mapa-puntos" element={<Descubre logout={logout} activeButton={activeButton} setActiveButton={setActiveButton} />}
+          <Route path="/descubre" element={<Descubre logout={logout} activeButton={activeButton} setActiveButton={setActiveButton} />}
           ></Route>
           <Route path="/itinerarios" element={<Itinerarios></Itinerarios>}></Route>
         </Routes>

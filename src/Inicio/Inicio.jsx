@@ -119,7 +119,7 @@ const Inicio = ({ logout, activeButton, setActiveButton }) => {
           <Button
             color="inherit"
             component={Link}
-            to="/mapa-puntos"
+            to="/descubre"
             sx={{
               ":hover": { backgroundColor: activeButton === "Descubre" ? "#00897b" : null },
               backgroundColor: activeButton === "Descubre" ? "#00897b" : null
