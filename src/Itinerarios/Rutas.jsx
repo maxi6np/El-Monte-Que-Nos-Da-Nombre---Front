@@ -9,10 +9,16 @@ import Button from '@mui/material/Button';
 import DescriptionIcon from '@mui/icons-material/Description';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import StarIcon from '@mui/icons-material/Star';
-import { useCookies } from 'react-cookie';
+import { useCookies } from 'react-cookie'; import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import { useState } from "react";
 
-export default function Rutas({ rutas }) {
+export default function Rutas() {
+    const [rutas, setRutas] = useState([]);
+    const[cookies, setCookie, removeCookie] = useCookies('session');
+    const [ordenarPor, setOrdenarPor] = useState();
     const [puntosSeleccionados, setpuntosSeleccionados] = useState([]);
 
     const mostrarPuntos = (ruta_id) => {
@@ -22,9 +28,49 @@ export default function Rutas({ rutas }) {
             console.log(puntosSeleccionados)
         }
     }
+    const Ordenar = (condicion) => {
+        switch (condicion) {
+            case 'Reciente':
+                setRutas(rutas.sort((a, b) => new Date(b.fecha_creacion) - new Date(a.fecha_creacion)));
+                break;
+            case 'Longitud':
+                setRutas(rutas.sort((a, b) => b.duracion - a.duracion));
+                break;
+        }
+    }
+    useEffect(() => {
+        let body = JSON.stringify({
+            token: (cookies.session ? cookies.session.token : '')
+        })
+        fetch('http://127.0.0.1:8000/get-rutas', {
+            method: "post",
+            body: body,
+            headers: {
+                Accept: "application/json",
+                "Content-type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+            },
+        })
+            .then(response => response.json())
+            .then(data => setRutas(data.data));
+    }, []);
 
     return (
         <>
+            <FormControl  sx={{marginBottom:'2rem', width:'30%'}}>
+                <InputLabel id="select-ordenacion-label">Ordenar por</InputLabel>
+                <Select
+                    labelId="select-ordenacion-label"
+                    id="select-ordenacion"
+                    label="Ordenar por"
+                    value={ordenarPor}
+                    onChange={(e) => {setOrdenarPor(e.target.value); Ordenar(e.target.value);}}
+                >
+                    <MenuItem value={'Reciente'}>Reciente</MenuItem>
+                    <MenuItem value={'%completada'}>%completada</MenuItem>
+                    <MenuItem value={'Longitud'}>Longitud</MenuItem>
+                </Select>
+            </FormControl>
             {rutas.map((ruta) => (
                 <Card key={ruta.id_ruta} sx={{
                     width: '33vw', marginBottom: '2rem', border: '1px solid #b8bec2',
