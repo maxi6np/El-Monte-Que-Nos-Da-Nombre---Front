@@ -2,7 +2,7 @@ import "leaflet/dist/leaflet.css";
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { MapContainer, TileLayer, useMapEvents } from "react-leaflet";
-import MarkersPuntos from "./MarkersPuntos";
+import MarkersRutas from "./MarkersRutas";
 
 function MapaPuntos() {
   const [puntos, setPuntos] = useState([]);
@@ -39,7 +39,7 @@ function MapaPuntos() {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
 
-        <MarkersPuntos puntos={puntos}></MarkersPuntos>
+        <MarkersRutas puntos={puntos}></MarkersRutas>
         <ZoomReset></ZoomReset>
       </MapContainer>
     </>

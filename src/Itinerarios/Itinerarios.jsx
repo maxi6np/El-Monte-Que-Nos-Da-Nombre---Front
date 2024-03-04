@@ -7,17 +7,35 @@ import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { Link } from "react-router-dom";
 import LogoFinalBanner from "../img/logo_final_Banner.png";
 import { useCookies } from "react-cookie";
-import MapaPuntos from "../Descubre/MapaPuntos";
+import MapaPuntos from "./MapaRutas";
 import Rutas from "./Rutas";
 import Footer from "../Footer";
 
 
 function Itinerarios({ logout, activeButton, setActiveButton }) {
-    const [cookies, setCookie, removeCookie] = useCookies(["session"]);
+    const [cookies, setCookie, removeCookie] = useCookies("session");
+    const [rutas, setRutas] = useState([]);
 
     const handleButtonClick = (buttonName) => {
         setActiveButton(buttonName);
     };
+
+    useEffect(() => {
+        let body = JSON.stringify({
+            token: (cookies.session ? cookies.session.token : '')
+        })
+        fetch('http://127.0.0.1:8000/get-rutas', {
+            method: "post",
+            body: body,
+            headers: {
+                Accept: "application/json",
+                "Content-type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+            },
+        })
+            .then(response => response.json())
+            .then(data => setRutas(data.data));
+    }, []);
 
 
     return (<>
@@ -162,7 +180,7 @@ function Itinerarios({ logout, activeButton, setActiveButton }) {
         <Grid container spacing={4} sx={{ marginTop: 2, marginBottom: 2 }}>
             {/* Tarjetas */}
             <Grid item xs={12} md={4}>
-                <Rutas />
+                <Rutas rutas={rutas} />
             </Grid>
             {/* Mapa */}
             <Grid item xs={12} md={8}>

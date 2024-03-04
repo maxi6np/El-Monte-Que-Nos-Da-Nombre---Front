@@ -2,7 +2,7 @@
 import { Marker, Popup, useMap } from "react-leaflet";
 
 
-function Markers({ puntos }) {
+function MarkersPuntos({ puntos }) {
     const map = useMap();
     return (
         puntos.length > 0 &&
@@ -33,6 +33,6 @@ function Markers({ puntos }) {
     );
 }
 
-export default Markers;
+export default MarkersPuntos;
 
 
