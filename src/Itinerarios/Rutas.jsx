@@ -13,19 +13,17 @@ import { useCookies } from 'react-cookie'; import FormControl from '@mui/materia
 import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-export default function Rutas() {
+export default function Rutas({setPuntosSeleccionados}) {
     const [rutas, setRutas] = useState([]);
     const[cookies, setCookie, removeCookie] = useCookies('session');
     const [ordenarPor, setOrdenarPor] = useState();
-    const [puntosSeleccionados, setpuntosSeleccionados] = useState([]);
 
     const mostrarPuntos = (ruta_id) => {
         const rutaSeleccionada = rutas.find(ruta => ruta.id_ruta === ruta_id);
         if (rutaSeleccionada) {
-            setpuntosSeleccionados(rutaSeleccionada.puntos_interes);
-            console.log(puntosSeleccionados)
+            setPuntosSeleccionados(rutaSeleccionada.puntos_interes);
         }
     }
     const Ordenar = (condicion) => {
@@ -76,7 +74,7 @@ export default function Rutas() {
                     width: '33vw', marginBottom: '2rem', border: '1px solid #b8bec2',
                     borderRadius: '8px',
                     boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)'
-                }}>
+                }} onClick={() => mostrarPuntos(ruta.id_ruta)}>
                     <CardActionArea component='span'>
                         <CardContent>
                             <Grid container spacing={2}>
@@ -96,7 +94,7 @@ export default function Rutas() {
                                         <p><StarIcon /> Dificultad: {ruta.dificultad}</p>
                                         <p><AccessTimeIcon /> Duración: {ruta.duracion}h</p>
                                         <p><DescriptionIcon /> Descripción: {ruta.descripcion}</p>
-                                        <Button variant="contained" color="primary" sx={{ backgroundColor: '#00897b', marginTop: '1rem' }} onClick={() => mostrarPuntos(ruta.id_ruta)}>
+                                        <Button variant="contained" color="primary" sx={{ backgroundColor: '#00897b', marginTop: '1rem' }}>
                                             Ver detalles
                                         </Button>
                                     </Typography>
@@ -107,19 +105,6 @@ export default function Rutas() {
                 </Card>
 
             ))}
-
-            {/* Muestra los puntos de interés de la ruta seleccionada */}
-            {puntosSeleccionados.length > 0 && (
-                <div>
-                    <Typography variant="h6">Puntos de Interés</Typography>
-                    {puntosSeleccionados.map((punto, index) => (
-                        <div key={index}>
-                            <Typography variant="subtitle1">{punto.nombre}</Typography>
-                            <Typography variant="body2">{punto.descripcion}</Typography>
-                        </div>
-                    ))}
-                </div>
-            )}
         </>
     );
 }

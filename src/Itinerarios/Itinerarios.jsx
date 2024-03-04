@@ -7,7 +7,7 @@ import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { Link } from "react-router-dom";
 import LogoFinalBanner from "../img/logo_final_Banner.png";
 import { useCookies } from "react-cookie";
-import MapaPuntos from "./MapaRutas";
+import MapaRutas from "./MapaRutas";
 import Rutas from "./Rutas";
 import Footer from "../Footer";
 
@@ -15,6 +15,7 @@ import Footer from "../Footer";
 function Itinerarios({ logout, activeButton, setActiveButton }) {
     const [cookies, setCookie, removeCookie] = useCookies("session");
     const [rutas, setRutas] = useState([]);
+    const [puntosSeleccionados, setPuntosSeleccionados] = useState([]);
 
     const handleButtonClick = (buttonName) => {
         setActiveButton(buttonName);
@@ -180,11 +181,11 @@ function Itinerarios({ logout, activeButton, setActiveButton }) {
         <Grid container spacing={4} sx={{ marginTop: 2, marginBottom: 2 }}>
             {/* Tarjetas */}
             <Grid item xs={12} md={4}>
-                <Rutas rutas={rutas} />
+                <Rutas rutas={rutas} setPuntosSeleccionados={setPuntosSeleccionados} />
             </Grid>
             {/* Mapa */}
             <Grid item xs={12} md={8}>
-                <MapaPuntos />
+                <MapaRutas puntosSeleccionados={puntosSeleccionados} setPuntosSeleccionados={setPuntosSeleccionados} />
             </Grid>
         </Grid>
         <Footer />

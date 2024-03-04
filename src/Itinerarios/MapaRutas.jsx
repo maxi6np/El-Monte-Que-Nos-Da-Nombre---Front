@@ -4,17 +4,18 @@ import { useCookies } from "react-cookie";
 import { MapContainer, TileLayer, useMapEvents } from "react-leaflet";
 import MarkersRutas from "./MarkersRutas";
 
-function MapaPuntos() {
+function MapaRutas({puntosSeleccionados, setPuntosSeleccionados}) {
   const [puntos, setPuntos] = useState([]);
   const [cookies, setCookie, removeCookie] = useCookies(["session"]);
   const zoomLevel = 13;
-  const latlong = [43.3736, -5.80];
+  const latlong = [43.3885, -5.8112];
 
   const ZoomReset = () => {
     const map = useMapEvents({
       contextmenu() {
         map.setView(latlong, zoomLevel);
         map.closePopup();
+        setPuntosSeleccionados([])
       },
     });
   };
@@ -39,11 +40,11 @@ function MapaPuntos() {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
 
-        <MarkersRutas puntos={puntos}></MarkersRutas>
-        <ZoomReset></ZoomReset>
+        <MarkersRutas puntos={puntos} puntosSeleccionados={puntosSeleccionados}></MarkersRutas>
+        <ZoomReset/>
       </MapContainer>
     </>
   );
 }
 
-export default MapaPuntos;
+export default MapaRutas;
