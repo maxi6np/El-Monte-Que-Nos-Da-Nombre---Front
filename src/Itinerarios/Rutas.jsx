@@ -65,8 +65,8 @@ export default function Rutas() {
                 </Select>
             </FormControl>
             {rutas.map((ruta) => (
-                <Card sx={{
-                    width: '50vw', marginBottom: '2rem', border: '1px solid #b8bec2',
+                <Card key={ruta.id_ruta} sx={{
+                    width: '33vw', marginBottom: '2rem', border: '1px solid #b8bec2',
                     borderRadius: '8px',
                     boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)'
                 }}>
