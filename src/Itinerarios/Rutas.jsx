@@ -10,9 +10,11 @@ import Button from '@mui/material/Button';
 import DescriptionIcon from '@mui/icons-material/Description';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import StarIcon from '@mui/icons-material/Star';
+import { useCookies } from 'react-cookie';
 
 export default function Rutas() {
     const [rutas, setRutas] = useState([]);
+    const[cookies, setCookie, removeCookie] = useCookies('session');
 
     useEffect(() => {
         let body = JSON.stringify({
