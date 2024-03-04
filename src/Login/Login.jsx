@@ -42,7 +42,7 @@ function Login() {
                 .then(response => response.json())
                 .then(data => {
                     if (data.message == 'correcto') {
-                        setCookie('session', { token: data.token }, { path: '/' });
+                        setCookie('session', { token: data.token, username: data.username }, { path: '/' });
                         navigate("/");
 
                     } else {
