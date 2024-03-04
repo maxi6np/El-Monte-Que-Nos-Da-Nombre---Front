@@ -161,11 +161,11 @@ function Itinerarios({ logout, activeButton, setActiveButton }) {
 
         <Grid container spacing={4} sx={{ marginTop: 2, marginBottom: 2 }}>
             {/* Tarjetas */}
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4}>
                 <Rutas />
             </Grid>
             {/* Mapa */}
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={8}>
                 <MapaPuntos />
             </Grid>
         </Grid>

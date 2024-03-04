@@ -10,21 +10,25 @@ import Button from '@mui/material/Button';
 import DescriptionIcon from '@mui/icons-material/Description';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import StarIcon from '@mui/icons-material/Star';
+import { useCookies } from "react-cookie";
 
 export default function Rutas() {
     const [rutas, setRutas] = useState([]);
+    const [cookies, setCookie, removeCookie] = useCookies(["session"]);
 
     useEffect(() => {
         let body = JSON.stringify({
             token: (cookies.session ? cookies.session.token : '')
         })
-        fetch('http://127.0.0.1:8000/get-rutas', { method: "post",
-        body:body,
-        headers: {
-          Accept: "application/json",
-          "Content-type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-        }, })
+        fetch('http://127.0.0.1:8000/get-rutas', {
+            method: "post",
+            body: body,
+            headers: {
+                Accept: "application/json",
+                "Content-type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+            },
+        })
             .then(response => response.json())
             .then(data => setRutas(data.data));
     }, []);
@@ -32,12 +36,12 @@ export default function Rutas() {
     return (
         <>
             {rutas.map((ruta) => (
-                <Card sx={{
-                    width: '50vw', marginBottom: '2rem', border: '1px solid #b8bec2',
+                <Card key={ruta.id_ruta} sx={{
+                    width: '33vw', marginBottom: '2rem', border: '1px solid #b8bec2',
                     borderRadius: '8px',
                     boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)'
                 }}>
-                    <CardActionArea>
+                    <CardActionArea component='span'>
                         <CardContent>
                             <Grid container spacing={2}>
                                 <Grid item xs={12} md={5}>
@@ -56,7 +60,7 @@ export default function Rutas() {
                                         <p><StarIcon /> Dificultad: {ruta.dificultad}</p>
                                         <p><AccessTimeIcon /> Duración: {ruta.duracion}h</p>
                                         <p><DescriptionIcon /> Descripción: {ruta.descripcion}</p>
-                                        <Button variant="contained" color="primary" sx={{ backgroundColor: '#00897b', marginTop:'1rem' }}>
+                                        <Button variant="contained" color="primary" sx={{ backgroundColor: '#00897b', marginTop: '1rem' }}>
                                             Ver detalles
                                         </Button>
                                     </Typography>
