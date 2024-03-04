@@ -15,12 +15,18 @@ export default function Rutas() {
     const [rutas, setRutas] = useState([]);
 
     useEffect(() => {
-        fetch('http://127.0.0.1:8000/get-rutas', { method: 'get' })
+        let body = JSON.stringify({
+            token: (cookies.session ? cookies.session.token : '')
+        })
+        fetch('http://127.0.0.1:8000/get-rutas', { method: "post",
+        body:body,
+        headers: {
+          Accept: "application/json",
+          "Content-type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        }, })
             .then(response => response.json())
-            .then(data => {
-                setRutas(data.data)
-                console.log(data.data)
-            });
+            .then(data => setRutas(data.data));
     }, []);
 
     return (
