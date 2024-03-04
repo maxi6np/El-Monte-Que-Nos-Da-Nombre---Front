@@ -1,5 +1,3 @@
-import { CssBaseline } from "@mui/material";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { useCookies } from "react-cookie";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
@@ -10,6 +8,9 @@ import PlayfairDisplay from "./assets/fonts/PlayfairDisplay-VariableFont_wght.tt
 import Descubre from "./Descubre/Descubre";
 import { useState } from "react";
 import Itinerarios from "./Itinerarios/Itinerarios";
+import { CssBaseline } from "@mui/material";
+import Box from "@mui/material/Box";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
   palette: {
@@ -81,7 +82,7 @@ function App() {
           <Route path="/registro" element={<Registro />}></Route>
           <Route path="/descubre" element={<Descubre logout={logout} activeButton={activeButton} setActiveButton={setActiveButton} />}
           ></Route>
-          <Route path="/itinerarios" element={<Itinerarios></Itinerarios>}></Route>
+          <Route path="/itinerarios" element={<Itinerarios logout={logout} activeButton={activeButton} setActiveButton={setActiveButton}/>}></Route>
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
