@@ -4,7 +4,7 @@ import { useCookies } from "react-cookie";
 import { MapContainer, TileLayer, useMapEvents } from "react-leaflet";
 import MarkersRutas from "./MarkersRutas";
 
-function MapaRutas({puntosSeleccionados, setPuntosSeleccionados}) {
+function MapaRutas({ puntosSeleccionados, setPuntosSeleccionados }) {
   const [puntos, setPuntos] = useState([]);
   const [cookies, setCookie, removeCookie] = useCookies(["session"]);
   const zoomLevel = 13;
@@ -33,7 +33,7 @@ function MapaRutas({puntosSeleccionados, setPuntosSeleccionados}) {
         zoom={zoomLevel}
         minZoom={zoomLevel}
         scrollWheelZoom={true}
-        style={{ height: "100vh", width: "100%" }}
+        style={{ height: "100vh", width: "100%", border: '1px solid black', borderRadius: '4px' }}
       >
         <TileLayer
           attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -41,7 +41,7 @@ function MapaRutas({puntosSeleccionados, setPuntosSeleccionados}) {
         />
 
         <MarkersRutas puntos={puntos} puntosSeleccionados={puntosSeleccionados}></MarkersRutas>
-        <ZoomReset/>
+        <ZoomReset />
       </MapContainer>
     </>
   );
