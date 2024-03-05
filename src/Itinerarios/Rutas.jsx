@@ -78,7 +78,10 @@ export default function Rutas({ setPuntosSeleccionados }) {
                 <Card
                     key={ruta.id_ruta}
                     sx={{
-                        width: '33vw', marginBottom: '2rem', border: '1px solid #b8bec2',
+                        width: '33vw',
+                        margin: 'auto',
+                        marginBottom: '2rem',
+                        border: '1px solid #b8bec2',
                         borderRadius: '8px',
                         boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)'
                     }}
