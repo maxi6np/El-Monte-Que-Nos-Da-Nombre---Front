@@ -17,7 +17,7 @@ function Tarjetas({ puntos, setSelectPoint }) {
     }
   }
   return (
-    <>
+    <div style={{ maxHeight: "703px", overflowY: "auto" }}>
       {puntos.map((punto) => (
         <Card
           key={punto.id_punto_interes}
@@ -27,6 +27,7 @@ function Tarjetas({ puntos, setSelectPoint }) {
             border: "1px solid #b8bec2",
             borderRadius: "8px",
             boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+            marginRight: "1rem",
           }}
           onClick={() => mostrarPunto(punto.id_punto_interes)}
         >
@@ -77,7 +78,7 @@ function Tarjetas({ puntos, setSelectPoint }) {
           </CardActionArea>
         </Card>
       ))}
-    </>
+    </div>
   );
 }
 

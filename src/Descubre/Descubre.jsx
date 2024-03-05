@@ -84,7 +84,6 @@ function Descubre({ logout, activeButton, setActiveButton }) {
                       setActiveButton("Inicio");
                       logout();
                     }}
-
                     component={Link}
                     to="/"
                     startIcon={<LogoutIcon></LogoutIcon>}
@@ -185,7 +184,7 @@ function Descubre({ logout, activeButton, setActiveButton }) {
         </Toolbar>
       </AppBar>
 
-      <Grid container spacing={2} sx={{ marginTop: 2, marginBottom: 2 }}>
+      <Grid container spacing={2} sx={{ marginTop: 2, marginBottom: 2}}>
         {/* Tarjetas */}
         <Grid item xs={12} md={6}>
           <Tarjetas puntos={puntos} setSelectPoint={setSelectPoint}/>
