@@ -184,13 +184,23 @@ function Descubre({ logout, activeButton, setActiveButton }) {
         </Toolbar>
       </AppBar>
 
+
+      <Typography variant="h3" sx={{ textAlign: 'center', marginTop: '2rem' }} component="h3">
+            Puntos de interés
+        </Typography>
+
       <Grid container spacing={2} sx={{ marginTop: 2, marginBottom: 2}}>
+
         {/* Tarjetas */}
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={4.5}>
           <Tarjetas puntos={puntos} setSelectPoint={setSelectPoint}/>
         </Grid>
+
+        {/* Columna de relleno */}
+        <Grid item xs={0} md={0.5}></Grid>
+
         {/* Mapa */}
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={7}>
           <MapaPuntos setSelectPoint={setSelectPoint} selectPoint={selectPoint}/>
         </Grid>
       </Grid>

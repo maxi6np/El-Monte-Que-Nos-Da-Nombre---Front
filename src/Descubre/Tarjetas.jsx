@@ -17,17 +17,17 @@ function Tarjetas({ puntos, setSelectPoint }) {
     }
   }
   return (
-    <div style={{ maxHeight: "703px", overflowY: "auto" }}>
+    <div style={{ maxHeight: "100vh", overflowY: "auto" }}>
       {puntos.map((punto) => (
         <Card
           key={punto.id_punto_interes}
           sx={{
-            width: "33vw",
+            margin:'auto',
+            width: "30vw",
             marginBottom: "2rem",
             border: "1px solid #b8bec2",
             borderRadius: "8px",
-            boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
-            marginRight: "1rem",
+            boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)"
           }}
           onClick={() => mostrarPunto(punto.id_punto_interes)}
         >
@@ -37,7 +37,7 @@ function Tarjetas({ puntos, setSelectPoint }) {
                 <Grid item xs={12} md={5}>
                   <CardMedia
                     component="img"
-                    height="250"
+                    height="300"
                     image={punto.imagen}
                     alt={punto.nombre}
                   />
@@ -45,9 +45,8 @@ function Tarjetas({ puntos, setSelectPoint }) {
                 <Grid item xs={12} md={7}>
                   <Typography
                     gutterBottom
-                    variant="h4"
                     component="div"
-                    sx={{ textAlign: "center" }}
+                    sx={{ textAlign: "center", fontSize:'2rem', marginBottom:'2rem' }}
                   >
                     {punto.nombre}
                   </Typography>
@@ -69,7 +68,7 @@ function Tarjetas({ puntos, setSelectPoint }) {
                       color="primary"
                       sx={{ backgroundColor: "#00897b", marginTop: "1rem" }}
                     >
-                      Ver detalles
+                      Trabajos
                     </Button>
                   </Grid2>
                 </Grid>

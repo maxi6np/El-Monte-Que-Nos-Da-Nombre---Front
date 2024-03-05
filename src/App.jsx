@@ -64,6 +64,14 @@ function App() {
     localStorage.setItem('activeButton', activeButton);
   }, [activeButton]);
 
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      setActiveButton("Inicio");
+    };
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+  }, []);
+
   const logout = () => {
     fetch("http://127.0.0.1:8000/logout", {
       method: "post",

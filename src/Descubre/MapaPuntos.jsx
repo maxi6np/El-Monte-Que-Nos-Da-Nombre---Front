@@ -33,7 +33,7 @@ function MapaPuntos({ setSelectPoint, selectPoint }) {
         zoom={zoomLevel}
         minZoom={zoomLevel}
         scrollWheelZoom={true}
-        style={{ height: "100vh", width: "100%" }}
+        style={{ height: "100vh", width: "100%", border:'1px solid black', borderRadius:'4px' }}
       >
         <TileLayer
           attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
