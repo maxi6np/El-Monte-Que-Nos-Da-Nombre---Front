@@ -1,38 +1,31 @@
-
 import { Marker, Popup, useMap } from "react-leaflet";
 
-
-function MarkersPuntos({ puntos }) {
+function MarkersPuntos({ puntos, selectPoint }) {
+    console.log(selectPoint)
     const map = useMap();
+    const puntosAUsar = (selectPoint != '') ? selectPoint : puntos;
+
     return (
-        puntos.length > 0 &&
-        puntos.map((marker, index) => {
-            return (
-                <Marker
-                    eventHandlers={{
-                        click: () => {
-                            map.setView(
-                                [
-                                    marker.latitud,
-                                    marker.longitud
-                                ],
-                                20
-                            );
-                        }
-                    }}
-                    key={index}
-                    position={[marker.latitud,marker.longitud]}
-                >
-                    <Popup>
-                        <span><b>{marker.nombre}</b></span><br></br>
-                        <span>{marker.descripcion}</span>
-                    </Popup>
-                </Marker>
-            );
-        })
+        puntosAUsar.map((marker, index) => (
+            <Marker
+                key={index}
+                position={[marker.latitud, marker.longitud]}
+                eventHandlers={{
+                    click: () => {
+                        map.setView(
+                            [marker.latitud, marker.longitud],
+                            20
+                        );
+                    }
+                }}
+            >
+                <Popup>
+                    <span><b>{marker.nombre}</b></span><br></br>
+                    <span>{marker.descripcion}</span>
+                </Popup>
+            </Marker>
+        ))
     );
 }
 
 export default MarkersPuntos;
-
-

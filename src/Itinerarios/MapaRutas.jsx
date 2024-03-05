@@ -8,7 +8,7 @@ function MapaRutas({puntosSeleccionados, setPuntosSeleccionados}) {
   const [puntos, setPuntos] = useState([]);
   const [cookies, setCookie, removeCookie] = useCookies(["session"]);
   const zoomLevel = 13;
-  const latlong = [43.3885, -5.8112];
+  const latlong = [43.3885, -5.8412];
 
   const ZoomReset = () => {
     const map = useMapEvents({
@@ -33,7 +33,7 @@ function MapaRutas({puntosSeleccionados, setPuntosSeleccionados}) {
         zoom={zoomLevel}
         minZoom={zoomLevel}
         scrollWheelZoom={true}
-        style={{ height: "100vh", width: "100vw" }}
+        style={{ height: "100vh", width: "100%" }}
       >
         <TileLayer
           attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

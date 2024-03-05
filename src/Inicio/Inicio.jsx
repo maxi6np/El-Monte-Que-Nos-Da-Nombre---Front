@@ -3,7 +3,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import PersonIcon from "@mui/icons-material/Person";
 import { AppBar, Box, Button, Grid, Toolbar, Typography } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
-import {React, useState} from "react";
+import { React, useState } from "react";
 import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
 import Cita from "./Cita";
@@ -14,10 +14,6 @@ import Footer from "../Footer";
 
 const Inicio = ({ logout, activeButton, setActiveButton }) => {
   const [cookies, setCookie, removeCookie] = useCookies(["session"]);
-
-  const handleButtonClick = (buttonName) => {
-    setActiveButton(buttonName);
-  };
 
   return (
     <div>
@@ -40,7 +36,7 @@ const Inicio = ({ logout, activeButton, setActiveButton }) => {
                     src={LogoFinalBanner}
                     alt="IES MONTE NARANCO"
                     style={{ height: "100%", width: "100%" }}
-                    onClick={() => handleButtonClick("Inicio")}
+                    onClick={() => setActiveButton("Inicio")}
                   />
                 </Link>
               </Box>
@@ -64,7 +60,11 @@ const Inicio = ({ logout, activeButton, setActiveButton }) => {
                 {cookies.session ? (
                   <Button
                     color="inherit"
-                    onClick={() => logout()}
+                    onClick={() => {
+                      setActiveButton("Inicio");
+                      logout();
+                    }}
+
                     component={Link}
                     to="/"
                     startIcon={<LogoutIcon></LogoutIcon>}
@@ -110,7 +110,7 @@ const Inicio = ({ logout, activeButton, setActiveButton }) => {
               ":hover": { backgroundColor: activeButton === "Inicio" ? "#00897b" : null },
               backgroundColor: activeButton === "Inicio" ? "#00897b" : null
             }}
-            onClick={() => handleButtonClick("Inicio")}
+            onClick={() => setActiveButton("Inicio")}
           >
             Inicio
           </Button>
@@ -122,7 +122,7 @@ const Inicio = ({ logout, activeButton, setActiveButton }) => {
               ":hover": { backgroundColor: activeButton === "Descubre" ? "#00897b" : null },
               backgroundColor: activeButton === "Descubre" ? "#00897b" : null
             }}
-            onClick={() => handleButtonClick("Descubre")}
+            onClick={() => setActiveButton("Descubre")}
           >
             Descubre
           </Button>
@@ -134,7 +134,7 @@ const Inicio = ({ logout, activeButton, setActiveButton }) => {
               ":hover": { backgroundColor: activeButton === "Itinerarios" ? "#00897b" : null },
               backgroundColor: activeButton === "Itinerarios" ? "#00897b" : null
             }}
-            onClick={() => handleButtonClick("Itinerarios")}
+            onClick={() => setActiveButton("Itinerarios")}
           >
             Itinerarios
           </Button>
@@ -146,7 +146,7 @@ const Inicio = ({ logout, activeButton, setActiveButton }) => {
               ":hover": { backgroundColor: activeButton === "Información" ? "#00897b" : null },
               backgroundColor: activeButton === "Información" ? "#00897b" : null
             }}
-            onClick={() => handleButtonClick("Información")}
+            onClick={() => setActiveButton("Información")}
           >
             Información del Proyecto
           </Button>
@@ -190,7 +190,7 @@ const Inicio = ({ logout, activeButton, setActiveButton }) => {
           </a>
         </Grid>
       </Box>
-      <Footer/>
+      <Footer />
     </div>
   );
 };

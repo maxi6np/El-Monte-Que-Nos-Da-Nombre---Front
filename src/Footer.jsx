@@ -56,17 +56,17 @@ export default function Footer() {
                             <img
                                 src={iesmontenaranco}
                                 alt="IES MONTE NARANCO"
-                                style={{ width: "130px", marginRight: "20px" }}
+                                style={{ width: "130px", marginRight: "20px", height: '100px' }}
                             />
                             <img
                                 src={logoasturias}
                                 alt="IES MONTE NARANCO"
-                                style={{ width: "250px", marginRight: "20px" }}
+                                style={{ width: "170px", marginRight: "20px" }}
                             />
                             <img
                                 src={logoeducastur}
                                 alt="IES MONTE NARANCO"
-                                style={{ width: "250px" }}
+                                style={{ width: "170px" }}
                             />
                         </div>
                     </Grid>

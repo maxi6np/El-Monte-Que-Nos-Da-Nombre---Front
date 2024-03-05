@@ -6,7 +6,7 @@ import Login from "./Login/Login";
 import Registro from "./Registro/Registro";
 import PlayfairDisplay from "./assets/fonts/PlayfairDisplay-VariableFont_wght.ttf";
 import Descubre from "./Descubre/Descubre";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Itinerarios from "./Itinerarios/Itinerarios";
 import { CssBaseline } from "@mui/material";
 import Box from "@mui/material/Box";
@@ -55,7 +55,22 @@ const theme = createTheme({
 
 function App() {
   const [cookies, setCookie, removeCookie] = useCookies(["session"]);
-  const [activeButton, setActiveButton] = useState('Inicio');
+  const [activeButton, setActiveButton] = useState(() => {
+    let storedButton = localStorage.getItem('activeButton');
+    return storedButton ? storedButton : 'Inicio';
+  });
+
+  useEffect(() => {
+    localStorage.setItem('activeButton', activeButton);
+  }, [activeButton]);
+
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      setActiveButton("Inicio");
+    };
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+  }, []);
 
   const logout = () => {
     fetch("http://127.0.0.1:8000/logout", {
@@ -77,12 +92,12 @@ function App() {
       <CssBaseline></CssBaseline>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Inicio logout={logout} activeButton={activeButton } setActiveButton={setActiveButton} />}></Route>
+          <Route path="/" element={<Inicio logout={logout} activeButton={activeButton} setActiveButton={setActiveButton} />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/registro" element={<Registro />}></Route>
           <Route path="/descubre" element={<Descubre logout={logout} activeButton={activeButton} setActiveButton={setActiveButton} />}
           ></Route>
-          <Route path="/itinerarios" element={<Itinerarios logout={logout} activeButton={activeButton} setActiveButton={setActiveButton}/>}></Route>
+          <Route path="/itinerarios" element={<Itinerarios logout={logout} activeButton={activeButton} setActiveButton={setActiveButton} />}></Route>
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

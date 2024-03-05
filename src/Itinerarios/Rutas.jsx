@@ -18,6 +18,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { useState, useEffect } from "react";
 
 export default function Rutas({ setPuntosSeleccionados }) {
+export default function Rutas({ setPuntosSeleccionados }) {
     const [rutas, setRutas] = useState([]);
     const [categorias, setCategorias] = useState([]);
     const [cookies, setCookie, removeCookie] = useCookies('session');
