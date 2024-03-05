@@ -126,7 +126,6 @@ return (
                         onChange={(e) => {
                             setFiltrarPor(e.target.value);
                             setFiltradas(rutas)
-                            filtrar(e.target.value);
                         }}
                     >
                         <MenuItem value='Todas'>Todas</MenuItem>
@@ -135,7 +134,23 @@ return (
                     </Select>
                 </FormControl>
             </Grid>
+            <Grid item xs={4}>
+                <FormControl fullWidth sx={{ marginBottom: '2rem' }}>
+                    <InputLabel id="select-categoria-label">Filtrar acceso</InputLabel>
+                    <Select
+                        labelId="select-categoria-label"
+                        id="select-categoria"
+                        label="Mostrar por categoria"
+
+                    >
+                        <MenuItem value='Todas'>Todas</MenuItem>
+                        {categorias.map((categoria) => categoria.nombre.includes('accesible') || categoria.nombre.includes('cerrada') ? <MenuItem key={categoria.nombre} value={`${categoria.nombre}`}>{categoria.nombre}</MenuItem> : null)}
+
+                    </Select>
+                </FormControl>
+            </Grid>
         </Grid>
+        
 
         {filtradas.map((ruta) => (
             <Card key={ruta.id_ruta} sx={{
