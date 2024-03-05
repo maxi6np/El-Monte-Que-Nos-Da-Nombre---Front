@@ -17,7 +17,7 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { useState, useEffect } from "react";
 
-export default function Rutas({ setPuntosSeleccionados }) {
+
 export default function Rutas({ setPuntosSeleccionados }) {
     const [rutas, setRutas] = useState([]);
     const [categorias, setCategorias] = useState([]);
@@ -47,11 +47,6 @@ export default function Rutas({ setPuntosSeleccionados }) {
         }
     }
 
-    const filtrar = (condicion1) => {
-
-
-
-    }
 
 
 
