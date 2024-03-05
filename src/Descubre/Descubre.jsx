@@ -15,9 +15,6 @@ function Descubre({ logout, activeButton, setActiveButton }) {
   const [cookies, setCookie, removeCookie] = useCookies(["session"]);
   const [puntos, setPuntos] = useState([]);
 
-  const handleButtonClick = (buttonName) => {
-    setActiveButton(buttonName);
-  };
 
   useEffect(() => {
     let body = JSON.stringify({
@@ -59,7 +56,7 @@ function Descubre({ logout, activeButton, setActiveButton }) {
                     src={LogoFinalBanner}
                     alt="IES MONTE NARANCO"
                     style={{ height: "100%", width: "100%" }}
-                    onClick={() => handleButtonClick("Inicio")}
+                    onClick={() => setActiveButton("Inicio")}
                   />
                 </Link>
               </Box>
@@ -83,7 +80,11 @@ function Descubre({ logout, activeButton, setActiveButton }) {
                 {cookies.session ? (
                   <Button
                     color="inherit"
-                    onClick={() => logout()}
+                    onClick={() => {
+                      setActiveButton("Inicio");
+                      logout();
+                    }}
+
                     component={Link}
                     to="/"
                     startIcon={<LogoutIcon></LogoutIcon>}
@@ -131,7 +132,7 @@ function Descubre({ logout, activeButton, setActiveButton }) {
               },
               backgroundColor: activeButton === "Inicio" ? "#00897b" : null,
             }}
-            onClick={() => handleButtonClick("Inicio")}
+            onClick={() => setActiveButton("Inicio")}
           >
             Inicio
           </Button>
@@ -145,7 +146,7 @@ function Descubre({ logout, activeButton, setActiveButton }) {
               },
               backgroundColor: activeButton === "Descubre" ? "#00897b" : null,
             }}
-            onClick={() => handleButtonClick("Descubre")}
+            onClick={() => setActiveButton("Descubre")}
           >
             Descubre
           </Button>
@@ -161,7 +162,7 @@ function Descubre({ logout, activeButton, setActiveButton }) {
               backgroundColor:
                 activeButton === "Itinerarios" ? "#00897b" : null,
             }}
-            onClick={() => handleButtonClick("Itinerarios")}
+            onClick={() => setActiveButton("Itinerarios")}
           >
             Itinerarios
           </Button>
@@ -177,7 +178,7 @@ function Descubre({ logout, activeButton, setActiveButton }) {
               backgroundColor:
                 activeButton === "Información" ? "#00897b" : null,
             }}
-            onClick={() => handleButtonClick("Información")}
+            onClick={() => setActiveButton("Información")}
           >
             Información del Proyecto
           </Button>
