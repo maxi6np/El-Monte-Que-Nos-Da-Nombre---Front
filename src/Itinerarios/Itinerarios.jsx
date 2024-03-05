@@ -14,30 +14,14 @@ import Footer from "../Footer";
 
 function Itinerarios({ logout, activeButton, setActiveButton }) {
     const [cookies, setCookie, removeCookie] = useCookies("session");
-    const [rutas, setRutas] = useState([]);
     const [puntosSeleccionados, setPuntosSeleccionados] = useState([]);
 
     const handleButtonClick = (buttonName) => {
         setActiveButton(buttonName);
     };
 
-    useEffect(() => {
-        let body = JSON.stringify({
-            token: (cookies.session ? cookies.session.token : '')
-        })
-        fetch('http://127.0.0.1:8000/get-rutas', {
-            method: "post",
-            body: body,
-            headers: {
-                Accept: "application/json",
-                "Content-type": "application/json",
-                "Access-Control-Allow-Origin": "*",
-            },
-        })
-            .then(response => response.json())
-            .then(data => setRutas(data.data));
-    }, []);
-
+   
+        
 
     return (<>
         <AppBar position="static" sx={{ backgroundColor: "#004d40" }}>
@@ -181,7 +165,7 @@ function Itinerarios({ logout, activeButton, setActiveButton }) {
         <Grid container spacing={4} sx={{ marginTop: 2, marginBottom: 2 }}>
             {/* Tarjetas */}
             <Grid item xs={12} md={4}>
-                <Rutas rutas={rutas} setPuntosSeleccionados={setPuntosSeleccionados} />
+                <Rutas setPuntosSeleccionados={setPuntosSeleccionados}  />
             </Grid>
             {/* Mapa */}
             <Grid item xs={12} md={8}>
