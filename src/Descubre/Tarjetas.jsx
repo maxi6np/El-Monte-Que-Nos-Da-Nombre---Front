@@ -6,18 +6,17 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
-import * as React from "react";
+import React, {useState} from "react";
 
-function Tarjetas({ puntos, setSelectPoint }) {
-  const [openModal, setOpenModal] = React.useState(false);
-  const [selectedPoint, setSelectedPoint] = React.useState(null);
-  console.log(puntos);
+function Tarjetas({ puntos, selectPoint, setSelectPoint }) {
+  const [openModal, setOpenModal] = useState(false);
+  
   const mostrarPunto = (punto_id) => {
     const ptoSeleccionado = puntos.find(
       (punto) => punto.id_punto_interes === punto_id
     );
     if (ptoSeleccionado) {
-      setSelectedPoint(ptoSeleccionado);
+      setSelectPoint(ptoSeleccionado);
       setOpenModal(true);
     }
   };
@@ -99,10 +98,10 @@ function Tarjetas({ puntos, setSelectPoint }) {
       {/* Modal */}
 
       <Dialog open={openModal} onClose={handleCloseModal}>
-        {selectedPoint && (
+        {selectPoint && (
           <div>
-            <Typography variant="h6">{selectedPoint.nombre}</Typography>
-            <Typography variant="body1">{selectedPoint.descripcion}</Typography>
+            <Typography variant="h6">{selectPoint.nombre}</Typography>
+            <Typography variant="body1">{selectPoint.descripcion}</Typography>
             {/* Agrega aquí cualquier otra información que quieras mostrar en el modal */}
           </div>
         )}

@@ -193,7 +193,7 @@ function Descubre({ logout, activeButton, setActiveButton }) {
 
         {/* Tarjetas */}
         <Grid item xs={12} md={4.5}>
-          <Tarjetas puntos={puntos} setSelectPoint={setSelectPoint}/>
+          <Tarjetas puntos={puntos} selectPoint={selectPoint} setSelectPoint={setSelectPoint}/>
         </Grid>
 
         {/* Columna de relleno */}
