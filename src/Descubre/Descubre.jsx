@@ -15,7 +15,6 @@ function Descubre({ logout, activeButton, setActiveButton }) {
   const [cookies, setCookie, removeCookie] = useCookies(["session"]);
   const [puntos, setPuntos] = useState([]);
 
-
   useEffect(() => {
     let body = JSON.stringify({
       token: cookies.session ? cookies.session.token : "",
@@ -84,7 +83,6 @@ function Descubre({ logout, activeButton, setActiveButton }) {
                       setActiveButton("Inicio");
                       logout();
                     }}
-
                     component={Link}
                     to="/"
                     startIcon={<LogoutIcon></LogoutIcon>}
@@ -185,7 +183,7 @@ function Descubre({ logout, activeButton, setActiveButton }) {
         </Toolbar>
       </AppBar>
 
-      <Grid container spacing={2} sx={{ marginTop: 2, marginBottom: 2 }}>
+      <Grid container spacing={2} sx={{ marginTop: 2, marginBottom: 2}}>
         {/* Tarjetas */}
         <Grid item xs={12} md={6}>
           <Tarjetas puntos={puntos} />

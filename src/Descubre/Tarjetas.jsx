@@ -10,7 +10,7 @@ import * as React from "react";
 
 function Tarjetas({ puntos }) {
   return (
-    <>
+    <div style={{ maxHeight: "703px", overflowY: "auto" }}>
       {puntos.map((punto) => (
         <Card
           key={punto.id_punto_interes}
@@ -20,6 +20,7 @@ function Tarjetas({ puntos }) {
             border: "1px solid #b8bec2",
             borderRadius: "8px",
             boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+            marginRight: "1rem",
           }}
         >
           <CardActionArea component="span">
@@ -69,7 +70,7 @@ function Tarjetas({ puntos }) {
           </CardActionArea>
         </Card>
       ))}
-    </>
+    </div>
   );
 }
 
