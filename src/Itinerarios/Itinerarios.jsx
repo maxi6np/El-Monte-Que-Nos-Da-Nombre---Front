@@ -166,7 +166,7 @@ function Itinerarios({ logout, activeButton, setActiveButton }) {
         <Grid container spacing={4} sx={{ marginTop: 2, marginBottom: 2 }}>
             {/* Tarjetas */}
             <Grid item xs={12} md={4.5}>
-                <Rutas rutas={rutas} setPuntosSeleccionados={setPuntosSeleccionados} />
+                <Rutas setPuntosSeleccionados={setPuntosSeleccionados} />
             </Grid>
 
             {/* Columna de relleno */}
