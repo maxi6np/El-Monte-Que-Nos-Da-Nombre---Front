@@ -11,6 +11,7 @@ import Itinerarios from "./Itinerarios/Itinerarios";
 import { CssBaseline } from "@mui/material";
 import Box from "@mui/material/Box";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { Planificar } from './Planificar/Planificar'
 
 const theme = createTheme({
   palette: {
@@ -98,6 +99,7 @@ function App() {
           <Route path="/descubre" element={<Descubre logout={logout} activeButton={activeButton} setActiveButton={setActiveButton} />}
           ></Route>
           <Route path="/itinerarios" element={<Itinerarios logout={logout} activeButton={activeButton} setActiveButton={setActiveButton} />}></Route>
+          <Route path="/planificar" element={<Planificar logout={logout} activeButton={activeButton} setActiveButton={setActiveButton} />}></Route>
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

@@ -165,22 +165,20 @@ function Descubre({ logout, activeButton, setActiveButton }) {
           >
             Itinerarios
           </Button>
-          <Button
-            color="inherit"
-            component={Link}
-            to="/informacion"
-            sx={{
-              ":hover": {
-                backgroundColor:
-                  activeButton === "Información" ? "#00897b" : null,
-              },
-              backgroundColor:
-                activeButton === "Información" ? "#00897b" : null,
-            }}
-            onClick={() => setActiveButton("Información")}
-          >
-            Información del Proyecto
-          </Button>
+          {cookies.session && (
+            <Button
+              color="inherit"
+              component={Link}
+              to="/planificar"
+              sx={{
+                ":hover": { backgroundColor: activeButton === "Planificar" ? "#00897b" : null },
+                backgroundColor: activeButton === "Planificar" ? "#00897b" : null
+              }}
+              onClick={() => setActiveButton("Planificar")}
+            >
+              Planificar ruta
+            </Button>
+          )}
         </Toolbar>
       </AppBar>
 

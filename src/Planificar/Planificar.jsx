@@ -1,18 +1,18 @@
+import React from 'react'
 import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
 import PersonIcon from "@mui/icons-material/Person";
 import { AppBar, Box, Button, Grid, Toolbar, Typography } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
-import { React, useState } from "react";
-import { useCookies } from "react-cookie";
-import { Link } from "react-router-dom";
-import Cita from "./Cita";
-import Video from "./Video";
-import icono_movil2 from "../img/icono_movil2.png";
+import { Link } from "react-router-dom"
 import LogoFinalBanner from "../img/logo_final_Banner.png";
-import Footer from "../Footer";
+import { useCookies } from "react-cookie";
+import { Formulario } from './Formulario';
+import Footer from '../Footer'
+import FondoForm from '../img/fondoForm.png'
 
-const Inicio = ({ logout, activeButton, setActiveButton }) => {
+
+export const Planificar = ({ logout, activeButton, setActiveButton }) => {
   const [cookies, setCookie, removeCookie] = useCookies(["session"]);
 
   return (
@@ -156,46 +156,28 @@ const Inicio = ({ logout, activeButton, setActiveButton }) => {
         </Toolbar>
       </AppBar>
 
-      <Cita />
-      <Video />
+      <div style={{
+        backgroundImage: `url(${FondoForm})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        maxWidth: '100vw',
+      }}>
+        <div style={{
+          backgroundColor: 'white',
+          width: '60vw',
+          height: '100%',
+          margin: 'auto',
+          paddingTop: '3rem',
+          paddingBottom:'3rem'
+        }}>
+          <Typography variant="h3" sx={{ textAlign: 'center', marginBottom:'5rem' }} component="h3">
+            Planifica tu propia ruta
+          </Typography>
+          <Formulario />
+        </div>
 
-      <Box sx={{ py: 4 }}>
-        <Grid container spacing={2} alignItems="center" justifyContent="center">
-          <a
-            href="https://dl.memuplay.com/download/MEmu-setup-abroad-sdk-mv.exe"
-            download="parchis.exe"
-            target="_blank"
-          >
-            <Button
-              variant="contained"
-              align="center"
-              sx={{
-                backgroundColor: "#a5d6a7",
-                "&:hover": {
-                  backgroundColor: "#0A8242",
-                },
-              }}
-            >
-              <img
-                src={icono_movil2}
-                alt="Imagen icono App"
-                style={{
-                  width: "100%",
-                  height: "auto",
-                  maxWidth: "65px",
-                  marginRight: "10px",
-                }}
-              />
-              <strong style={{ textDecoration: "none", color: "black" }}>
-                Descarga nuestra App
-              </strong>
-            </Button>
-          </a>
-        </Grid>
-      </Box>
+      </div>
       <Footer />
     </div>
-  );
-};
-
-export default Inicio;
+  )
+}
