@@ -17,7 +17,7 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { useState, useEffect } from "react";
 
-export default function Rutas({setPuntosSeleccionados}) {
+export default function Rutas({ setPuntosSeleccionados }) {
     const [rutas, setRutas] = useState([]);
     const [cookies, setCookie, removeCookie] = useCookies('session');
     const [ordenarPor, setOrdenarPor] = useState('');
@@ -28,6 +28,7 @@ export default function Rutas({setPuntosSeleccionados}) {
             setPuntosSeleccionados(rutaSeleccionada.puntos_interes);
         }
     }
+
     const Ordenar = (condicion) => {
         switch (condicion) {
             case 'Reciente':
@@ -37,7 +38,7 @@ export default function Rutas({setPuntosSeleccionados}) {
                 setRutas(rutas.sort((a, b) => b.duracion - a.duracion));
                 break;
             case '%completada':
-                setRutas(rutas.sort((a,b) => b.porcentaje - a.porcentaje));
+                setRutas(rutas.sort((a, b) => b.porcentaje - a.porcentaje));
         }
     }
     useEffect(() => {
@@ -59,14 +60,14 @@ export default function Rutas({setPuntosSeleccionados}) {
 
     return (
         <>
-            <FormControl  sx={{marginBottom:'2rem', width:'30%'}}>
+            <FormControl sx={{ marginBottom: '2rem', width: '30%' }}>
                 <InputLabel id="select-ordenacion-label">Ordenar por</InputLabel>
                 <Select
                     labelId="select-ordenacion-label"
                     id="select-ordenacion"
                     label="Ordenar por"
                     value={ordenarPor}
-                    onChange={(e) => {setOrdenarPor(e.target.value); Ordenar(e.target.value);}}
+                    onChange={(e) => { setOrdenarPor(e.target.value); Ordenar(e.target.value); }}
                 >
                     <MenuItem value={'Reciente'}>Reciente</MenuItem>
                     <MenuItem value={'%completada'}>%completada</MenuItem>
@@ -74,11 +75,14 @@ export default function Rutas({setPuntosSeleccionados}) {
                 </Select>
             </FormControl>
             {rutas.map((ruta) => (
-                <Card key={ruta.id_ruta} sx={{
-                    width: '33vw', marginBottom: '2rem', border: '1px solid #b8bec2',
-                    borderRadius: '8px',
-                    boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)'
-                }} onClick={() => mostrarPuntos(ruta.id_ruta)}>
+                <Card
+                    key={ruta.id_ruta}
+                    sx={{
+                        width: '33vw', marginBottom: '2rem', border: '1px solid #b8bec2',
+                        borderRadius: '8px',
+                        boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)'
+                    }}
+                    onClick={() => mostrarPuntos(ruta.id_ruta)}>
                     <CardActionArea component='span'>
                         <CardContent>
                             <Grid container spacing={2}>
@@ -97,7 +101,7 @@ export default function Rutas({setPuntosSeleccionados}) {
                                     <Typography variant="body" color="text.secondary">
                                         <p><StarIcon /> Dificultad: {ruta.dificultad}</p>
                                         <p><AccessTimeIcon /> Duración: {ruta.duracion}h</p>
-                                        <p><PercentIcon/>Progreso: {ruta.porcentaje}%</p>
+                                        <p><PercentIcon />Progreso: {ruta.porcentaje}%</p>
                                         <p><DescriptionIcon /> Descripción: {ruta.descripcion}</p>
                                         <Button variant="contained" color="primary" sx={{ backgroundColor: '#00897b', marginTop: '1rem' }}>
                                             Ver detalles

@@ -8,7 +8,14 @@ import Typography from "@mui/material/Typography";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import * as React from "react";
 
-function Tarjetas({ puntos }) {
+function Tarjetas({ puntos, setSelectPoint }) {
+
+  const mostrarPunto = (punto_id) => {
+    const ptoSeleccionado = puntos.find(punto => punto.id_punto_interes === punto_id);
+    if (ptoSeleccionado) {
+      setSelectPoint([ptoSeleccionado])
+    }
+  }
   return (
     <>
       {puntos.map((punto) => (
@@ -21,6 +28,7 @@ function Tarjetas({ puntos }) {
             borderRadius: "8px",
             boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
           }}
+          onClick={() => mostrarPunto(punto.id_punto_interes)}
         >
           <CardActionArea component="span">
             <CardContent>

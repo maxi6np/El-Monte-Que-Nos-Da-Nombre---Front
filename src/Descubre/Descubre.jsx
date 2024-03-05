@@ -14,7 +14,7 @@ import Tarjetas from "./Tarjetas";
 function Descubre({ logout, activeButton, setActiveButton }) {
   const [cookies, setCookie, removeCookie] = useCookies(["session"]);
   const [puntos, setPuntos] = useState([]);
-
+  const [selectPoint, setSelectPoint] = useState([]);
 
   useEffect(() => {
     let body = JSON.stringify({
@@ -188,11 +188,11 @@ function Descubre({ logout, activeButton, setActiveButton }) {
       <Grid container spacing={2} sx={{ marginTop: 2, marginBottom: 2 }}>
         {/* Tarjetas */}
         <Grid item xs={12} md={6}>
-          <Tarjetas puntos={puntos} />
+          <Tarjetas puntos={puntos} setSelectPoint={setSelectPoint}/>
         </Grid>
         {/* Mapa */}
         <Grid item xs={12} md={6}>
-          <MapaPuntos />
+          <MapaPuntos setSelectPoint={setSelectPoint} selectPoint={selectPoint}/>
         </Grid>
       </Grid>
 

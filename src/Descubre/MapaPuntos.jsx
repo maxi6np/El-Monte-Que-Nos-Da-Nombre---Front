@@ -4,7 +4,7 @@ import { useCookies } from "react-cookie";
 import { MapContainer, TileLayer, useMapEvents } from "react-leaflet";
 import MarkersPuntos from "./MarkersPuntos";
 
-function MapaPuntos() {
+function MapaPuntos({ setSelectPoint, selectPoint }) {
   const [puntos, setPuntos] = useState([]);
   const [cookies, setCookie, removeCookie] = useCookies(["session"]);
   const zoomLevel = 13;
@@ -15,6 +15,7 @@ function MapaPuntos() {
       contextmenu() {
         map.setView(latlong, zoomLevel);
         map.closePopup();
+        setSelectPoint([])
       },
     });
   };
@@ -39,7 +40,7 @@ function MapaPuntos() {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
 
-        <MarkersPuntos puntos={puntos}></MarkersPuntos>
+        <MarkersPuntos puntos={puntos} selectPoint={selectPoint}></MarkersPuntos>
         <ZoomReset></ZoomReset>
       </MapContainer>
     </>
