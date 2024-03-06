@@ -26,7 +26,7 @@ export default function Rutas({ setPuntosSeleccionados }) {
     const [ordenarPor, setOrdenarPor] = useState('Reciente');
     const [filtrarPor, setFiltrarPor] = useState('Todas');
     const [filtradas, setFiltradas] = useState([]);
-    const [sinEmpezar, setSinempezar] = useState(false);
+    const [progreso, setProgreso] = useState('todas');
 
     const mostrarPuntos = (ruta_id) => {
         const rutaSeleccionada = rutas.find(ruta => ruta.id_ruta === ruta_id);
@@ -93,14 +93,18 @@ export default function Rutas({ setPuntosSeleccionados }) {
         const nuevasFiltradas = [];
 
 
-            rutas.forEach(ruta => {
-                ruta.puntos_interes.forEach(punto => {
-                    punto.categorias.forEach(categoria => {
-                    if(sinEmpezar){
-                        if ((categoria.nombre == filtrarPor || filtrarPor == 'Todas') && ruta.porcentaje == 0 ) {
-                            !nuevasFiltradas.find((element)=> element == ruta) && nuevasFiltradas.push(ruta);
+        rutas.forEach(ruta => {
+            ruta.puntos_interes.forEach(punto => {
+                punto.categoriasPuntos.forEach(categoria => {
+                    if (progreso == 'sinEmpezar') {
+                        if ((categoria.nombre == filtrarPor || filtrarPor == 'Todas') && ruta.porcentaje == -1) {
+                            !nuevasFiltradas.find((element) => element == ruta) && nuevasFiltradas.push(ruta);
                         }
-                    } else {
+                    } else if (progreso == 'empezadas') {
+                        if ((categoria.nombre == filtrarPor || filtrarPor == 'Todas') && ruta.porcentaje > -1) {
+                            !nuevasFiltradas.find((element) => element == ruta) && nuevasFiltradas.push(ruta);
+                        }
+                    } else{
                         if (categoria.nombre == filtrarPor || filtrarPor == 'Todas') {
                             !nuevasFiltradas.find((element) => element == ruta) && nuevasFiltradas.push(ruta);
                         }
@@ -112,24 +116,31 @@ export default function Rutas({ setPuntosSeleccionados }) {
         Ordenar(ordenarPor, nuevasFiltradas);
 
 
-    }, [filtrarPor, sinEmpezar]);
+    }, [filtrarPor, progreso]);
 
     return (
         <>
 
             <Grid container spacing={2}>
-                {cookies.session && (<Grid item xs={12}>
-                    <FormControlLabel control={<Checkbox
-                        checked={sinEmpezar}
-                        onChange={() => {
-                            setSinempezar(!sinEmpezar)
+                {cookies.session && (<Grid item xs={4}>
+                    <FormControl fullWidth sx={{ marginBottom: '2rem' }}>
 
 
+                        <InputLabel id="select-progreso-label">Progreso</InputLabel>
+                        <Select
+                            labelId="select-progreso-label"
+                            id="select-progreso"
+                            label="Progreso"
+                            value={progreso}
+                            onChange={(e) => {setProgreso(e.target.value) }}
+                        >
+                            <MenuItem value={'todas'}>Todas</MenuItem>
+                            <MenuItem value={'empezadas'}>Empezar</MenuItem>
+                            <MenuItem value={'sinEmpezar'}>Sin empezar</MenuItem>
+                        </Select>
 
-                        }}
-                        inputProps={{ 'aria-label': 'sinEmpezar' }}
 
-                    />} label='Mostrar solo rutas sin empezar'></FormControlLabel>
+                    </FormControl>
                 </Grid>)}
                 <Grid item xs={4}>
                     <FormControl fullWidth sx={{ marginBottom: '2rem' }}>
@@ -199,7 +210,7 @@ export default function Rutas({ setPuntosSeleccionados }) {
                                     <Typography variant="body" color="text.secondary">
                                         <p><StarIcon /> Dificultad: {ruta.dificultad}</p>
                                         <p><AccessTimeIcon /> Duración: {ruta.duracion}h</p>
-                                        {cookies.session && <p><PercentIcon />Progreso: {ruta.porcentaje}%</p>}
+                                        {cookies.session && (ruta.porcentaje > -1 ? <p><PercentIcon />Progreso: {ruta.porcentaje}%</p> : <p>Sin empezar</p>)}
                                         <p><DescriptionIcon /> Descripción: {ruta.descripcion}</p>
                                         <Button variant="contained" color="primary" sx={{ backgroundColor: '#00897b', marginTop: '1rem' }}>
                                             Ver detalles
