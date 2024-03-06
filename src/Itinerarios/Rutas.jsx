@@ -80,7 +80,7 @@ export default function Rutas({ setPuntosSeleccionados }) {
             },
         })
             .then(response => response.json())
-            .then(data => { setRutas(data.data); setCategorias(data.categorias); setFiltradas(data.data) });
+            .then(data => { setRutas(data.data); setCategorias(data.categoriasPuntos); setFiltradas(data.data) });
     }, []);
 
     useEffect(() => {
@@ -92,7 +92,7 @@ export default function Rutas({ setPuntosSeleccionados }) {
 
             rutas.forEach(ruta => {
                 ruta.puntos_interes.forEach(punto => {
-                    punto.categorias.forEach(categoria => {
+                    punto.categoriasPuntos.forEach(categoria => {
                     if(sinEmpezar){
                         if ((categoria.nombre == filtrarPor || filtrarPor == 'Todas') && ruta.porcentaje == 0 ) {
                             !nuevasFiltradas.find((element)=> element == ruta) && nuevasFiltradas.push(ruta);
