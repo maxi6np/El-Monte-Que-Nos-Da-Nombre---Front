@@ -82,8 +82,24 @@ function Descubre({ logout, activeButton, setActiveButton }) {
               </Typography>
             </Grid2>
             <Grid2 xs display="flex" justifyContent="end" alignItems="center">
-              <Box component="div">
+              <Box component="div" display="flex" justifyContent="end" alignItems="center">
+
+                {cookies.session && (
+                  <Box component="div" display="flex" justifyContent="end" alignItems="center" flexWrap="wrap" gap="0.5rem">
+                    <PersonIcon ></PersonIcon>
+                    <Typography
+
+
+                      sx={{ marginRight: '1rem', textAlign: 'center' }}
+                    >
+
+                      {cookies.session.username.toUpperCase()}
+                    </Typography>
+                  </Box>
+                )}
                 {cookies.session ? (
+
+
                   <Button
                     color="inherit"
                     onClick={() => {
@@ -97,6 +113,7 @@ function Descubre({ logout, activeButton, setActiveButton }) {
                   >
                     Cerrar Sesión
                   </Button>
+
                 ) : (
                   <Button
                     color="inherit"
@@ -113,7 +130,7 @@ function Descubre({ logout, activeButton, setActiveButton }) {
                     color="inherit"
                     component={Link}
                     to="/registro"
-                    startIcon={<PersonIcon></PersonIcon>}
+                    startIcon={<PersonAddIcon></PersonAddIcon>}
                     sx={{ ":hover": { backgroundColor: "#00897b" } }}
                   >
                     Registrarse

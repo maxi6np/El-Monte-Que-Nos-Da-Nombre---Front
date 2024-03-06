@@ -130,6 +130,47 @@ export default function Rutas({ setPuntosSeleccionados }) {
             {(cargando) ? (
                 <Grid container style={{ justifyContent: 'center', alignItems: 'center', height: '100%' }}>
                     <CircularProgress />
+
+            <Grid container spacing={2}>
+                {cookies.session && (<Grid item xs={4}>
+                    <FormControl fullWidth sx={{ marginBottom: '2rem' }}>
+
+
+                        <InputLabel id="select-progreso-label">Progreso</InputLabel>
+                        <Select
+                            labelId="select-progreso-label"
+                            id="select-progreso"
+                            label="Progreso"
+                            value={progreso}
+                            onChange={(e) => {setProgreso(e.target.value) }}
+                        >
+                            <MenuItem value={'todas'}>Todas</MenuItem>
+                            <MenuItem value={'empezadas'}>Empezadas</MenuItem>
+                            <MenuItem value={'sinEmpezar'}>Sin empezar</MenuItem>
+                        </Select>
+
+
+                    </FormControl>
+                </Grid>)}
+                <Grid item xs={4}>
+                    <FormControl fullWidth sx={{ marginBottom: '2rem' }}>
+
+
+                        <InputLabel id="select-ordenacion-label">Ordenar por</InputLabel>
+                        <Select
+                            labelId="select-ordenacion-label"
+                            id="select-ordenacion"
+                            label="Ordenar por"
+                            value={ordenarPor}
+                            onChange={(e) => { setOrdenarPor(e.target.value); const ordenadas = filtradas; Ordenar(e.target.value, ordenadas); }}
+                        >
+                            <MenuItem value={'Reciente'}>Reciente</MenuItem>
+                            {cookies.session && <MenuItem value={'%completada'}>%completada</MenuItem>}
+                            <MenuItem value={'Longitud'}>Longitud</MenuItem>
+                        </Select>
+
+
+                    </FormControl>
                 </Grid>
             ) : (
                 <>

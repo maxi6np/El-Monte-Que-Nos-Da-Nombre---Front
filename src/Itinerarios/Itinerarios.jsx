@@ -12,8 +12,8 @@ import MapaRutas from "./MapaRutas";
 import Rutas from "./Rutas";
 
 function Itinerarios({ logout, activeButton, setActiveButton }) {
-  const [cookies, setCookie, removeCookie] = useCookies("session");
-  const [puntosSeleccionados, setPuntosSeleccionados] = useState([]);
+    const [cookies, setCookie, removeCookie] = useCookies("session");
+    const [puntosSeleccionados, setPuntosSeleccionados] = useState([]);
 
     return (
         <>
@@ -56,15 +56,30 @@ function Itinerarios({ logout, activeButton, setActiveButton }) {
                             </Typography>
                         </Grid2>
                         <Grid2 xs display="flex" justifyContent="end" alignItems="center">
-                            <Box component="div">
+                            <Box component="div" display="flex" justifyContent="end" alignItems="center">
+
+                                {cookies.session && (
+                                    <Box component="div" display="flex" justifyContent="end" alignItems="center" flexWrap="wrap" gap="0.5rem">
+                                        <PersonIcon ></PersonIcon>
+                                        <Typography
+
+
+                                            sx={{ marginRight: '1rem', textAlign: 'center' }}
+                                        >
+
+                                            {cookies.session.username.toUpperCase()}
+                                        </Typography>
+                                    </Box>
+                                )}
                                 {cookies.session ? (
+
+
                                     <Button
                                         color="inherit"
                                         onClick={() => {
                                             setActiveButton("Inicio");
                                             logout();
                                         }}
-
                                         component={Link}
                                         to="/"
                                         startIcon={<LogoutIcon></LogoutIcon>}
@@ -72,6 +87,7 @@ function Itinerarios({ logout, activeButton, setActiveButton }) {
                                     >
                                         Cerrar Sesión
                                     </Button>
+
                                 ) : (
                                     <Button
                                         color="inherit"
@@ -88,7 +104,7 @@ function Itinerarios({ logout, activeButton, setActiveButton }) {
                                         color="inherit"
                                         component={Link}
                                         to="/registro"
-                                        startIcon={<PersonIcon></PersonIcon>}
+                                        startIcon={<PersonAddIcon></PersonAddIcon>}
                                         sx={{ ":hover": { backgroundColor: "#00897b" } }}
                                     >
                                         Registrarse
@@ -155,34 +171,34 @@ function Itinerarios({ logout, activeButton, setActiveButton }) {
                 </Toolbar>
             </AppBar>
 
-      <Typography
-        variant="h3"
-        sx={{ textAlign: "center", marginTop: "2rem" }}
-        component="h3"
-      >
-        Rutas
-      </Typography>
+            <Typography
+                variant="h3"
+                sx={{ textAlign: "center", marginTop: "2rem" }}
+                component="h3"
+            >
+                Rutas
+            </Typography>
 
-      <Grid container spacing={4} sx={{ marginTop: 2, marginBottom: 2 }}>
-        {/* Tarjetas */}
-        <Grid item xs={12} md={4.5}>
-          <Rutas setPuntosSeleccionados={setPuntosSeleccionados} />
-        </Grid>
+            <Grid container spacing={4} sx={{ marginTop: 2, marginBottom: 2 }}>
+                {/* Tarjetas */}
+                <Grid item xs={12} md={4.5}>
+                    <Rutas setPuntosSeleccionados={setPuntosSeleccionados} />
+                </Grid>
 
-        {/* Columna de relleno */}
-        <Grid item xs={0} md={0.5}></Grid>
+                {/* Columna de relleno */}
+                <Grid item xs={0} md={0.5}></Grid>
 
-        {/* Mapa */}
-        <Grid item xs={12} md={7}>
-          <MapaRutas
-            puntosSeleccionados={puntosSeleccionados}
-            setPuntosSeleccionados={setPuntosSeleccionados}
-          />
-        </Grid>
-      </Grid>
-      <Footer />
-    </>
-  );
+                {/* Mapa */}
+                <Grid item xs={12} md={7}>
+                    <MapaRutas
+                        puntosSeleccionados={puntosSeleccionados}
+                        setPuntosSeleccionados={setPuntosSeleccionados}
+                    />
+                </Grid>
+            </Grid>
+            <Footer />
+        </>
+    );
 }
 
 export default Itinerarios;
