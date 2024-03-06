@@ -1,29 +1,33 @@
+import AutoStoriesIcon from "@mui/icons-material/AutoStories";
 import DescriptionIcon from "@mui/icons-material/Description";
-import { CardActionArea, Dialog, Grid } from "@mui/material";
+import { CardActionArea, Grid } from "@mui/material";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
-import React, {useState} from "react";
+import React from "react";
 
-function Tarjetas({ puntos, selectPoint, setSelectPoint }) {
-  const [openModal, setOpenModal] = useState(false);
-  
-  const mostrarPunto = (punto_id) => {
-    const ptoSeleccionado = puntos.find(
-      (punto) => punto.id_punto_interes === punto_id
-    );
-    if (ptoSeleccionado) {
-      setSelectPoint(ptoSeleccionado);
-      setOpenModal(true);
-    }
+function Tarjetas({ puntos }) {
+  /*const [categorias, setCategorias] = useState([]);
+
+  const categoriasTrabajos = (idPunto) => {
+    puntos.map((punto) => {
+      if (punto.id_punto_interes === idPunto) {
+        punto.trabajos.map((trabajo) =>
+          trabajo.categoriasTrabajos.map((categoria) =>
+            setCategorias([categoria.nombre, categoria.descripcion])
+          )
+        );
+      }
+    });
   };
 
-  const handleCloseModal = () => {
-    setOpenModal(false);
-  };
+  useEffect(() => {
+    const idPuntoDeseado = 46;
+    categoriasTrabajos(idPuntoDeseado);
+  }, []);*/
 
   return (
     <div style={{ maxHeight: "100vh", overflowY: "auto" }}>
@@ -38,7 +42,6 @@ function Tarjetas({ puntos, selectPoint, setSelectPoint }) {
             borderRadius: "8px",
             boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
           }}
-          onClick={() => mostrarPunto(punto.id_punto_interes)}
         >
           <CardActionArea component="span">
             <CardContent>
@@ -73,6 +76,25 @@ function Tarjetas({ puntos, selectPoint, setSelectPoint }) {
                         {punto.descripcion}
                       </span>
                     </p>
+                    <>
+                      <AutoStoriesIcon />{" "}
+                      <span>
+                        <strong>Trabajos: </strong>
+                      </span>
+                      {punto.trabajos?.map((trabajo) => {
+                        console.log(trabajo.nombre);
+                        return trabajo.categoriasTrabajos.map(
+                          (categoria, index) => {
+                            console.log(categoria.nombre);
+                            return (
+                              <p key={index}>
+                                {categoria.nombre} - {categoria.descripcion}
+                              </p>
+                            );
+                          }
+                        );
+                      })}
+                    </>
                   </Typography>
 
                   <Grid2 item xs={12} md={7} sx={{ textAlign: "center" }}>
@@ -80,10 +102,6 @@ function Tarjetas({ puntos, selectPoint, setSelectPoint }) {
                       variant="contained"
                       color="primary"
                       sx={{ backgroundColor: "#00897b", marginTop: "1rem" }}
-                      onClick={(event) => {
-                        event.stopPropagation(); // Evitar que el evento de clic llegue al contenedor Card
-                        mostrarPunto(punto.id_punto_interes);
-                      }}
                     >
                       Ver trabajos
                     </Button>
@@ -94,18 +112,6 @@ function Tarjetas({ puntos, selectPoint, setSelectPoint }) {
           </CardActionArea>
         </Card>
       ))}
-
-      {/* Modal */}
-
-      <Dialog open={openModal} onClose={handleCloseModal}>
-        {selectPoint && (
-          <div>
-            <Typography variant="h6">{selectPoint.nombre}</Typography>
-            <Typography variant="body1">{selectPoint.descripcion}</Typography>
-            {/* Agrega aquí cualquier otra información que quieras mostrar en el modal */}
-          </div>
-        )}
-      </Dialog>
     </div>
   );
 }
