@@ -1,43 +1,58 @@
 import React from 'react'
 import { Button, Container, Grid, TextField, ThemeProvider, createTheme, Input } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Error from "../Error";
 import { useNavigate } from 'react-router-dom';
-import LogoFinalBanner from "../img/logo_final_Banner.png";
 import Eleccion from './Eleccion';
+import Textarea from '@mui/material/TextareaAutosize';
 
 
 export const Formulario = () => {
     const [usuario, setUsuario] = useState({});
     const [nombre, setNombre] = useState("");
     const [descripcion, setDescripcion] = useState("");
-    const [puntos, setPuntos] = useState("");
     const [imagen, setImagen] = useState("");
     const [error, setError] = useState(false);
     const [mensaje, setMensaje] = useState();
     const navigate = useNavigate();
+    const [puntos, setPuntos] = useState([]);
+    const [checked, setChecked] = useState([]);
+
+    useEffect(() => {
+        fetch("http://127.0.0.1:8000/puntos-trabajos", { method: "get" })
+            .then((response) => response.json())
+            .then((data) => {
+                setPuntos(data.data.map(punto => ({ ...punto, seleccionado: false })));
+            });
+    }, []);
+
 
     const handlePlanificar = (e) => {
-        setError(false);
         e.preventDefault();
+        console.log(checked)
+        console.log(imagen)
+        setChecked([])
+        setError(false);
 
         if (
             [
                 nombre,
                 descripcion,
-                puntos,
                 imagen,
             ].includes("")
         ) {
             setMensaje("Rellene todos los campos");
+            setError(true);
+        } else if (checked.length < 1) {
+            setMensaje("Elige al menos un punto de interés");
             setError(true);
         } else {
 
             let body = JSON.stringify({
                 nombre: nombre,
                 descripcion: descripcion,
-                puntos: puntos,
-                imagen: imagen
+                puntos: checked,
+                imagen_principal: imagen
             })
 
             fetch('http://127.0.0.1:8000/planificar-ruta', { method: 'post', body: body, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', } })
@@ -45,7 +60,7 @@ export const Formulario = () => {
                 .then(data => {
                     console.log(data)
                     if (data.message === 'Ruta creada correctamente') {
-                        navigate("/login");
+                        navigate("/itinerarios");
                     } else {
                         setMensaje(data.message);
                         setError(true);
@@ -54,10 +69,10 @@ export const Formulario = () => {
         }
     };
     return (
-        <div style={{width:'40vw', margin:'auto', marginTop:'2rem'}}>
+        <div style={{ width: '40vw', margin: 'auto', marginTop: '6rem', height: '45vw' }}>
             <Grid container spacing={1}>
                 <form>
-                    <Grid container spacing={2}>
+                    <Grid container spacing={5}>
                         <Grid item xs={12} md={12}>
                             <TextField
                                 label="Nombre"
@@ -73,33 +88,34 @@ export const Formulario = () => {
                                 required
                             />
                         </Grid>
-                        <Grid item xs={12} md={12}>
-                            <TextField
-                                label="Descripcion"
-                                variant="outlined"
-                                fullWidth
-                                value={usuario.descripcion}
-                                onChange={(e) => {
-                                    setDescripcion(e.target.value)
-                                    setError(false)
-                                }}
-                                required
-                            />
+                        <Grid item xs={12} md={12} sx={{ display: 'flex', flexDirection: 'column' }}>
+                            <Textarea
+                                placeholder='Descripción*'
+                                size="lg" name="Size"
+                                color="neutral"
+                                minRows={2}
+                                onChange={
+                                    (e) => {
+                                        setDescripcion(e.target.value)
+                                        setError(false)
+                                    }
+                                } 
+                                required/>
                         </Grid>
                         <Grid item xs={12}>
                             <label>
-                                Puntos de interés
-                                <Eleccion />
+                                Puntos de interés*
+                                <Eleccion puntos={puntos} setPuntos={setPuntos} setChecked={setChecked} />
                             </label>
                         </Grid>
                         <Grid item xs={12}>
                             <label style={{ width: "100%" }}>
-                                Imagen
+                                Imagen*
                                 <Input
                                     variant='outlined'
                                     type="file"
                                     onChange={(e) => {
-                                        setImagen(e.target.files[0]);
+                                        setImagen(e.target.files[0].name);
                                         setError(false);
                                     }}
                                     fullWidth

@@ -1,16 +1,15 @@
-import React from 'react'
 import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
 import PersonIcon from "@mui/icons-material/Person";
-import { AppBar, Box, Button, Grid, Toolbar, Typography } from "@mui/material";
+import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
-import { Link } from "react-router-dom"
-import LogoFinalBanner from "../img/logo_final_Banner.png";
+import React from "react";
 import { useCookies } from "react-cookie";
-import { Formulario } from './Formulario';
-import Footer from '../Footer'
-import FondoForm from '../img/fondoForm.png'
-
+import { Link } from "react-router-dom";
+import Footer from "../Footer";
+import FondoForm from "../img/fondoForm.png";
+import LogoFinalBanner from "../img/logo_final_Banner.png";
+import { Formulario } from "./Formulario";
 
 export const Planificar = ({ logout, activeButton, setActiveButton }) => {
   const [cookies, setCookie, removeCookie] = useCookies(["session"]);
@@ -18,7 +17,7 @@ export const Planificar = ({ logout, activeButton, setActiveButton }) => {
   return (
     <div>
       <AppBar position="static" sx={{ backgroundColor: "#004d40" }}>
-        <Toolbar sx={{ width: "100vw" }}>
+        <Toolbar sx={{ width: "100%" }}>
           <Grid2 container sx={{ width: "100%" }}>
             <Grid2 xs display="flex" justifyContent="start" alignItems="center">
               <Box
@@ -64,7 +63,6 @@ export const Planificar = ({ logout, activeButton, setActiveButton }) => {
                       setActiveButton("Inicio");
                       logout();
                     }}
-
                     component={Link}
                     to="/"
                     startIcon={<LogoutIcon></LogoutIcon>}
@@ -107,8 +105,10 @@ export const Planificar = ({ logout, activeButton, setActiveButton }) => {
             to="/"
             sx={{
               height: "100%",
-              ":hover": { backgroundColor: activeButton === "Inicio" ? "#00897b" : null },
-              backgroundColor: activeButton === "Inicio" ? "#00897b" : null
+              ":hover": {
+                backgroundColor: activeButton === "Inicio" ? "#00897b" : null,
+              },
+              backgroundColor: activeButton === "Inicio" ? "#00897b" : null,
             }}
             onClick={() => setActiveButton("Inicio")}
           >
@@ -119,8 +119,10 @@ export const Planificar = ({ logout, activeButton, setActiveButton }) => {
             component={Link}
             to="/descubre"
             sx={{
-              ":hover": { backgroundColor: activeButton === "Descubre" ? "#00897b" : null },
-              backgroundColor: activeButton === "Descubre" ? "#00897b" : null
+              ":hover": {
+                backgroundColor: activeButton === "Descubre" ? "#00897b" : null,
+              },
+              backgroundColor: activeButton === "Descubre" ? "#00897b" : null,
             }}
             onClick={() => setActiveButton("Descubre")}
           >
@@ -131,8 +133,12 @@ export const Planificar = ({ logout, activeButton, setActiveButton }) => {
             component={Link}
             to="/itinerarios"
             sx={{
-              ":hover": { backgroundColor: activeButton === "Itinerarios" ? "#00897b" : null },
-              backgroundColor: activeButton === "Itinerarios" ? "#00897b" : null
+              ":hover": {
+                backgroundColor:
+                  activeButton === "Itinerarios" ? "#00897b" : null,
+              },
+              backgroundColor:
+                activeButton === "Itinerarios" ? "#00897b" : null,
             }}
             onClick={() => setActiveButton("Itinerarios")}
           >
@@ -144,40 +150,50 @@ export const Planificar = ({ logout, activeButton, setActiveButton }) => {
               component={Link}
               to="/planificar"
               sx={{
-                ":hover": { backgroundColor: activeButton === "Planificar" ? "#00897b" : null },
-                backgroundColor: activeButton === "Planificar" ? "#00897b" : null
+                ":hover": {
+                  backgroundColor:
+                    activeButton === "Planificar" ? "#00897b" : null,
+                },
+                backgroundColor:
+                  activeButton === "Planificar" ? "#00897b" : null,
               }}
               onClick={() => setActiveButton("Planificar")}
             >
               Planificar ruta
             </Button>
           )}
-
         </Toolbar>
       </AppBar>
 
-      <div style={{
-        backgroundImage: `url(${FondoForm})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        maxWidth: '100vw',
-      }}>
-        <div style={{
-          backgroundColor: 'white',
-          width: '60vw',
-          height: '100%',
-          margin: 'auto',
-          paddingTop: '3rem',
-          paddingBottom:'3rem'
-        }}>
-          <Typography variant="h3" sx={{ textAlign: 'center', marginBottom:'5rem' }} component="h3">
+      <div
+        style={{
+          backgroundImage: `url(${FondoForm})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          maxWidth: "100vw",
+        }}
+      >
+        <div
+          style={{
+            backgroundColor: "white",
+            width: "60vw",
+            height: "100%",
+            margin: "auto",
+            paddingTop: "3rem",
+            paddingBottom: "3rem",
+          }}
+        >
+          <Typography
+            variant="h3"
+            sx={{ textAlign: "center", marginBottom: "5rem" }}
+            component="h3"
+          >
             Planifica tu propia ruta
           </Typography>
           <Formulario />
         </div>
-
       </div>
       <Footer />
     </div>
-  )
-}
+  );
+};
