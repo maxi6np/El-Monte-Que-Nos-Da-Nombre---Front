@@ -1,6 +1,7 @@
 import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
 import PersonIcon from "@mui/icons-material/Person";
+import PersonAddIcon from "@mui/icons-material/Person";
 import { AppBar, Box, Button, Grid, Toolbar, Typography } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { React, useEffect, useState } from "react";
