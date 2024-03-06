@@ -15,6 +15,7 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import Box from '@mui/material/Box';
 import { useState, useEffect } from "react";
 import Checkbox from '@mui/material/Checkbox';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -187,7 +188,7 @@ export default function Rutas({ setPuntosSeleccionados }) {
                             </FormControl>
                         </Grid>
                     </Grid>
-
+                    <Box component='div' overflow='scroll' maxHeight='80vh'>                
                     {filtradas.map((ruta) => (
                         <Card key={ruta.id_ruta} sx={{
                             width: '33vw', marginBottom: '2rem', border: '1px solid #b8bec2',
@@ -212,7 +213,7 @@ export default function Rutas({ setPuntosSeleccionados }) {
                                             <Typography variant="body" color="text.secondary">
                                                 <p><StarIcon /> Dificultad: {ruta.dificultad}</p>
                                                 <p><AccessTimeIcon /> Duración: {ruta.duracion}h</p>
-                                                {cookies.session && (ruta.porcentaje > -1 ? <p><PercentIcon />Progreso: {ruta.porcentaje}%</p> : <p>Sin empezar</p>)}
+                                                {cookies.session && (ruta.porcentaje > -1 ? <p><PercentIcon />Progreso: {ruta.porcentaje}%</p> : <p><PercentIcon />Sin empezar</p>)}
                                                 <p><DescriptionIcon /> Descripción: {ruta.descripcion}</p>
                                                 <Button variant="contained" color="primary" sx={{ backgroundColor: '#00897b', marginTop: '1rem' }}>
                                                     Ver detalles
@@ -224,10 +225,10 @@ export default function Rutas({ setPuntosSeleccionados }) {
                             </CardActionArea>
                         </Card>
                     ))}
+                    </Box>
                 </>
             )}
+            
         </>
     );
-
-
 }
