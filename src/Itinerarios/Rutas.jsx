@@ -93,12 +93,12 @@ export default function Rutas({ setPuntosSeleccionados }) {
         const nuevasFiltradas = [];
 
 
-        rutas.forEach(ruta => {
-            ruta.puntos_interes.forEach(punto => {
-                punto.categoriasPuntos.forEach(categoria => {
-                    if (sinEmpezar) {
-                        if ((categoria.nombre == filtrarPor || filtrarPor == 'Todas') && ruta.porcentaje == 0) {
-                            !nuevasFiltradas.find((element) => element == ruta) && nuevasFiltradas.push(ruta);
+            rutas.forEach(ruta => {
+                ruta.puntos_interes.forEach(punto => {
+                    punto.categorias.forEach(categoria => {
+                    if(sinEmpezar){
+                        if ((categoria.nombre == filtrarPor || filtrarPor == 'Todas') && ruta.porcentaje == 0 ) {
+                            !nuevasFiltradas.find((element)=> element == ruta) && nuevasFiltradas.push(ruta);
                         }
                     } else {
                         if (categoria.nombre == filtrarPor || filtrarPor == 'Todas') {
