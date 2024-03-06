@@ -18,7 +18,7 @@ export const Planificar = ({ logout, activeButton, setActiveButton }) => {
   return (
     <div>
       <AppBar position="static" sx={{ backgroundColor: "#004d40" }}>
-        <Toolbar sx={{ width: "100vw" }}>
+        <Toolbar sx={{ width: "100%" }}>
           <Grid2 container sx={{ width: "100%" }}>
             <Grid2 xs display="flex" justifyContent="start" alignItems="center">
               <Box
