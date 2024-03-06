@@ -76,8 +76,24 @@ function Descubre({ logout, activeButton, setActiveButton }) {
               </Typography>
             </Grid2>
             <Grid2 xs display="flex" justifyContent="end" alignItems="center">
-              <Box component="div">
+              <Box component="div" display="flex" justifyContent="end" alignItems="center">
+
+                {cookies.session && (
+                  <Box component="div" display="flex" justifyContent="end" alignItems="center" flexWrap="wrap" gap="0.5rem">
+                    <PersonIcon ></PersonIcon>
+                    <Typography
+
+
+                      sx={{ marginRight: '1rem', textAlign: 'center' }}
+                    >
+
+                      {cookies.session.username.toUpperCase()}
+                    </Typography>
+                  </Box>
+                )}
                 {cookies.session ? (
+
+
                   <Button
                     color="inherit"
                     onClick={() => {
@@ -91,6 +107,7 @@ function Descubre({ logout, activeButton, setActiveButton }) {
                   >
                     Cerrar Sesión
                   </Button>
+
                 ) : (
                   <Button
                     color="inherit"
@@ -107,7 +124,7 @@ function Descubre({ logout, activeButton, setActiveButton }) {
                     color="inherit"
                     component={Link}
                     to="/registro"
-                    startIcon={<PersonIcon></PersonIcon>}
+                    startIcon={<PersonAddIcon></PersonAddIcon>}
                     sx={{ ":hover": { backgroundColor: "#00897b" } }}
                   >
                     Registrarse
@@ -184,14 +201,14 @@ function Descubre({ logout, activeButton, setActiveButton }) {
 
 
       <Typography variant="h3" sx={{ textAlign: 'center', marginTop: '2rem' }} component="h3">
-            Puntos de interés
-        </Typography>
+        Puntos de interés
+      </Typography>
 
-      <Grid container spacing={2} sx={{ marginTop: 2, marginBottom: 2}}>
+      <Grid container spacing={2} sx={{ marginTop: 2, marginBottom: 2 }}>
 
         {/* Tarjetas */}
         <Grid item xs={12} md={4.5}>
-          <Tarjetas puntos={puntos} selectPoint={selectPoint} setSelectPoint={setSelectPoint}/>
+          <Tarjetas puntos={puntos} selectPoint={selectPoint} setSelectPoint={setSelectPoint} />
         </Grid>
 
         {/* Columna de relleno */}
@@ -199,7 +216,7 @@ function Descubre({ logout, activeButton, setActiveButton }) {
 
         {/* Mapa */}
         <Grid item xs={12} md={7}>
-          <MapaPuntos setSelectPoint={setSelectPoint} selectPoint={selectPoint}/>
+          <MapaPuntos setSelectPoint={setSelectPoint} selectPoint={selectPoint} />
         </Grid>
       </Grid>
 

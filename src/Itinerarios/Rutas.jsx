@@ -135,7 +135,7 @@ export default function Rutas({ setPuntosSeleccionados }) {
                             onChange={(e) => {setProgreso(e.target.value) }}
                         >
                             <MenuItem value={'todas'}>Todas</MenuItem>
-                            <MenuItem value={'empezadas'}>Empezar</MenuItem>
+                            <MenuItem value={'empezadas'}>Empezadas</MenuItem>
                             <MenuItem value={'sinEmpezar'}>Sin empezar</MenuItem>
                         </Select>
 

@@ -11,6 +11,7 @@ import icono_movil2 from "../img/icono_movil2.png";
 import LogoFinalBanner from "../img/logo_final_Banner.png";
 import Cita from "./Cita";
 import Video from "./Video";
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
 const Inicio = ({ logout, activeButton, setActiveButton }) => {
   const [cookies, setCookie, removeCookie] = useCookies(["session"]);
@@ -56,8 +57,24 @@ const Inicio = ({ logout, activeButton, setActiveButton }) => {
               </Typography>
             </Grid2>
             <Grid2 xs display="flex" justifyContent="end" alignItems="center">
-              <Box component="div">
+              <Box component="div" display="flex" justifyContent="end" alignItems="center">
+
+                {cookies.session && (
+                  <Box component="div" display="flex" justifyContent="end" alignItems="center" flexWrap="wrap" gap="0.5rem"> 
+                    <PersonIcon ></PersonIcon>
+                    <Typography
+                    
+                      
+                      sx={{ marginRight: '1rem', textAlign: 'center'}}
+                    >
+                      
+                      {cookies.session.username.toUpperCase()}
+                    </Typography>
+                  </Box>
+                )}
                 {cookies.session ? (
+
+
                   <Button
                     color="inherit"
                     onClick={() => {
@@ -71,6 +88,7 @@ const Inicio = ({ logout, activeButton, setActiveButton }) => {
                   >
                     Cerrar Sesión
                   </Button>
+
                 ) : (
                   <Button
                     color="inherit"
@@ -87,7 +105,7 @@ const Inicio = ({ logout, activeButton, setActiveButton }) => {
                     color="inherit"
                     component={Link}
                     to="/registro"
-                    startIcon={<PersonIcon></PersonIcon>}
+                    startIcon={<PersonAddIcon></PersonAddIcon>}
                     sx={{ ":hover": { backgroundColor: "#00897b" } }}
                   >
                     Registrarse
