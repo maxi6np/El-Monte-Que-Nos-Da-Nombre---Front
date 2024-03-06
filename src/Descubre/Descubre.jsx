@@ -10,16 +10,21 @@ import Footer from "../Footer";
 import LogoFinalBanner from "../img/logo_final_Banner.png";
 import MapaPuntos from "./MapaPuntos";
 import Tarjetas from "./Tarjetas";
+import CircularProgress from '@mui/material/CircularProgress';
 
 function Descubre({ logout, activeButton, setActiveButton }) {
   const [cookies, setCookie, removeCookie] = useCookies(["session"]);
   const [puntos, setPuntos] = useState([]);
   const [selectPoint, setSelectPoint] = useState([]);
+  const [cargando, setCargando] = useState(false)
 
   useEffect(() => {
     let body = JSON.stringify({
       token: cookies.session ? cookies.session.token : "",
     });
+
+    setCargando(true)
+    setPuntos([])
 
     fetch("http://127.0.0.1:8000/puntos-trabajos", {
       method: "get",
@@ -32,6 +37,7 @@ function Descubre({ logout, activeButton, setActiveButton }) {
       .then((response) => response.json())
       .then((data) => {
         setPuntos(data.data);
+        setCargando(false)
       });
   }, []);
 
@@ -184,14 +190,17 @@ function Descubre({ logout, activeButton, setActiveButton }) {
 
 
       <Typography variant="h3" sx={{ textAlign: 'center', marginTop: '2rem' }} component="h3">
-            Puntos de interés
-        </Typography>
+        Puntos de interés
+      </Typography>
 
-      <Grid container spacing={2} sx={{ marginTop: 2, marginBottom: 2}}>
+      <Grid container spacing={2} sx={{ marginTop: 2, marginBottom: 2 }}>
 
         {/* Tarjetas */}
         <Grid item xs={12} md={4.5}>
-          <Tarjetas puntos={puntos} selectPoint={selectPoint} setSelectPoint={setSelectPoint}/>
+          <div style={{ position: 'relative',height:'100%' }}>
+            {(cargando) && <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}><CircularProgress /></div>}
+            {(puntos != null) && <Tarjetas puntos={puntos} selectPoint={selectPoint} setSelectPoint={setSelectPoint} />}
+          </div>
         </Grid>
 
         {/* Columna de relleno */}
@@ -199,7 +208,7 @@ function Descubre({ logout, activeButton, setActiveButton }) {
 
         {/* Mapa */}
         <Grid item xs={12} md={7}>
-          <MapaPuntos setSelectPoint={setSelectPoint} selectPoint={selectPoint}/>
+          <MapaPuntos setSelectPoint={setSelectPoint} selectPoint={selectPoint} />
         </Grid>
       </Grid>
 

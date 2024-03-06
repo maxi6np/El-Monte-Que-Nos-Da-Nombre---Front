@@ -82,10 +82,8 @@ function Tarjetas({ puntos }) {
                         <strong>Trabajos: </strong>
                       </span>
                       {punto.trabajos?.map((trabajo) => {
-                        console.log(trabajo.nombre);
                         return trabajo.categoriasTrabajos.map(
                           (categoria, index) => {
-                            console.log(categoria.nombre);
                             return (
                               <p key={index}>
                                 {categoria.nombre} - {categoria.descripcion}

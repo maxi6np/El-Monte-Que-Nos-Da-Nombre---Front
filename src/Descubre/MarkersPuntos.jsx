@@ -1,7 +1,6 @@
 import { Marker, Popup, useMap } from "react-leaflet";
 
 function MarkersPuntos({ puntos, selectPoint }) {
-    console.log(selectPoint)
     const map = useMap();
     const puntosAUsar = (selectPoint != '') ? [selectPoint] : puntos;
 

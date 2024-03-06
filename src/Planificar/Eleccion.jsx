@@ -41,7 +41,7 @@ export default function Eleccion({ puntos, setPuntos, setChecked }) {
     return (
         <Grid container>
             <Grid item xs={12}>
-                <div style={{ overflowY: 'auto', maxHeight: '20rem', display: 'flex', flexDirection: 'column', marginTop: '2rem', padding: '2rem' }}>
+                <div style={{overflowY: 'auto', maxHeight: '20rem', display: 'flex', flexDirection: 'column', marginTop: '2rem', padding: '2rem' }}>
                     {puntos.map((punto, index) => (
                         <div key={punto.id_punto_interes} style={{ display: 'flex', alignItems: 'center', marginBottom: '1rem' }}>
                             <Switch

@@ -5,6 +5,7 @@ import Error from "../Error";
 import { useNavigate } from 'react-router-dom';
 import Eleccion from './Eleccion';
 import Textarea from '@mui/material/TextareaAutosize';
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 export const Formulario = () => {
@@ -17,12 +18,16 @@ export const Formulario = () => {
     const navigate = useNavigate();
     const [puntos, setPuntos] = useState([]);
     const [checked, setChecked] = useState([]);
+    const [cargando, setCargando] = useState(false)
 
     useEffect(() => {
+        setPuntos([])
+        setCargando(true)
         fetch("http://127.0.0.1:8000/puntos-trabajos", { method: "get" })
             .then((response) => response.json())
             .then((data) => {
                 setPuntos(data.data.map(punto => ({ ...punto, seleccionado: false })));
+                setCargando(false)
             });
     }, []);
 
@@ -69,7 +74,7 @@ export const Formulario = () => {
         }
     };
     return (
-        <div style={{ width: '40vw', margin: 'auto', marginTop: '6rem', height: '45vw' }}>
+        <div style={{ width: '40vw', margin: 'auto', marginTop: '6rem', height: '100%' }}>
             <Grid container spacing={1}>
                 <form>
                     <Grid container spacing={5}>
@@ -99,14 +104,18 @@ export const Formulario = () => {
                                         setDescripcion(e.target.value)
                                         setError(false)
                                     }
-                                } 
-                                required/>
+                                }
+                                required />
                         </Grid>
                         <Grid item xs={12}>
                             <label>
                                 Puntos de interés*
-                                <Eleccion puntos={puntos} setPuntos={setPuntos} setChecked={setChecked} />
                             </label>
+                            {(cargando) ? (
+                                <Grid container style={{ justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+                                    <CircularProgress />
+                                </Grid>
+                            ) : (<Eleccion puntos={puntos} setPuntos={setPuntos} setChecked={setChecked} />)}
                         </Grid>
                         <Grid item xs={12}>
                             <label style={{ width: "100%" }}>
