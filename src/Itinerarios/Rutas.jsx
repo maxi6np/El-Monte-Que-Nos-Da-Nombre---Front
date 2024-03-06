@@ -39,24 +39,27 @@ export default function Rutas({ setPuntosSeleccionados }) {
     const Ordenar = (condicion, array) => {
         switch (condicion) {
             case 'Reciente':
-                array.sort((a, b) =>{
-                    if(a.fecha_creacion == b.fecha_creacion){
+                array.sort((a, b) => {
+                    if (a.fecha_creacion == b.fecha_creacion) {
                         return b.id - a.id
-                    } 
-                    return new Date(b.fecha_creacion) - new Date(a.fecha_creacion)});
+                    }
+                    return new Date(b.fecha_creacion) - new Date(a.fecha_creacion)
+                });
                 break;
             case 'Longitud':
                 array.sort((a, b) => {
-                    if(a.duracion == b.duracion){
+                    if (a.duracion == b.duracion) {
                         return b.id - a.id
                     }
-                        return b.duracion - a.duracion});
+                    return b.duracion - a.duracion
+                });
                 break;
             case '%completada':
                 array.sort((a, b) => {
-                    return b.porcentaje - a.porcentaje});
+                    return b.porcentaje - a.porcentaje
+                });
                 break;
-            
+
         }
         setFiltradas(array);
     }
@@ -80,54 +83,54 @@ export default function Rutas({ setPuntosSeleccionados }) {
             },
         })
             .then(response => response.json())
-            .then(data => { setRutas(data.data); setCategorias(data.categorias); setFiltradas(data.data) });
+            .then(data => { setRutas(data.data); setCategorias(data.categoriasPuntos); setFiltradas(data.data) });
     }, []);
 
     useEffect(() => {
 
-        
-       
-            const nuevasFiltradas = [];
 
 
-            rutas.forEach(ruta => {
-                ruta.puntos_interes.forEach(punto => {
-                    punto.categorias.forEach(categoria => {
-                    if(sinEmpezar){
-                        if ((categoria.nombre == filtrarPor || filtrarPor == 'Todas') && ruta.porcentaje == 0 ) {
-                            !nuevasFiltradas.find((element)=> element == ruta) && nuevasFiltradas.push(ruta);
+        const nuevasFiltradas = [];
+
+
+        rutas.forEach(ruta => {
+            ruta.puntos_interes.forEach(punto => {
+                punto.categoriasPuntos.forEach(categoria => {
+                    if (sinEmpezar) {
+                        if ((categoria.nombre == filtrarPor || filtrarPor == 'Todas') && ruta.porcentaje == 0) {
+                            !nuevasFiltradas.find((element) => element == ruta) && nuevasFiltradas.push(ruta);
                         }
-                    }else{
+                    } else {
                         if (categoria.nombre == filtrarPor || filtrarPor == 'Todas') {
-                            !nuevasFiltradas.find((element)=> element == ruta) && nuevasFiltradas.push(ruta);
+                            !nuevasFiltradas.find((element) => element == ruta) && nuevasFiltradas.push(ruta);
                         }
                     }
-                    });
                 });
             });
+        });
 
-            Ordenar(ordenarPor, nuevasFiltradas);
-            
-        
+        Ordenar(ordenarPor, nuevasFiltradas);
+
+
     }, [filtrarPor, sinEmpezar]);
 
     return (
         <>
 
             <Grid container spacing={2}>
-                <Grid item xs={12}>
+                {cookies.session && (<Grid item xs={12}>
                     <FormControlLabel control={<Checkbox
                         checked={sinEmpezar}
                         onChange={() => {
                             setSinempezar(!sinEmpezar)
-                            
-                            
-                            
+
+
+
                         }}
                         inputProps={{ 'aria-label': 'sinEmpezar' }}
 
                     />} label='Mostrar solo rutas sin empezar'></FormControlLabel>
-                </Grid>
+                </Grid>)}
                 <Grid item xs={4}>
                     <FormControl fullWidth sx={{ marginBottom: '2rem' }}>
 
@@ -158,8 +161,8 @@ export default function Rutas({ setPuntosSeleccionados }) {
                             value={filtrarPor}
                             onChange={(e) => {
                                 setFiltrarPor(e.target.value);
-                                
-                                
+
+
                             }}
                         >
                             <MenuItem value='Todas'>Todas</MenuItem>
