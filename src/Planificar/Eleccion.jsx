@@ -1,157 +1,105 @@
-import * as React from 'react';
-import Grid from '@mui/material/Grid';
-import List from '@mui/material/List';
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import Checkbox from '@mui/material/Checkbox';
+import React, { useState } from 'react';
+import Switch from '@mui/material/Switch';
 import Button from '@mui/material/Button';
-import Divider from '@mui/material/Divider';
-import { useState, useEffect } from 'react';
+import Grid from '@mui/material/Grid';
+import Modal from '@mui/material/Modal';
+import { MapContainer, TileLayer, useMapEvents } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import { Marker, Popup, useMap } from "react-leaflet";
 
-function not(a, b) {
-    return a.filter((value) => b.indexOf(value) === -1);
-}
 
-function intersection(a, b) {
-    return a.filter((value) => b.indexOf(value) !== -1);
-}
+export default function Eleccion({ puntos, setPuntos, setChecked }) {
+    const [openModal, setOpenModal] = useState(false);
+    const [selectedPoint, setSelectedPoint] = useState(null);
 
-function union(a, b) {
-    return [...a, ...not(b, a)];
-}
+    const handleSwitchChange = (i) => {
+        setPuntos(prevPuntos => {
+            const ptosActualizados = [...prevPuntos];
+            ptosActualizados[i] = { ...ptosActualizados[i], seleccionado: !ptosActualizados[i].seleccionado };
+            return ptosActualizados;
+        });
 
-export default function Eleccion() {
-
-    useEffect(() => {
-        fetch("http://127.0.0.1:8000/mapa-puntos", { method: "get" })
-            .then((response) => response.json())
-            .then((data) => {
-                let array = []
-                data.map(punto => (
-                    array.push(punto.nombre)
-                ))
-                setPuntos(array)
-            });
-    }, []);
-
-    const [checked, setChecked] = useState([]);
-    const [puntos, setPuntos] = useState([]);
-    const [right, setRight] = useState([]);
-
-    const leftChecked = intersection(checked, puntos);
-    const rightChecked = intersection(checked, right);
-
-    const handleToggle = (value) => () => {
-        const currentIndex = checked.indexOf(value);
-        const newChecked = [...checked];
-
-        if (currentIndex === -1) {
-            newChecked.push(value);
-        } else {
-            newChecked.splice(currentIndex, 1);
-        }
-
-        setChecked(newChecked);
+        setChecked(prevChecked => {
+            const id = puntos[i].id_punto_interes;
+            if (!prevChecked.includes(id)) {
+                return [...prevChecked, id];
+            } else {
+                return prevChecked.filter(puntoId => puntoId !== id);
+            }
+        });
     };
 
-    const numberOfChecked = (items) => intersection(checked, items).length;
-
-    const handleToggleAll = (items) => () => {
-        if (numberOfChecked(items) === items.length) {
-            setChecked(not(checked, items));
-        } else {
-            setChecked(union(checked, items));
-        }
+    const handleVerInfo = (punto) => {
+        setSelectedPoint(punto);
+        setOpenModal(true);
     };
 
-    const handleCheckedRight = () => {
-        setRight(right.concat(leftChecked));
-        setPuntos(not(puntos, leftChecked));
-        setChecked(not(checked, leftChecked));
+    const handleCloseModal = () => {
+        setOpenModal(false);
     };
-
-    const handleCheckedLeft = () => {
-        setPuntos(puntos.concat(rightChecked));
-        setRight(not(right, rightChecked));
-        setChecked(not(checked, rightChecked));
-    };
-
-    const customList = (title, items) => (
-        <Card>
-            <CardHeader
-                sx={{ px: 2, py: 1, textAlign:'center' }}
-                title={title}
-            />
-            <Divider />
-            <List
-                sx={{
-                    width: 200,
-                    height: 230,
-                    bgcolor: 'background.paper',
-                    overflow: 'auto',
-                }}
-                dense
-                component="div"
-                role="list"
-            >
-                {items.map((value) => {
-                    const labelId = `transfer-list-all-item-${value}-label`;
-
-                    return (
-                        <ListItemButton
-                            key={value}
-                            role="listitem"
-                            onClick={handleToggle(value)}
-                        >
-                            <ListItemIcon>
-                                <Checkbox
-                                    checked={checked.indexOf(value) !== -1}
-                                    tabIndex={-1}
-                                    disableRipple
-                                    inputProps={{
-                                        'aria-labelledby': labelId,
-                                    }}
-                                />
-                            </ListItemIcon>
-                            <ListItemText id={labelId} primary={value} />
-                        </ListItemButton>
-                    );
-                })}
-            </List>
-        </Card>
-    );
 
     return (
-        <Grid container spacing={2} justifyContent="center" alignItems="center" sx={{marginTop:'1rem'}}>
-            <Grid item>{customList('Opciones', puntos)}</Grid>
-            <Grid item>
-                <Grid container direction="column" alignItems="center">
-                    <Button
-                        sx={{ my: 0.5 }}
-                        variant="outlined"
-                        size="small"
-                        onClick={handleCheckedRight}
-                        disabled={leftChecked.length === 0}
-                        aria-label="move selected right"
-                    >
-                        &gt;
-                    </Button>
-                    <Button
-                        sx={{ my: 0.5 }}
-                        variant="outlined"
-                        size="small"
-                        onClick={handleCheckedLeft}
-                        disabled={rightChecked.length === 0}
-                        aria-label="move selected puntos"
-                    >
-                        &lt;
-                    </Button>
-                </Grid>
+        <Grid container>
+            <Grid item xs={12}>
+                <div style={{ overflowY: 'auto', maxHeight: '20rem', display: 'flex', flexDirection: 'column', marginTop: '2rem', padding: '2rem' }}>
+                    {puntos.map((punto, index) => (
+                        <div key={punto.id_punto_interes} style={{ display: 'flex', alignItems: 'center', marginBottom: '1rem' }}>
+                            <Switch
+                                color="warning"
+                                size="lg"
+                                variant="solid"
+                                checked={punto.seleccionado}
+                                onChange={() => handleSwitchChange(index)}
+                            />
+                            <p style={{ marginLeft: '10px', flexGrow: 1 }}>{punto.nombre}</p>
+                            <Button variant="contained" color="warning" onClick={() => handleVerInfo(punto)}>
+                                Ver info
+                            </Button>
+                        </div>
+                    ))}
+                </div>
             </Grid>
-            <Grid item>{customList('Elecciones', right)}</Grid>
+
+            <Modal open={openModal} onClose={handleCloseModal}>
+                <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', backgroundColor: 'white', padding: '2rem', width: '80vw', height: '70vh', overflow: 'auto' }}>
+
+                    <Grid container spacing={2}>
+                        <Grid item xs={12}>
+                            <div>
+                                {selectedPoint && (
+                                    <div>
+                                        <h2>{selectedPoint.nombre}</h2>
+                                        <p>{selectedPoint.descripcion}</p>
+                                    </div>
+                                )}
+                            </div>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <div style={{ textAlign: 'center' }}>
+                                {selectedPoint && (
+                                    <img src={selectedPoint.imagen} alt="Imagen del punto" style={{ maxWidth: '100%', maxHeight: '100%' }} />
+                                )}
+                            </div>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <MapContainer
+                                center={[selectedPoint ? selectedPoint.latitud : 0, selectedPoint ? selectedPoint.longitud : 0]}
+                                scrollWheelZoom={true}
+                                zoom={selectedPoint ? 13 : 1}
+                                style={{ height: "100%", width: "100%", border: '1px solid black', borderRadius: '4px' }}
+                            >
+                                <TileLayer
+                                    attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                />
+                                {selectedPoint && (
+                                    <Marker position={[selectedPoint.latitud, selectedPoint.longitud]}></Marker>
+                                )}
+                            </MapContainer>
+                        </Grid>
+                    </Grid>
+                </div>
+            </Modal>
         </Grid>
     );
 }
