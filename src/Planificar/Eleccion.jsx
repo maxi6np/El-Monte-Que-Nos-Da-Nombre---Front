@@ -3,6 +3,7 @@ import Switch from '@mui/material/Switch';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Modal from '@mui/material/Modal';
+import CheckIcon from '@mui/icons-material/Check';
 import { MapContainer, TileLayer, useMapEvents } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { Marker, Popup, useMap } from "react-leaflet";
@@ -48,10 +49,11 @@ export default function Eleccion({ puntos, setPuntos, setChecked }) {
                                 color="warning"
                                 size="lg"
                                 variant="solid"
+                            
                                 checked={punto.seleccionado}
                                 onChange={() => handleSwitchChange(index)}
                             />
-                            <p style={{ marginLeft: '10px', flexGrow: 1 }}>{punto.nombre}</p>
+                            <p style={{ marginLeft: '10px', flexGrow: 1 }}>{punto.nombre} {punto.visitado && <CheckIcon fontSize='small'></CheckIcon>}</p>
                             <Button variant="contained" color="warning" onClick={() => handleVerInfo(punto)}>
                                 Ver info
                             </Button>

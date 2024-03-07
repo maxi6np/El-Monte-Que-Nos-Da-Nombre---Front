@@ -26,9 +26,9 @@ function Descubre({ logout, activeButton, setActiveButton }) {
 
     setCargando(true)
     setPuntos([])
-
     fetch("http://127.0.0.1:8000/puntos-trabajos", {
-      method: "get",
+      method: "post",
+      body:body,
       headers: {
         Accept: "application/json",
         "Content-type": "application/json",

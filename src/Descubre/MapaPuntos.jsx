@@ -21,9 +21,17 @@ function MapaPuntos({ setSelectPoint, selectPoint }) {
   };
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/mapa-puntos", { method: "get" })
+    let body = JSON.stringify({
+      token: (cookies.session ? cookies.session.token : '')
+  })
+    fetch("http://127.0.0.1:8000/mapa-puntos", { method: "post", body: body,
+    headers: {
+        Accept: "application/json",
+        "Content-type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+    }, })
       .then((response) => response.json())
-      .then((data) => setPuntos(data));
+      .then((data) => setPuntos(data.data));
   }, []);
 
   return (
