@@ -1,15 +1,18 @@
 import AutoStoriesIcon from "@mui/icons-material/AutoStories";
 import DescriptionIcon from "@mui/icons-material/Description";
 import { CardActionArea, Grid, List, ListItem } from "@mui/material";
-import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
+import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
-import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
-import React from "react";
+import React, { useState } from "react";
 
 function Tarjetas({ puntos, selectPoint, setSelectPoint }) {
+  const [openModal, setOpenModal] = useState(false);
+  const [modalContent, setModalContent] = useState("");
+  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState('');
+
   const mostrarPunto = (punto_id) => {
     const ptoSeleccionado = puntos.find(
       (punto) => punto.id_punto_interes === punto_id
@@ -20,11 +23,16 @@ function Tarjetas({ puntos, selectPoint, setSelectPoint }) {
     }
   };
 
+  const mostrarModal = (descripcion) => {
+    setModalContent(descripcion);
+    setOpenModal(true);
+  };
+
   return (
     <div style={{ maxHeight: "100vh", overflowY: "auto" }}>
       {puntos.map((punto) => (
         <Card
-          onClick={() => mostrarPunto(punto.id_punto_interes)}
+          onClick={() => setSelectPoint(punto)}
           key={punto.id_punto_interes}
           sx={{
             margin: "auto",
@@ -59,17 +67,27 @@ function Tarjetas({ puntos, selectPoint, setSelectPoint }) {
               </Typography>
               <Typography variant="body">
                 <p>
-                  <DescriptionIcon sx={{ marginLeft: "0.2rem" }} />{" "}
                   <span>
-                    <strong>Descripción: </strong>
+                    <DescriptionIcon
+                      sx={{
+                        fontSize: "1.5rem",
+                        marginLeft: "0.2rem",
+                      }}
+                    />{" "}
+                    <strong style={{ fontSize: "1.2rem" }}>Descripción:</strong>{" "}
+                    <span style={{ fontSize: "1.2rem" }}>
+                      {punto.descripcion}
+                    </span>
                   </span>
-                  <span sx={{ textAlign: "justify" }}>{punto.descripcion}</span>
                 </p>
                 <>
-                  <AutoStoriesIcon sx={{ marginLeft: "0.2rem" }} />{" "}
-                  <span>
-                    <strong>Trabajos: </strong>
-                  </span>
+                  <AutoStoriesIcon
+                    sx={{
+                      fontSize: "1.5rem",
+                      marginLeft: "0.2rem",
+                    }}
+                  />{" "}
+                  <strong style={{ fontSize: "1.2rem" }}>Trabajos: </strong>
                   <Grid
                     container
                     spacing={0}
@@ -111,7 +129,19 @@ function Tarjetas({ puntos, selectPoint, setSelectPoint }) {
                             {trabajo.categoriasTrabajos.map(
                               (categoria, index) => (
                                 <ListItem key={index}>
-                                  <p style={{ margin: 0 }}>
+                                  <p
+                                    style={{
+                                      margin: 0,
+                                      color: "blue",
+                                      textDecoration: "underline",
+                                      cursor: "pointer",
+                                      component: "link",
+                                    }}
+                                    onClick={() => {
+                                      setCategoriaSeleccionada(categoria);
+                                      mostrarModal(categoria.descripcion);
+                                    }}
+                                  >
                                     {categoria.descripcion}
                                   </p>{" "}
                                 </ListItem>
@@ -124,20 +154,30 @@ function Tarjetas({ puntos, selectPoint, setSelectPoint }) {
                   </Grid>
                 </>
               </Typography>
-
-              <Grid2 item xs={12} md={7} sx={{ textAlign: "center" }}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  sx={{ backgroundColor: "#00897b", marginTop: "1rem" }}
-                >
-                  Ver trabajos
-                </Button>
-              </Grid2>
             </CardContent>
           </CardActionArea>
         </Card>
       ))}
+
+      {/* MODAL: */}
+      <Modal open={openModal} onClose={() => setOpenModal(false)}>
+        <div
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            backgroundColor: "white",
+            padding: "2rem",
+            width: "80vw",
+            height: "70vh",
+            overflow: "auto",
+          }}
+        >
+          <p>{categoriaSeleccionada.nombre }</p>
+          {console.log(categoriaSeleccionada)}
+        </div>
+      </Modal>
     </div>
   );
 }
