@@ -10,24 +10,7 @@ import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import React from "react";
 
 function Tarjetas({ puntos }) {
-  /*const [categorias, setCategorias] = useState([]);
-
-  const categoriasTrabajos = (idPunto) => {
-    puntos.map((punto) => {
-      if (punto.id_punto_interes === idPunto) {
-        punto.trabajos.map((trabajo) =>
-          trabajo.categoriasTrabajos.map((categoria) =>
-            setCategorias([categoria.nombre, categoria.descripcion])
-          )
-        );
-      }
-    });
-  };
-
-  useEffect(() => {
-    const idPuntoDeseado = 46;
-    categoriasTrabajos(idPuntoDeseado);
-  }, []);*/
+ 
 
   return (
     <div style={{ maxHeight: "100vh", overflowY: "auto" }}>
