@@ -9,13 +9,41 @@ import Typography from "@mui/material/Typography";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import React from "react";
 
-function Tarjetas({ puntos }) {
- 
+function Tarjetas({ puntos, selectPoint, setSelectPoint }) {
+  /*const [categorias, setCategorias] = useState([]);
+
+  const categoriasTrabajos = (idPunto) => {
+    puntos.map((punto) => {
+      if (punto.id_punto_interes === idPunto) {
+        punto.trabajos.map((trabajo) =>
+          trabajo.categoriasTrabajos.map((categoria) =>
+            setCategorias([categoria.nombre, categoria.descripcion])
+          )
+        );
+      }
+    });
+  };
+
+  useEffect(() => {
+    const idPuntoDeseado = 46;
+    categoriasTrabajos(idPuntoDeseado);
+  }, []);*/
+
+  const mostrarPunto = (punto_id) => {
+    const ptoSeleccionado = puntos.find(
+      (punto) => punto.id_punto_interes === punto_id
+    );
+    if (ptoSeleccionado) {
+      setSelectPoint(ptoSeleccionado);
+      setOpenModal(true);
+    }
+  }
 
   return (
     <div style={{ maxHeight: "100vh", overflowY: "auto" }}>
       {puntos.map((punto) => (
         <Card
+          onClick={() => mostrarPunto(punto.id_punto_interes)}
           key={punto.id_punto_interes}
           sx={{
             margin: "auto",
