@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Container, Grid, TextField, ThemeProvider, createTheme, Input } from "@mui/material";
+import { Button, Grid, TextField, Input, FormControlLabel, Radio, RadioGroup, FormControl, FormLabel } from "@mui/material";
 import { useState, useEffect } from "react";
 import Error from "../Error";
 import { useNavigate } from 'react-router-dom';
@@ -19,6 +19,7 @@ export const Formulario = () => {
     const [puntos, setPuntos] = useState([]);
     const [checked, setChecked] = useState([]);
     const [cargando, setCargando] = useState(false)
+    const [checkCheckbox, setCheckCheckbox] = useState(true)
 
     useEffect(() => {
         setPuntos([])
@@ -34,8 +35,7 @@ export const Formulario = () => {
 
     const handlePlanificar = (e) => {
         e.preventDefault();
-        console.log(checked)
-        console.log(imagen)
+        console.log(checkCheckbox)
         setChecked([])
         setError(false);
 
@@ -57,7 +57,8 @@ export const Formulario = () => {
                 nombre: nombre,
                 descripcion: descripcion,
                 puntos: checked,
-                imagen_principal: imagen
+                imagen_principal: imagen,
+                publica: checkCheckbox ? 1 : 0
             })
 
             fetch('http://127.0.0.1:8000/planificar-ruta', { method: 'post', body: body, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', } })
@@ -130,6 +131,21 @@ export const Formulario = () => {
                                     fullWidth
                                 />
                             </label>
+                        </Grid>
+
+                        <Grid item xs={12}>
+                            <FormControl>
+                                <label>Visibilidad*</label>
+                                <RadioGroup
+                                    aria-labelledby="demo-controlled-radio-buttons-group"
+                                    name="controlled-radio-buttons-group"
+                                    value={checkCheckbox}
+                                    onChange={(e)=> setCheckCheckbox(e.target.value)}
+                                >
+                                    <FormControlLabel value={true} control={<Radio />} label="Pública" />
+                                    <FormControlLabel value={false} control={<Radio />} label="Privada" />
+                                </RadioGroup>
+                            </FormControl>
                         </Grid>
                         <Grid item xs={12}>
                             {error && <Error>{mensaje}</Error>}
