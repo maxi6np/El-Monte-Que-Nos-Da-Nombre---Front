@@ -92,6 +92,7 @@ function Itinerarios({ logout, activeButton, setActiveButton }) {
                                 ) : (
                                     <Button
                                         color="inherit"
+                                        onClick={() => setActiveButton('Inicio')}
                                         component={Link}
                                         to="/login"
                                         startIcon={<LoginIcon></LoginIcon>}

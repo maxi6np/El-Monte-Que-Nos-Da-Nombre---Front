@@ -73,6 +73,7 @@ export const Planificar = ({ logout, activeButton, setActiveButton }) => {
                 ) : (
                   <Button
                     color="inherit"
+                    onClick={() => setActiveButton('Inicio')}
                     component={Link}
                     to="/login"
                     startIcon={<LoginIcon></LoginIcon>}

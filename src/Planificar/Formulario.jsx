@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Container, Grid, TextField, ThemeProvider, createTheme, Input } from "@mui/material";
+import { Button, Grid, TextField, Input, FormControlLabel, Radio, RadioGroup, FormControl, FormLabel } from "@mui/material";
 import { useState, useEffect } from "react";
 import Error from "../Error";
 import { useNavigate } from 'react-router-dom';
@@ -19,6 +19,7 @@ export const Formulario = () => {
     const navigate = useNavigate();
     const [puntos, setPuntos] = useState([]);
     const [checked, setChecked] = useState([]);
+    const [checkCheckbox, setCheckCheckbox] = useState(true)
     const [cargando, setCargando] = useState(false);
     const [cookies, setCookie, removeCookie] = useCookies('session')
 
@@ -45,8 +46,7 @@ export const Formulario = () => {
 
     const handlePlanificar = (e) => {
         e.preventDefault();
-        console.log(checked)
-        console.log(imagen)
+        console.log(checkCheckbox)
         setChecked([])
         setError(false);
 
@@ -54,7 +54,6 @@ export const Formulario = () => {
             [
                 nombre,
                 descripcion,
-                imagen,
             ].includes("")
         ) {
             setMensaje("Rellene todos los campos");
@@ -64,11 +63,25 @@ export const Formulario = () => {
             setError(true);
         } else {
 
+            if (imagen == null || imagen == '') {
+                let body = JSON.stringify({
+                    imagen: imagen
+                })
+
+                fetch('http://127.0.0.1:8000/get-imagen-ppi', { method: 'post', body: body, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', } })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data)
+                        // setImagen(data)
+                    })
+            }
+
             let body = JSON.stringify({
                 nombre: nombre,
                 descripcion: descripcion,
                 puntos: checked,
                 imagen_principal: imagen,
+                publica: checkCheckbox ? 1 : 0,
                 token: cookies.session.token
             })
 
@@ -131,7 +144,7 @@ export const Formulario = () => {
                         </Grid>
                         <Grid item xs={12}>
                             <label style={{ width: "100%" }}>
-                                Imagen*
+                                Imagen
                                 <Input
                                     variant='outlined'
                                     type="file"
@@ -142,6 +155,21 @@ export const Formulario = () => {
                                     fullWidth
                                 />
                             </label>
+                        </Grid>
+
+                        <Grid item xs={12}>
+                            <FormControl>
+                                <label>Visibilidad*</label>
+                                <RadioGroup
+                                    aria-labelledby="demo-controlled-radio-buttons-group"
+                                    name="controlled-radio-buttons-group"
+                                    value={checkCheckbox}
+                                    onChange={(e) => setCheckCheckbox(e.target.value)}
+                                >
+                                    <FormControlLabel value={true} control={<Radio />} label="Pública" />
+                                    <FormControlLabel value={false} control={<Radio />} label="Privada" />
+                                </RadioGroup>
+                            </FormControl>
                         </Grid>
                         <Grid item xs={12}>
                             {error && <Error>{mensaje}</Error>}

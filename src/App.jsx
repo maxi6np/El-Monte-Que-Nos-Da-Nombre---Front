@@ -67,7 +67,7 @@ function App() {
 
   useEffect(() => {
     const handleBeforeUnload = () => {
-      setActiveButton("Inicio");
+      setActiveButton(localStorage.getItem('activeButton'));
     };
     window.addEventListener("beforeunload", handleBeforeUnload);
     return () => window.removeEventListener("beforeunload", handleBeforeUnload);
