@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import Eleccion from './Eleccion';
 import Textarea from '@mui/material/TextareaAutosize';
 import CircularProgress from '@mui/material/CircularProgress';
+import { useCookies } from 'react-cookie';
 
 
 export const Formulario = () => {
@@ -18,7 +19,8 @@ export const Formulario = () => {
     const navigate = useNavigate();
     const [puntos, setPuntos] = useState([]);
     const [checked, setChecked] = useState([]);
-    const [cargando, setCargando] = useState(false)
+    const [cargando, setCargando] = useState(false);
+    const [cookies, setCookie, removeCookie] = useCookies('session')
 
     useEffect(() => {
         setPuntos([])
@@ -57,7 +59,8 @@ export const Formulario = () => {
                 nombre: nombre,
                 descripcion: descripcion,
                 puntos: checked,
-                imagen_principal: imagen
+                imagen_principal: imagen,
+                token: cookies.session.token
             })
 
             fetch('http://127.0.0.1:8000/planificar-ruta', { method: 'post', body: body, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', } })
