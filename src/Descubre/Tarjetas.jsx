@@ -9,7 +9,7 @@ import Typography from "@mui/material/Typography";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import React from "react";
 
-function Tarjetas({ puntos }) {
+function Tarjetas({ puntos, selectPoint, setSelectPoint }) {
   /*const [categorias, setCategorias] = useState([]);
 
   const categoriasTrabajos = (idPunto) => {
@@ -29,10 +29,21 @@ function Tarjetas({ puntos }) {
     categoriasTrabajos(idPuntoDeseado);
   }, []);*/
 
+  const mostrarPunto = (punto_id) => {
+    const ptoSeleccionado = puntos.find(
+      (punto) => punto.id_punto_interes === punto_id
+    );
+    if (ptoSeleccionado) {
+      setSelectPoint(ptoSeleccionado);
+      setOpenModal(true);
+    }
+  }
+
   return (
     <div style={{ maxHeight: "100vh", overflowY: "auto" }}>
       {puntos.map((punto) => (
         <Card
+          onClick={() => mostrarPunto(punto.id_punto_interes)}
           key={punto.id_punto_interes}
           sx={{
             margin: "auto",
