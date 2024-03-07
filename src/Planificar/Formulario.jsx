@@ -45,7 +45,6 @@ export const Formulario = () => {
             [
                 nombre,
                 descripcion,
-                imagen,
             ].includes("")
         ) {
             setMensaje("Rellene todos los campos");
@@ -54,6 +53,19 @@ export const Formulario = () => {
             setMensaje("Elige al menos un punto de interés");
             setError(true);
         } else {
+
+            if (imagen == null || imagen == '') {
+                let body = JSON.stringify({
+                    imagen: imagen
+                })
+
+                fetch('http://127.0.0.1:8000/get-imagen-ppi', { method: 'post', body: body, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', } })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data)
+                        // setImagen(data)
+                    })
+            }
 
             let body = JSON.stringify({
                 nombre: nombre,
@@ -123,7 +135,7 @@ export const Formulario = () => {
                         </Grid>
                         <Grid item xs={12}>
                             <label style={{ width: "100%" }}>
-                                Imagen*
+                                Imagen
                                 <Input
                                     variant='outlined'
                                     type="file"
@@ -143,7 +155,7 @@ export const Formulario = () => {
                                     aria-labelledby="demo-controlled-radio-buttons-group"
                                     name="controlled-radio-buttons-group"
                                     value={checkCheckbox}
-                                    onChange={(e)=> setCheckCheckbox(e.target.value)}
+                                    onChange={(e) => setCheckCheckbox(e.target.value)}
                                 >
                                     <FormControlLabel value={true} control={<Radio />} label="Pública" />
                                     <FormControlLabel value={false} control={<Radio />} label="Privada" />

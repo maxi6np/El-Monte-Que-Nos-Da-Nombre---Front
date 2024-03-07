@@ -89,8 +89,6 @@ function Descubre({ logout, activeButton, setActiveButton }) {
                   <Box component="div" display="flex" justifyContent="end" alignItems="center" flexWrap="wrap" gap="0.5rem">
                     <PersonIcon ></PersonIcon>
                     <Typography
-
-
                       sx={{ marginRight: '1rem', textAlign: 'center' }}
                     >
 
