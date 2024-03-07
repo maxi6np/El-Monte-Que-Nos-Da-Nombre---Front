@@ -118,6 +118,7 @@ function Descubre({ logout, activeButton, setActiveButton }) {
                 ) : (
                   <Button
                     color="inherit"
+                    onClick={() => setActiveButton('Inicio')}
                     component={Link}
                     to="/login"
                     startIcon={<LoginIcon></LoginIcon>}
@@ -215,7 +216,7 @@ function Descubre({ logout, activeButton, setActiveButton }) {
 
         {/* Tarjetas */}
         <Grid item xs={12} md={4.5}>
-          <div style={{ position: 'relative',height:'100%' }}>
+          <div style={{ position: 'relative', height: '100%' }}>
             {(cargando) && <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}><CircularProgress /></div>}
             {(puntos != null) && <Tarjetas puntos={puntos} selectPoint={selectPoint} setSelectPoint={setSelectPoint} />}
           </div>
