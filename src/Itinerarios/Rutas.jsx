@@ -147,9 +147,9 @@ export default function Rutas({ setPuntosSeleccionados }) {
                                         value={progreso}
                                         onChange={(e) => { setProgreso(e.target.value) }}
                                     >
-                                        <MenuItem value={'todas'}>Todas</MenuItem>
-                                        <MenuItem value={'empezadas'}>Empezar</MenuItem>
-                                        <MenuItem value={'sinEmpezar'}>Sin empezar</MenuItem>
+                                        <MenuItem value={'todas'}>TODAS</MenuItem>
+                                        <MenuItem value={'empezadas'}>EMPEZADAS</MenuItem>
+                                        <MenuItem value={'sinEmpezar'}>SIN EMPEZAR</MenuItem>
                                     </Select>
                                 </FormControl>
                             </Grid>
@@ -164,9 +164,9 @@ export default function Rutas({ setPuntosSeleccionados }) {
                                     value={ordenarPor}
                                     onChange={(e) => { setOrdenarPor(e.target.value); const ordenadas = filtradas; Ordenar(e.target.value, ordenadas); }}
                                 >
-                                    <MenuItem value={'Reciente'}>Reciente</MenuItem>
-                                    {cookies.session && <MenuItem value={'%completada'}>%completada</MenuItem>}
-                                    <MenuItem value={'Longitud'}>Longitud</MenuItem>
+                                    <MenuItem value={'Reciente'}>RECIENTE</MenuItem>
+                                    {cookies.session && <MenuItem value={'%completada'}>%COMPLETADA</MenuItem>}
+                                    <MenuItem value={'Longitud'}>LONGITUD</MenuItem>
                                 </Select>
                             </FormControl>
                         </Grid>
@@ -182,13 +182,13 @@ export default function Rutas({ setPuntosSeleccionados }) {
                                         setFiltrarPor(e.target.value);
                                     }}
                                 >
-                                    <MenuItem value='Todas'>Todas</MenuItem>
-                                    {categorias.map((categoria) => !categoria.nombre.includes('accesible') && !categoria.nombre.includes('cerrada') ? <MenuItem key={categoria.nombre} value={`${categoria.nombre}`}>{categoria.nombre}</MenuItem> : null)}
+                                    <MenuItem value='Todas'>TODAS</MenuItem>
+                                    {categorias.map((categoria) => <MenuItem key={categoria.nombre} value={`${categoria.nombre}`}>{categoria.nombre.toUpperCase()}</MenuItem>)}
                                 </Select>
                             </FormControl>
                         </Grid>
                     </Grid>
-                    <Box component='div' overflow='scroll' maxHeight='80vh'>                
+                    <Box component='div' overflow="auto" maxHeight='80vh'>                
                     {filtradas.map((ruta) => (
                         <Card key={ruta.id_ruta} sx={{
                             width: '33vw', marginBottom: '2rem', border: '1px solid #b8bec2',
