@@ -26,7 +26,16 @@ export const Formulario = () => {
     useEffect(() => {
         setPuntos([])
         setCargando(true)
-        fetch("http://127.0.0.1:8000/puntos-trabajos", { method: "get" })
+        let body = JSON.stringify({
+            token: (cookies.session ? cookies.session.token : '')
+        })
+        fetch("http://127.0.0.1:8000/puntos-trabajos", {
+            method: "post", body: body, headers: {
+                Accept: "application/json",
+                "Content-type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+            },
+        })
             .then((response) => response.json())
             .then((data) => {
                 setPuntos(data.data.map(punto => ({ ...punto, seleccionado: false })));
@@ -131,7 +140,7 @@ export const Formulario = () => {
                                 <Grid container style={{ justifyContent: 'center', alignItems: 'center', height: '100%' }}>
                                     <CircularProgress />
                                 </Grid>
-                            ) : (<Eleccion puntos={puntos} setPuntos={setPuntos} setChecked={setChecked} />)}
+                            ) : (<Eleccion puntos={puntos} setPuntos={setPuntos} setChecked={setChecked}  />)}
                         </Grid>
                         <Grid item xs={12}>
                             <label style={{ width: "100%" }}>

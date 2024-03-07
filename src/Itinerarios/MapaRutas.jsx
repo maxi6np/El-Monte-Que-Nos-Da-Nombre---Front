@@ -1,4 +1,4 @@
-import "leaflet/dist/leaflet.css";
+
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { MapContainer, TileLayer, useMapEvents } from "react-leaflet";
@@ -21,9 +21,17 @@ function MapaRutas({ puntosSeleccionados, setPuntosSeleccionados }) {
   };
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/mapa-puntos", { method: "get" })
+    let body = JSON.stringify({
+      token: (cookies.session ? cookies.session.token : '')
+  })
+    fetch("http://127.0.0.1:8000/mapa-puntos", { method: "post", body: body,
+    headers: {
+        Accept: "application/json",
+        "Content-type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+    }, })
       .then((response) => response.json())
-      .then((data) => setPuntos(data));
+      .then((data) => setPuntos(data.data));
   }, []);
 
   return (
