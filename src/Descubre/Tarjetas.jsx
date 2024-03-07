@@ -93,64 +93,67 @@ function Tarjetas({ puntos, selectPoint, setSelectPoint }) {
                     spacing={0}
                     style={{ display: "flex", justifyContent: "space-between" }}
                   >
-                    {punto.trabajos?.map((trabajo, index) => (
-                      <React.Fragment key={index}>
-                        <Grid
-                          item
-                          xs={6}
-                          style={{
-                            paddingLeft: "8rem",
-                            paddingRight: "1.5rem",
-                            textAlign: "center",
-                          }}
-                        >
-                          <List>
-                            {trabajo.categoriasTrabajos.map(
-                              (categoria, index) => (
-                                <ListItem key={index}>
-                                  <p style={{ margin: 0 }}>
-                                    {categoria.nombre}
-                                  </p>{" "}
-                                </ListItem>
-                              )
-                            )}
-                          </List>
-                        </Grid>
-                        <Grid
-                          item
-                          xs={6}
-                          style={{
-                            paddingLeft: "1.5rem",
-                            paddingRight: "3rem",
-                            textAlign: "center",
-                          }}
-                        >
-                          <List>
-                            {trabajo.categoriasTrabajos.map(
-                              (categoria, index) => (
-                                <ListItem key={index}>
-                                  <p
-                                    style={{
-                                      margin: 0,
-                                      color: "blue",
-                                      textDecoration: "underline",
-                                      cursor: "pointer",
-                                      component: "link",
-                                    }}
-                                    onClick={() => {
-                                      setCategoriaSeleccionada(categoria);
-                                      mostrarModal(categoria.descripcion);
-                                    }}
-                                  >
-                                    {categoria.descripcion}
-                                  </p>{" "}
-                                </ListItem>
-                              )
-                            )}
-                          </List>
-                        </Grid>
-                      </React.Fragment>
-                    ))}
+                    {punto.trabajos != '' ? (
+                      punto.trabajos.map((trabajo, index) => (
+                        <React.Fragment key={index}>
+                          <Grid
+                            item
+                            xs={6}
+                            style={{
+                              paddingLeft: '5rem',
+                              justifyContent: 'center',
+                              textAlign: "center",
+                            }}
+                          >
+                            <List>
+                              {trabajo.categoriasTrabajos.map(
+                                (categoria, index) => (
+                                  <ListItem key={index}>
+                                    <p style={{ margin: 0 }}>
+                                      {categoria.nombre}
+                                    </p>{" "}
+                                  </ListItem>
+                                )
+                              )}
+                            </List>
+                          </Grid>
+                          <Grid
+                            item
+                            xs={6}
+                            style={{
+                              paddingLeft: "1.5rem",
+                              paddingRight: "3rem",
+                              textAlign: "center",
+                            }}
+                          >
+                            <List>
+                              {trabajo.categoriasTrabajos.map(
+                                (categoria, index) => (
+                                  <ListItem key={index}>
+                                    <p
+                                      style={{
+                                        margin: 0,
+                                        color: "blue",
+                                        textDecoration: "underline",
+                                        cursor: "pointer",
+                                        component: "link",
+                                      }}
+                                      onClick={() => {
+                                        setCategoriaSeleccionada(categoria);
+                                        mostrarModal(categoria.descripcion);
+                                      }}
+                                    >
+                                      {categoria.descripcion}
+                                    </p>{" "}
+                                  </ListItem>
+                                )
+                              )}
+                            </List>
+                          </Grid>
+                        </React.Fragment>
+                      ))) : (
+                      <p>Aún no hay trabajos disponibles</p>
+                    )}
                   </Grid>
                 </>
               </Typography>
@@ -174,7 +177,7 @@ function Tarjetas({ puntos, selectPoint, setSelectPoint }) {
             overflow: "auto",
           }}
         >
-          <p>{categoriaSeleccionada.nombre }</p>
+          <p>{categoriaSeleccionada.nombre}</p>
           {console.log(categoriaSeleccionada)}
         </div>
       </Modal>

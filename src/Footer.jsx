@@ -8,24 +8,21 @@ import ies from "./img/ies.png";
 
 export default function Footer() {
   return (
-    <Box sx={{ backgroundColor: "#015d52", py: 4, color: "white   " }}>
-      <Grid item xs={12} md={6} sx={{ paddingLeft: 9, py: 3 }}>
+    <Box sx={{ backgroundColor: "#015d52", py: 4, color: "white" }}>
+      <Grid item xs={12} md={6} sx={{ paddingLeft: 9}}>
         <Grid container>
           <Grid item xs={12} md={6} textAlign={{ xs: "center", md: "left" }}>
-            <Typography variant="body1" align="left" gutterBottom>
+            <Typography variant="body2" align="left" gutterBottom>
               <strong>Dirección:</strong> Pedro Caravia 9. CP 33012. Oviedo
               (ASTURIAS)
             </Typography>
-            <Typography variant="body1" align="left" gutterBottom>
+            <Typography variant="body2" align="left" gutterBottom>
               <strong>Teléfono:</strong>{" "}
               <a href="tel:985292464" style={{ color: "inherit" }}>
                 985292464
               </a>
             </Typography>
-            <Typography variant="body1" align="left" gutterBottom>
-              <strong>Fax:</strong> 985292247
-            </Typography>
-            <Typography variant="body1" align="left" gutterBottom>
+            <Typography variant="body2" align="left" gutterBottom>
               <strong>Correo:</strong>{" "}
               <a
                 href="mailto:naranco@educastur.org"
@@ -34,7 +31,7 @@ export default function Footer() {
                 naranco@educastur.org
               </a>
             </Typography>
-            <Typography variant="body1" align="left" gutterBottom>
+            <Typography variant="body2" align="left" gutterBottom>
               <strong>Web:</strong>{" "}
               <a
                 href="https://alojaweb.educastur.es/web/iesmontenaranco"
@@ -52,29 +49,28 @@ export default function Footer() {
                 display: "flex",
                 justifyContent: "flex-end",
                 marginRight: "40px",
-                marginTop: "10px",
+                height:'3rem'
               }}
             >
               <img
                 src={ies}
                 alt="IES MONTE NARANCO"
                 style={{
-                  width: "190px",
-                  marginRight: "60px",
-                  height: "100px",
+                  width: "15%",
+                  marginRight: "2rem",
                 }}
               />
 
               <img
                 src={educa}
                 alt="IES MONTE NARANCO"
-                style={{ width: "250px", marginRight: "60px" }}
+                style={{ width: "20%", marginRight: "2rem" }}
               />
 
               <img
                 src={astur}
                 alt="IES MONTE NARANCO"
-                style={{ width: "300px", marginRight: "1px" }}
+                style={{ width: "20%", marginRight: "2rem" }}
               />
             </div>
           </Grid>
@@ -82,7 +78,7 @@ export default function Footer() {
       </Grid>
 
       <Grid item xs={12}>
-        <Typography variant="body1" align="center" gutterBottom>
+        <Typography variant="body2" align="center" gutterBottom>
           &copy; 2024 IES MONTE NARANCO | Todos los derechos reservados
         </Typography>
       </Grid>

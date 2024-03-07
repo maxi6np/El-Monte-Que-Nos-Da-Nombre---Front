@@ -201,7 +201,7 @@ export default function Rutas({ setPuntosSeleccionados }) {
                                         <Grid item xs={12} md={5}>
                                             <CardMedia
                                                 component="img"
-                                                height="250"
+                                                height="100%"
                                                 image={ruta.imagen_principal}
                                                 alt={ruta.nombre}
                                             />
