@@ -39,6 +39,16 @@ export default function Rutas({ setPuntosSeleccionados }) {
         }
     }
 
+    const getPorcentaje = (ruta) =>{
+        let visitados = []
+        ruta.puntos_interes.forEach(element => {
+            if (element.visitados.length > 0){
+                visitados.push(element);
+            }
+        });
+        return Math.round(((visitados.length / ruta.puntos_interes.length) * 100))
+    }
+
 
     const Ordenar = (condicion, array) => {
         switch (condicion) {
@@ -60,7 +70,7 @@ export default function Rutas({ setPuntosSeleccionados }) {
                 break;
             case '%completada':
                 array.sort((a, b) => {
-                    return b.porcentaje - a.porcentaje
+                    return getPorcentaje(b) - getPorcentaje(a)
                 });
                 break;
 
@@ -105,11 +115,11 @@ export default function Rutas({ setPuntosSeleccionados }) {
             ruta.puntos_interes.forEach(punto => {
                 punto.categoriasPuntos.forEach(categoria => {
                     if (progreso == 'sinEmpezar') {
-                        if ((categoria.nombre == filtrarPor || filtrarPor == 'Todas') && ruta.porcentaje == -1) {
+                        if ((categoria.nombre == filtrarPor || filtrarPor == 'Todas') && ruta.realiza.length == 0) {
                             !nuevasFiltradas.find((element) => element == ruta) && nuevasFiltradas.push(ruta);
                         }
                     } else if (progreso == 'empezadas') {
-                        if ((categoria.nombre == filtrarPor || filtrarPor == 'Todas') && ruta.porcentaje > -1) {
+                        if ((categoria.nombre == filtrarPor || filtrarPor == 'Todas') && ruta.realiza.length > 0) {
                             !nuevasFiltradas.find((element) => element == ruta) && nuevasFiltradas.push(ruta);
                         }
                     } else {
@@ -213,7 +223,7 @@ export default function Rutas({ setPuntosSeleccionados }) {
                                             <Typography variant="body" color="text.secondary">
                                                 <p><StarIcon /> Dificultad: {ruta.dificultad}</p>
                                                 <p><AccessTimeIcon /> Duración: {ruta.duracion}h</p>
-                                                {cookies.session && (ruta.porcentaje > -1 ? <p><PercentIcon />Progreso: {ruta.porcentaje}%</p> : <p><PercentIcon />Sin empezar</p>)}
+                                                {cookies.session && (ruta.realiza.length > 0 ? <p><PercentIcon />Progreso: {getPorcentaje(ruta)}%</p> : <p><PercentIcon />Sin empezar</p>)}
                                                 <p><DescriptionIcon /> Descripción: {ruta.descripcion}</p>
                                                 <Button variant="contained" color="primary" sx={{ backgroundColor: '#00897b', marginTop: '1rem' }}>
                                                     Ver detalles

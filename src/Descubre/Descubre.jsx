@@ -1,7 +1,7 @@
 import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
 import PersonIcon from "@mui/icons-material/Person";
-import PersonAddIcon from "@mui/icons-material/Person";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { AppBar, Box, Button, Grid, Toolbar, Typography } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { React, useEffect, useState } from "react";
@@ -130,7 +130,7 @@ function Descubre({ logout, activeButton, setActiveButton }) {
                     color="inherit"
                     component={Link}
                     to="/registro"
-                    startIcon={<PersonAddIcon></PersonAddIcon>}
+                    startIcon={<PersonAddIcon/>}
                     sx={{ ":hover": { backgroundColor: "#00897b" } }}
                   >
                     Registrarse

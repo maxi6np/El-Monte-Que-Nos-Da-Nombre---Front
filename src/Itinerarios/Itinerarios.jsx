@@ -1,7 +1,7 @@
 import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
 import PersonIcon from "@mui/icons-material/Person";
-import PersonAddIcon from "@mui/icons-material/Person";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { AppBar, Box, Button, Grid, Toolbar, Typography } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { useState } from "react";
@@ -15,6 +15,7 @@ import Rutas from "./Rutas";
 function Itinerarios({ logout, activeButton, setActiveButton }) {
     const [cookies, setCookie, removeCookie] = useCookies("session");
     const [puntosSeleccionados, setPuntosSeleccionados] = useState([]);
+   
 
     return (
         <>

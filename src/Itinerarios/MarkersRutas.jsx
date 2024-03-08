@@ -13,7 +13,7 @@ function MarkersRutas({ puntos, puntosSeleccionados }) {
         puntosAUsar.map((marker, index) => {
             return (
                 <Marker
-                    icon={marker.visitado ? greenIcon : blueIcon}
+                    icon={(marker.visitados.length > 0) ? greenIcon : blueIcon}
                     eventHandlers={{
                         click: () => {
                             map.setView(
