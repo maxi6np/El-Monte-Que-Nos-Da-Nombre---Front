@@ -9,7 +9,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { useCookies } from 'react-cookie';
 
 
-export const Formulario = () => {
+export const Formulario = ({setActiveButton}) => {
     const [usuario, setUsuario] = useState({});
     const [nombre, setNombre] = useState("");
     const [descripcion, setDescripcion] = useState("");
@@ -46,7 +46,6 @@ export const Formulario = () => {
 
     const handlePlanificar = (e) => {
         e.preventDefault();
-        console.log(checkCheckbox)
         setChecked([])
         setError(false);
 
@@ -63,19 +62,6 @@ export const Formulario = () => {
             setError(true);
         } else {
 
-            if (imagen == null || imagen == '') {
-                let body = JSON.stringify({
-                    imagen: imagen
-                })
-
-                fetch('http://127.0.0.1:8000/get-imagen-ppi', { method: 'post', body: body, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', } })
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log(data)
-                        // setImagen(data)
-                    })
-            }
-
             let body = JSON.stringify({
                 nombre: nombre,
                 descripcion: descripcion,
@@ -91,6 +77,7 @@ export const Formulario = () => {
                     console.log(data)
                     if (data.message === 'Ruta creada correctamente') {
                         navigate("/itinerarios");
+                        setActiveButton('Itinerarios')
                     } else {
                         setMensaje(data.message);
                         setError(true);
@@ -140,7 +127,7 @@ export const Formulario = () => {
                                 <Grid container style={{ justifyContent: 'center', alignItems: 'center', height: '100%' }}>
                                     <CircularProgress />
                                 </Grid>
-                            ) : (<Eleccion puntos={puntos} setPuntos={setPuntos} setChecked={setChecked}  />)}
+                            ) : (<Eleccion puntos={puntos} setPuntos={setPuntos} setChecked={setChecked} />)}
                         </Grid>
                         <Grid item xs={12}>
                             <label style={{ width: "100%" }}>
@@ -149,7 +136,7 @@ export const Formulario = () => {
                                     variant='outlined'
                                     type="file"
                                     onChange={(e) => {
-                                        setImagen(e.target.files[0].name);
+                                        setImagen(e.target.files[0]);
                                         setError(false);
                                     }}
                                     fullWidth

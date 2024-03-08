@@ -191,7 +191,7 @@ export const Planificar = ({ logout, activeButton, setActiveButton }) => {
           >
             Planifica tu propia ruta
           </Typography>
-          <Formulario />
+          <Formulario setActiveButton={setActiveButton}/>
         </div>
       </div>
       <Footer />
