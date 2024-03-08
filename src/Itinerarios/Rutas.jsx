@@ -116,7 +116,7 @@ export default function Rutas({ setPuntosSeleccionados }) {
         const nuevasFiltradas = [];
         rutas.forEach(ruta => {
             let cumple = 0;
-            if ((progreso == 'empezadas' && ruta.realiza.length > 0) || (progreso == 'sinEmpezar' && ruta.realiza.length == 0) || progreso=='todas') {
+            if ((progreso == 'empezadas' && ruta.realiza.length > 0) || (progreso == 'sinEmpezar' && ruta.realiza.length == 0) || progreso == 'todas') {
                 if (filtrarPor == 'todas') {
                     cumple = ruta.puntos_interes.length;
                 } else {
@@ -135,8 +135,8 @@ export default function Rutas({ setPuntosSeleccionados }) {
             }
         });
 
-    Ordenar(ordenarPor, nuevasFiltradas);
-  }, [filtrarPor, progreso]);
+        Ordenar(ordenarPor, nuevasFiltradas);
+    }, [filtrarPor, progreso]);
 
     const [expandedRuta, setExpandedRuta] = useState({});
 
@@ -232,202 +232,14 @@ export default function Rutas({ setPuntosSeleccionados }) {
                                                     <p><AccessTimeIcon /> Duración: {ruta.duracion}h</p>
                                                     {cookies.session && <p><PercentIcon /> {ruta.realiza.length > 0 ? `Progreso: ${getPorcentaje(ruta)}%` : 'Sin empezar'} </p>}
                                                     <p>
-                            <DescriptionIcon />
-                            Descripción:{" "}
-                            {expandedRuta[ruta.id_ruta]
-                              ? ruta.descripcion
-                              : `${ruta.descripcion
-                                  .split(" ")
-                                  .slice(0, 25)
-                                  .join(" ")}...`}
-                            <Button
-                              onClick={() => toggleExpand(ruta.id_ruta)}
-                              color="primary"
-                              size="small"
-                              style={{ textTransform: "none" }}
-                              sx={{
-                                display:
-                                  ruta.descripcion.split(" ").length <= 25
-                                    ? "none"
-                                    : "block",
-                              }}
-                            >
-                              {expandedRuta[ruta.id_ruta]
-                                ? "Ver menos"
-                                : "Ver más"}
-                            </Button>
-                          </p>
-                          <Button
-                            variant="contained"
-                            color="primary"
-                            sx={{
-                              backgroundColor: "#00897b",
-                              marginTop: "1rem",
-                            }}
-                          >
-                            Ver detalles
-                          </Button>
-                                                </Typography>
-                                            </Grid>
-                                        </Grid>
-                                    </CardContent>
-                                </CardActionArea>
-                            </Card>
-                        ))}
-                    </Box>
-                </>
-            )}
-
-        </>
-    );
-    return (
-        <>
-            {cargando ? (
-                <Grid
-                    container
-                    style={{
-                        justifyContent: "center",
-                        alignItems: "center",
-                        height: "100%",
-                    }}
-                >
-                    <CircularProgress />
-                </Grid>
-            ) : (
-                <>
-                    <Grid container spacing={2}>
-                        {cookies.session && (
-                            <Grid item xs={4}>
-                                <FormControl fullWidth sx={{ marginBottom: "2rem" }}>
-                                    <InputLabel id="select-progreso-label">Progreso</InputLabel>
-                                    <Select
-                                        labelId="select-progreso-label"
-                                        id="select-progreso"
-                                        label="Progreso"
-                                        value={progreso}
-                                        onChange={(e) => {
-                                            setProgreso(e.target.value);
-                                        }}
-                                    >
-                                        <MenuItem value={"todas"}>todas</MenuItem>
-                                        <MenuItem value={"empezadas"}>EMPEZADAS</MenuItem>
-                                        <MenuItem value={"sinEmpezar"}>SIN EMPEZAR</MenuItem>
-                                    </Select>
-                                </FormControl>
-                            </Grid>
-                        )}
-                        <Grid item xs={4}>
-                            <FormControl fullWidth sx={{ marginBottom: "2rem" }}>
-                                <InputLabel id="select-ordenacion-label">
-                                    Ordenar por
-                                </InputLabel>
-                                <Select
-                                    labelId="select-ordenacion-label"
-                                    id="select-ordenacion"
-                                    label="Ordenar por"
-                                    value={ordenarPor}
-                                    onChange={(e) => {
-                                        setOrdenarPor(e.target.value);
-                                        const ordenadas = filtradas;
-                                        Ordenar(e.target.value, ordenadas);
-                                    }}
-                                >
-                                    <MenuItem value={"reciente"}>reciente</MenuItem>
-                                    {cookies.session && (
-                                        <MenuItem value={"%completada"}>%COMPLETADA</MenuItem>
-                                    )}
-                                    <MenuItem value={"longitud"}>longitud</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </Grid>
-                        <Grid item xs={4}>
-                            <FormControl fullWidth sx={{ marginBottom: "2rem" }}>
-                                <InputLabel id="select-categoria-label">
-                                    Mostrar por categoria
-                                </InputLabel>
-                                <Select
-                                    labelId="select-categoria-label"
-                                    id="select-categoria"
-                                    label="Mostrar por categoria"
-                                    value={filtrarPor}
-                                    onChange={(e) => {
-                                        setFiltrarPor(e.target.value);
-                                    }}
-                                >
-                                    <MenuItem value="todas">todas</MenuItem>
-                                    {categorias.map((categoria) => (
-                                        <MenuItem
-                                            key={categoria.nombre}
-                                            value={`${categoria.nombre}`}
-                                        >
-                                            {categoria.nombre.toUpperCase()}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl>
-                        </Grid>
-                    </Grid>
-                    <Box component="div" overflow="auto" maxHeight="80vh">
-                        {filtradas.map((ruta) => (
-                            <Card
-                                key={ruta.id_ruta}
-                                sx={{
-                                    width: "33vw",
-                                    marginBottom: "2rem",
-                                    border: "1px solid #b8bec2",
-                                    borderRadius: "8px",
-                                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
-                                }}
-                                onClick={() => mostrarPuntos(ruta.id_ruta)}
-                            >
-                                <CardActionArea component="span">
-                                    <CardContent>
-                                        <Grid container spacing={2}>
-                                            <Grid item xs={12} md={5}>
-                                                <CardMedia
-                                                    component="img"
-                                                    height="100%"
-                                                    image={ruta.imagen_principal}
-                                                    alt={ruta.nombre}
-                                                />
-                                            </Grid>
-                                            <Grid item xs={12} md={7}>
-                                                <Typography
-                                                    gutterBottom
-                                                    variant="h4"
-                                                    component="div"
-                                                    sx={{ textAlign: "center" }}
-                                                >
-                                                    {ruta.nombre}
-                                                </Typography>
-                                                <Typography variant="body" color="text.secondary">
-                                                    <p>
-                                                        <StarIcon /> Dificultad: {ruta.dificultad}
-                                                    </p>
-                                                    <p>
-                                                        <AccessTimeIcon /> Duración: {ruta.duracion}h
-                                                    </p>
-                                                    {cookies.session &&
-                                                        (ruta.porcentaje > -1 ? (
-                                                            <p>
-                                                                <PercentIcon />
-                                                                Progreso: {ruta.porcentaje}%
-                                                            </p>
-                                                        ) : (
-                                                            <p>
-                                                                <PercentIcon />
-                                                                Sin empezar
-                                                            </p>
-                                                        ))}
-                                                    <p>
                                                         <DescriptionIcon />
                                                         Descripción:{" "}
-                                                        {expandedRuta[ruta.id_ruta]
+                                                        { ruta.descripcion.split(' ').length > 25 ? (expandedRuta[ruta.id_ruta]
                                                             ? ruta.descripcion
                                                             : `${ruta.descripcion
                                                                 .split(" ")
                                                                 .slice(0, 25)
-                                                                .join(" ")}...`}
+                                                                .join(" ")}...`) : ruta.descripcion}
                                                         <Button
                                                             onClick={() => toggleExpand(ruta.id_ruta)}
                                                             color="primary"
@@ -465,6 +277,7 @@ export default function Rutas({ setPuntosSeleccionados }) {
                     </Box>
                 </>
             )}
+
         </>
     );
 }
