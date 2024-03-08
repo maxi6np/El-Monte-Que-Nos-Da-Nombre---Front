@@ -53,7 +53,7 @@ export default function Eleccion({ puntos, setPuntos, setChecked }) {
                                 checked={punto.seleccionado}
                                 onChange={() => handleSwitchChange(index)}
                             />
-                            <p style={{ marginLeft: '10px', flexGrow: 1 }}>{punto.nombre} {punto.visitado && <CheckIcon fontSize='small'></CheckIcon>}</p>
+                            <p style={{ marginLeft: '10px', flexGrow: 1 }}>{punto.nombre} {punto.visitados.length > 0 && <CheckIcon fontSize='small'></CheckIcon>}</p>
                             <Button variant="contained" color="warning" onClick={() => handleVerInfo(punto)}>
                                 Ver info
                             </Button>
