@@ -93,6 +93,7 @@ function Tarjetas({ puntos, selectPoint, setSelectPoint }) {
                     spacing={0}
                     style={{ display: "flex", justifyContent: "space-between" }}
                   >
+                    {console.log(punto.trabajos)}
                     {punto.trabajos != '' ? (
                       punto.trabajos.map((trabajo, index) => (
                         <React.Fragment key={index}>
@@ -178,7 +179,6 @@ function Tarjetas({ puntos, selectPoint, setSelectPoint }) {
           }}
         >
           <p>{categoriaSeleccionada.nombre}</p>
-          {console.log(categoriaSeleccionada)}
         </div>
       </Modal>
     </div>
