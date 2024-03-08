@@ -49,7 +49,8 @@ export default function Footer() {
                 display: "flex",
                 justifyContent: "flex-end",
                 marginRight: "40px",
-                height:'3rem'
+                height: '3.6rem',
+                marginTop: '1rem'
               }}
             >
               <img
@@ -57,14 +58,14 @@ export default function Footer() {
                 alt="IES MONTE NARANCO"
                 style={{
                   width: "15%",
-                  marginRight: "2rem",
+                  marginRight: "3rem",
                 }}
               />
 
               <img
                 src={educa}
                 alt="IES MONTE NARANCO"
-                style={{ width: "20%", marginRight: "2rem" }}
+                style={{ width: "20%", marginRight: "3rem" }}
               />
 
               <img
