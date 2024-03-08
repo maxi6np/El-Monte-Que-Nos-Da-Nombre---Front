@@ -2,18 +2,21 @@ import L from 'leaflet'
 import { Marker, Popup, useMap } from "react-leaflet";
 import Gicon from "../img/marker-icon-green.png";
 import Bicon from "../img/marker-icon-blue.png";
+import { useCookies } from 'react-cookie';
+import { blue } from '@mui/material/colors';
 
 function MarkersRutas({ puntos, puntosSeleccionados }) {
     const map = useMap();
     const puntosAUsar = (puntosSeleccionados.length > 0) ? puntosSeleccionados : puntos;
     const greenIcon = new L.Icon({iconUrl:(Gicon)})
     const blueIcon = new L.Icon({iconUrl:(Bicon)})
+    const [cookies, setCookie, removeCookie] = useCookies('session');
     return (
         puntosAUsar.length > 0 &&
         puntosAUsar.map((marker, index) => {
             return (
                 <Marker
-                    icon={marker.visitado ? greenIcon : blueIcon}
+                    icon={ cookies.session ? ((marker.visitados.length > 0) ? greenIcon : blueIcon) : blueIcon}
                     eventHandlers={{
                         click: () => {
                             map.setView(
