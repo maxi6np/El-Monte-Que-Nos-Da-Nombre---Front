@@ -22,15 +22,35 @@ export const Formulario = ({setActiveButton}) => {
     const [checkCheckbox, setCheckCheckbox] = useState(true)
     const [cargando, setCargando] = useState(false);
     const [cookies, setCookie, removeCookie] = useCookies('session')
+    const [editando, setEditando] = useState(false)
 
     useEffect(() => {
         setPuntos([])
         setCargando(true)
-        let body = JSON.stringify({
+
+        fetch("http://127.0.0.1:8000/recogerrutaaqui", {
+            method: "get", headers: {
+                Accept: "application/json",
+                "Content-type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+            },
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                const keys = Object.keys(data);
+                if (keys.length > 0 && keys[0] === 'ruta') {
+                    setEditando(true)
+                }
+                console.log(data)
+            });
+
+
+
+        let body2 = JSON.stringify({
             token: (cookies.session ? cookies.session.token : '')
         })
         fetch("http://127.0.0.1:8000/puntos-trabajos", {
-            method: "post", body: body, headers: {
+            method: "post", body: body2, headers: {
                 Accept: "application/json",
                 "Content-type": "application/json",
                 "Access-Control-Allow-Origin": "*",
@@ -55,7 +75,7 @@ export const Formulario = ({setActiveButton}) => {
                 descripcion,
             ].includes("")
         ) {
-            setMensaje("Rellene todos los campos");
+            setMensaje("Rellene los campos obligatorios");
             setError(true);
         } else if (checked.length < 1) {
             setMensaje("Elige al menos un punto de interés");
@@ -78,6 +98,7 @@ export const Formulario = ({setActiveButton}) => {
                     if (data.message === 'Ruta creada correctamente') {
                         navigate("/itinerarios");
                         setActiveButton('Itinerarios')
+                        setEditando(false)
                     } else {
                         setMensaje(data.message);
                         setError(true);
@@ -174,7 +195,7 @@ export const Formulario = ({setActiveButton}) => {
                                 }}
                                 onClick={handlePlanificar}
                             >
-                                Crear ruta
+                                {editando ? 'Editar ruta' : 'Crear ruta'}
                             </Button>
                         </Grid >
                     </Grid>

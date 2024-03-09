@@ -18,8 +18,15 @@ import Typography from "@mui/material/Typography";
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import { styled } from '@mui/system';
+import Stack from '@mui/material/Stack';
+import { useNavigate } from 'react-router-dom';
 
-export default function Rutas({ setPuntosSeleccionados }) {
+
+
+export default function Rutas({ setPuntosSeleccionados, setActiveButton }) {
     const [rutas, setRutas] = useState([]);
     const [categorias, setCategorias] = useState([]);
     const [cookies, setCookie, removeCookie] = useCookies("session");
@@ -28,6 +35,34 @@ export default function Rutas({ setPuntosSeleccionados }) {
     const [filtradas, setFiltradas] = useState([]);
     const [progreso, setProgreso] = useState("todas");
     const [cargando, setCargando] = useState(false);
+    const navigate = useNavigate();
+
+    const CircleButton = styled(Button)({
+        borderRadius: '50%',
+        width: '3rem',
+        height: '3rem',
+        minWidth: 0
+
+    });
+
+
+    const handleEdit = (ruta) => {
+        let body = JSON.stringify({
+            ruta: ruta
+        })
+
+        fetch('http://127.0.0.1:8000/encontrar-ruta', { method: 'post', body: body, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', } })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                navigate('/planificar');
+                setActiveButton('Planificar')
+            })
+    }
+
+    const handleDelete = () => {
+
+    }
 
     const mostrarPuntos = (ruta_id) => {
         const rutaSeleccionada = rutas.find(ruta => ruta.id_ruta == ruta_id);
@@ -81,12 +116,6 @@ export default function Rutas({ setPuntosSeleccionados }) {
         }
         setFiltradas(array);
     }
-
-
-
-
-
-
     useEffect(() => {
         let body = JSON.stringify({
             token: cookies.session ? cookies.session.token : "",
@@ -113,6 +142,7 @@ export default function Rutas({ setPuntosSeleccionados }) {
     }, []);
 
     useEffect(() => {
+        console.log(rutas)
         const nuevasFiltradas = [];
         rutas.forEach(ruta => {
             let cumple = 0;
@@ -234,7 +264,7 @@ export default function Rutas({ setPuntosSeleccionados }) {
                                                     <p>
                                                         <DescriptionIcon />
                                                         Descripción:{" "}
-                                                        { ruta.descripcion.split(' ').length > 25 ? (expandedRuta[ruta.id_ruta]
+                                                        {ruta.descripcion.split(' ').length > 25 ? (expandedRuta[ruta.id_ruta]
                                                             ? ruta.descripcion
                                                             : `${ruta.descripcion
                                                                 .split(" ")
@@ -257,16 +287,11 @@ export default function Rutas({ setPuntosSeleccionados }) {
                                                                 : "Ver más"}
                                                         </Button>
                                                     </p>
-                                                    <Button
-                                                        variant="contained"
-                                                        color="primary"
-                                                        sx={{
-                                                            backgroundColor: "#00897b",
-                                                            marginTop: "1rem",
-                                                        }}
-                                                    >
-                                                        Ver detalles
-                                                    </Button>
+                                                    {cookies.session &&
+                                                        <Stack direction="row" spacing={2}>
+                                                            <CircleButton sx={{ backgroundColor: '#FFA500' }} startIcon={<EditIcon sx={{ color: 'white' }} />} onClick={() => handleEdit(ruta)} />
+                                                            <CircleButton sx={{ backgroundColor: '#FF6347' }} endIcon={<DeleteIcon sx={{ color: 'white' }} f />} onClick={() => handleDelete(ruta)} />
+                                                        </Stack>}
                                                 </Typography>
                                             </Grid>
                                         </Grid>
