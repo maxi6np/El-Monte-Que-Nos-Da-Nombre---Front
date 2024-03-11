@@ -23,6 +23,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { styled } from '@mui/system';
 import Stack from '@mui/material/Stack';
 import { useNavigate } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 
 
@@ -48,10 +49,10 @@ export default function Rutas({ setPuntosSeleccionados, setActiveButton }) {
 
     const handleEdit = (ruta) => {
         let body = JSON.stringify({
-            ruta: ruta
+            token: cookies.session.token
         })
 
-        fetch('http://127.0.0.1:8000/encontrar-ruta', { method: 'post', body: body, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', } })
+        fetch(`http://127.0.0.1:8000/encontrar-ruta/${ruta.id_ruta}`, { method: 'post', body: body, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', } })
             .then(response => response.json())
             .then(data => {
                 console.log(data)
@@ -289,7 +290,7 @@ export default function Rutas({ setPuntosSeleccionados, setActiveButton }) {
                                                     </p>
                                                     {cookies.session &&
                                                         <Stack direction="row" spacing={2}>
-                                                            <CircleButton sx={{ backgroundColor: '#FFA500' }} startIcon={<EditIcon sx={{ color: 'white' }} />} onClick={() => handleEdit(ruta)} />
+                                                            <Link to={`/editar/${ruta.id_ruta}`}><CircleButton sx={{ backgroundColor: '#FFA500' }} startIcon={<EditIcon sx={{ color: 'white' }} />}  /></Link>
                                                             <CircleButton sx={{ backgroundColor: '#FF6347' }} endIcon={<DeleteIcon sx={{ color: 'white' }} f />} onClick={() => handleDelete(ruta)} />
                                                         </Stack>}
                                                 </Typography>
