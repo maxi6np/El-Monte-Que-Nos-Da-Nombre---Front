@@ -18,189 +18,247 @@ function Itinerarios({ logout, activeButton, setActiveButton }) {
    
 
     return (
-        <>
+      <>
+        <Grid container spacing={2}>
+          <Grid item sm={12} md={12} lg={12}>
             <AppBar position="static" sx={{ backgroundColor: "#004d40" }}>
-                <Toolbar sx={{ width: "100%" }}>
-                    <Grid2 container sx={{ width: "100%" }}>
-                        <Grid2 xs display="flex" justifyContent="start" alignItems="center">
-                            <Box
-                                component="div"
-                                sx={{
-                                    flexBasis: "100px",
-                                    justifySelf: "start",
-                                    marginTop: "1rem",
-                                    marginBottom: "1rem",
-                                }}
-                            >
-                                <Link to="/">
-                                    {" "}
-                                    <img
-                                        src={LogoFinalBanner}
-                                        alt="IES MONTE NARANCO"
-                                        style={{ height: "100%", width: "100%" }}
-                                        onClick={() => setActiveButton("Inicio")}
-                                    />
-                                </Link>
-                            </Box>
-                        </Grid2>
-                        <Grid2
-                            xs
-                            display="flex"
-                            justifyContent="center"
-                            alignItems="center"
+              <Toolbar sx={{ width: "100%" }}>
+                <Grid2 container sx={{ width: "100%" }}>
+                  <Grid2
+                    item
+                    sm={2}
+                    md={2}
+                    lg={4}
+                    display="flex"
+                    justifyContent="start"
+                    alignItems="center"
+                  >
+                    <Box
+                      component="div"
+                      sx={{
+                        flexBasis: "100px",
+                        justifySelf: "start",
+                        marginTop: "1rem",
+                        marginBottom: "1rem",
+                        marginLeft: "1rem",
+                      }}
+                      item
+                    >
+                      <Link to="/">
+                        {" "}
+                        <img
+                          src={LogoFinalBanner}
+                          alt="IES MONTE NARANCO"
+                          style={{ height: "100%", width: "100%" }}
+                          onClick={() => setActiveButton("Inicio")}
+                        />
+                      </Link>
+                    </Box>
+                  </Grid2>
+                  <Grid2
+                    item
+                    sm={10}
+                    md={6}
+                    lg={4}
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                  >
+                    <Typography
+                      variant="h5"
+                      component="div"
+                      sx={{ textAlign: "center" }}
+                    >
+                      EL MONTE QUE NOS DA NOMBRE
+                    </Typography>
+                  </Grid2>
+                  <Grid2
+                    item
+                    sm={9}
+                    md={4}
+                    lg={4}
+                    display="flex"
+                    justifyContent="end"
+                    alignItems="center"
+                  >
+                    <Box
+                      component="div"
+                      display="flex"
+                      justifyContent="end"
+                      alignItems="center"
+                    >
+                      {cookies.session && (
+                        <Box
+                          component="div"
+                          display="flex"
+                          justifyContent="end"
+                          alignItems="center"
+                          flexWrap="wrap"
+                          gap="0.5rem"
                         >
-                            <Typography
-                                variant="h5"
-                                component="div"
-                                sx={{ textAlign: "center" }}
-                            >
-                                EL MONTE QUE NOS DA NOMBRE
-                            </Typography>
-                        </Grid2>
-                        <Grid2 xs display="flex" justifyContent="end" alignItems="center">
-                            <Box component="div" display="flex" justifyContent="end" alignItems="center">
-
-                                {cookies.session && (
-                                    <Box component="div" display="flex" justifyContent="end" alignItems="center" flexWrap="wrap" gap="0.5rem">
-                                        <PersonIcon ></PersonIcon>
-                                        <Typography
-
-
-                                            sx={{ marginRight: '1rem', textAlign: 'center' }}
-                                        >
-
-                                            {cookies.session.username.toUpperCase()}
-                                        </Typography>
-                                    </Box>
-                                )}
-                                {cookies.session ? (
-
-
-                                    <Button
-                                        color="inherit"
-                                        onClick={() => {
-                                            setActiveButton("Inicio");
-                                            logout();
-                                        }}
-                                        component={Link}
-                                        to="/"
-                                        startIcon={<LogoutIcon></LogoutIcon>}
-                                        sx={{ ":hover": { backgroundColor: "#00897b" } }}
-                                    >
-                                        Cerrar Sesión
-                                    </Button>
-
-                                ) : (
-                                    <Button
-                                        color="inherit"
-                                        onClick={() => setActiveButton('Inicio')}
-                                        component={Link}
-                                        to="/login"
-                                        startIcon={<LoginIcon></LoginIcon>}
-                                        sx={{ ":hover": { backgroundColor: "#00897b" } }}
-                                    >
-                                        Iniciar Sesión
-                                    </Button>
-                                )}
-                                {!cookies.session && (
-                                    <Button
-                                        color="inherit"
-                                        component={Link}
-                                        to="/registro"
-                                        startIcon={<PersonAddIcon></PersonAddIcon>}
-                                        sx={{ ":hover": { backgroundColor: "#00897b" } }}
-                                    >
-                                        Registrarse
-                                    </Button>
-                                )}
-                            </Box>
-                        </Grid2>
-                    </Grid2>
-                </Toolbar>
-            </AppBar>
-            <AppBar position="static" sx={{ backgroundColor: "#004d40" }}>
-                <Toolbar sx={{ height: "100%" }}>
-                    <Button
-                        color="inherit"
-                        component={Link}
-                        to="/"
-                        sx={{
-                            height: "100%",
-                            ":hover": { backgroundColor: activeButton === "Inicio" ? "#00897b" : null },
-                            backgroundColor: activeButton === "Inicio" ? "#00897b" : null
-                        }}
-                        onClick={() => setActiveButton("Inicio")}
-                    >
-                        Inicio
-                    </Button>
-                    <Button
-                        color="inherit"
-                        component={Link}
-                        to="/descubre"
-                        sx={{
-                            ":hover": { backgroundColor: activeButton === "Descubre" ? "#00897b" : null },
-                            backgroundColor: activeButton === "Descubre" ? "#00897b" : null
-                        }}
-                        onClick={() => setActiveButton("Descubre")}
-                    >
-                        Descubre
-                    </Button>
-                    <Button
-                        color="inherit"
-                        component={Link}
-                        to="/itinerarios"
-                        sx={{
-                            ":hover": { backgroundColor: activeButton === "Itinerarios" ? "#00897b" : null },
-                            backgroundColor: activeButton === "Itinerarios" ? "#00897b" : null
-                        }}
-                        onClick={() => setActiveButton("Itinerarios")}
-                    >
-                        Itinerarios
-                    </Button>
-                    {cookies.session && (
+                          <PersonIcon></PersonIcon>
+                          <Typography
+                            sx={{ marginRight: "1rem", textAlign: "center" }}
+                          >
+                            {cookies.session.username.toUpperCase()}
+                          </Typography>
+                        </Box>
+                      )}
+                      {cookies.session ? (
                         <Button
-                            color="inherit"
-                            component={Link}
-                            to="/planificar"
-                            sx={{
-                                ":hover": { backgroundColor: activeButton === "Planificar" ? "#00897b" : null },
-                                backgroundColor: activeButton === "Planificar" ? "#00897b" : null
-                            }}
-                            onClick={() => setActiveButton("Planificar")}
+                          color="inherit"
+                          onClick={() => {
+                            setActiveButton("Inicio");
+                            logout();
+                          }}
+                          component={Link}
+                          to="/"
+                          startIcon={<LogoutIcon></LogoutIcon>}
+                          sx={{ ":hover": { backgroundColor: "#00897b" } }}
                         >
-                            Planificar ruta
+                          Cerrar Sesión
                         </Button>
-                    )}
-                </Toolbar>
+                      ) : (
+                        <Button
+                          color="inherit"
+                          component={Link}
+                          to="/login"
+                          startIcon={<LoginIcon></LoginIcon>}
+                          sx={{ ":hover": { backgroundColor: "#00897b" } }}
+                        >
+                          Iniciar Sesión
+                        </Button>
+                      )}
+
+                      {!cookies.session && (
+                        <Button
+                          color="inherit"
+                          component={Link}
+                          to="/registro"
+                          startIcon={<PersonAddIcon></PersonAddIcon>}
+                          sx={{ ":hover": { backgroundColor: "#00897b" } }}
+                        >
+                          Registrarse
+                        </Button>
+                      )}
+                    </Box>
+                  </Grid2>
+                </Grid2>
+              </Toolbar>
             </AppBar>
+          </Grid>
+        </Grid>
 
-            <Typography
-                variant="h3"
-                sx={{ textAlign: "center", marginTop: "2rem" }}
-                component="h3"
-            >
-                Rutas
-            </Typography>
+        <Grid container spacing={2}>
+          <Grid item sm={12} md={12}>
+            <AppBar position="static" sx={{ backgroundColor: "#004d40" }}>
+              <Toolbar
+                sx={{
+                  height: "100%",
+                  marginLeft: "1rem",
+                  justifyContent: {
+                    sm: "flex-start",
+                    md: "flex-start",
+                    lg: "flex-start",
+                  },
+                }}
+              >
+                <Button
+                  color="inherit"
+                  component={Link}
+                  to="/"
+                  sx={{
+                    height: "100%",
+                    ":hover": {
+                      backgroundColor:
+                        activeButton === "Inicio" ? "#00897b" : null,
+                    },
+                    backgroundColor:
+                      activeButton === "Inicio" ? "#00897b" : null,
+                  }}
+                  onClick={() => setActiveButton("Inicio")}
+                >
+                  Inicio
+                </Button>
+                <Button
+                  color="inherit"
+                  component={Link}
+                  to="/descubre"
+                  sx={{
+                    ":hover": {
+                      backgroundColor:
+                        activeButton === "Descubre" ? "#00897b" : null,
+                    },
+                    backgroundColor:
+                      activeButton === "Descubre" ? "#00897b" : null,
+                  }}
+                  onClick={() => setActiveButton("Descubre")}
+                >
+                  Descubre
+                </Button>
+                <Button
+                  color="inherit"
+                  component={Link}
+                  to="/itinerarios"
+                  sx={{
+                    ":hover": {
+                      backgroundColor:
+                        activeButton === "Itinerarios" ? "#00897b" : null,
+                    },
+                    backgroundColor:
+                      activeButton === "Itinerarios" ? "#00897b" : null,
+                  }}
+                  onClick={() => setActiveButton("Itinerarios")}
+                >
+                  Itinerarios
+                </Button>
+                {cookies.session && (
+                  <Button
+                    color="inherit"
+                    component={Link}
+                    to="/planificar"
+                    sx={{
+                      ":hover": {
+                        backgroundColor:
+                          activeButton === "Planificar" ? "#00897b" : null,
+                      },
+                      backgroundColor:
+                        activeButton === "Planificar" ? "#00897b" : null,
+                    }}
+                    onClick={() => setActiveButton("Planificar")}
+                  >
+                    Planificar ruta
+                  </Button>
+                )}
+              </Toolbar>
+            </AppBar>
+          </Grid>
+        </Grid>
 
-            <Grid container spacing={4} sx={{ marginTop: 2, marginBottom: 2 }}>
-                {/* Tarjetas */}
-                <Grid item xs={12} md={4.5}>
-                    <Rutas setPuntosSeleccionados={setPuntosSeleccionados} setActiveButton={setActiveButton} />
-                </Grid>
+        <Grid container spacing={2} sx={{ marginTop: 2, marginBottom: 2 }}>
+          {/* Tarjetas */}
+          <Grid item xs={12} md={4.5}>
+            <div style={{ position: "relative", height: "100%" }}>
+            <Rutas
+              setPuntosSeleccionados={setPuntosSeleccionados}
+              setActiveButton={setActiveButton}
+              />
+            </div>
+          </Grid>
 
-                {/* Columna de relleno */}
-                <Grid item xs={0} md={0.5}></Grid>
+          {/* Columna de relleno */}
+          <Grid item xs={0} md={0.5}></Grid>
 
-                {/* Mapa */}
-                <Grid item xs={12} md={7}>
-                    <MapaRutas
-                        puntosSeleccionados={puntosSeleccionados}
-                        setPuntosSeleccionados={setPuntosSeleccionados}
-                    />
-                </Grid>
-            </Grid>
-            <Footer />
-        </>
+          {/* Mapa */}
+          <Grid item xs={12} md={7}>
+            <MapaRutas
+              puntosSeleccionados={puntosSeleccionados}
+              setPuntosSeleccionados={setPuntosSeleccionados}
+            />
+          </Grid>
+        </Grid>
+        <Footer />
+      </>
     );
 }
 
