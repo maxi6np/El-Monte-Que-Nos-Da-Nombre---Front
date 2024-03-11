@@ -14,7 +14,7 @@ export const FormularioEditar = ({ setActiveButton, idRuta }) => {
     const [descripcion, setDescripcion] = useState("");
     const [imagen, setImagen] = useState("");
     const [error, setError] = useState(false);
-    const [mensaje, setMensaje] = useState();
+    const [mensaje, setMensaje] = useState('');
     const navigate = useNavigate();
     const [puntos, setPuntos] = useState([]);
     const [checked, setChecked] = useState([]);
@@ -27,7 +27,6 @@ export const FormularioEditar = ({ setActiveButton, idRuta }) => {
         let body = JSON.stringify({
             token: cookies.session.token
         })
-        setPuntos([])
         setCargando(true)
 
         fetch(`http://127.0.0.1:8000/encontrar-ruta/${idRuta}`, { method: 'post', body: body, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', } })
@@ -35,7 +34,7 @@ export const FormularioEditar = ({ setActiveButton, idRuta }) => {
         .then(data => {
             setNombre(data.data.nombre);
             setDescripcion(data.data.descripcion);
-            setImagen(new File());
+            setImagen(data.data.imagen_principal);
             data.data.publica == 1 ? setCheckCheckbox(true) : setCheckCheckbox(false);
             setChecked(data.data.puntos_interes.map(punto => (punto.id_punto_interes)));
 
@@ -156,7 +155,6 @@ export const FormularioEditar = ({ setActiveButton, idRuta }) => {
                                 <Input
                                     variant='outlined'
                                     type="file"
-                                    value={imagen}
                                     onChange={(e) => {
                                         setImagen(e.target.files[0]);
                                         setError(false);
@@ -165,6 +163,19 @@ export const FormularioEditar = ({ setActiveButton, idRuta }) => {
                                 />
                             </label>
                         </Grid>
+                        <Button
+                                type="button"
+                                variant="contained"
+                                fullWidth
+                                style={{ marginTop: "20px" }}
+                                sx={{
+                                    bgcolor: 'red',
+                                    
+                                }}
+                                onClick={(e) => {setImagen(''); e.target.style.display = 'none'}}
+                            >
+                                Eliminar imagen
+                            </Button>
 
                         <Grid item xs={12}>
                             <FormControl>
