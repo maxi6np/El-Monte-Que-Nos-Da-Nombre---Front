@@ -9,8 +9,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { useCookies } from 'react-cookie';
 
 
-export const Formulario = ({setActiveButton}) => {
-    const [usuario, setUsuario] = useState({});
+export const FormularioEditar = ({ setActiveButton, idRuta }) => {
     const [nombre, setNombre] = useState("");
     const [descripcion, setDescripcion] = useState("");
     const [imagen, setImagen] = useState("");
@@ -25,24 +24,23 @@ export const Formulario = ({setActiveButton}) => {
     const [editando, setEditando] = useState(false)
 
     useEffect(() => {
+        let body = JSON.stringify({
+            token: cookies.session.token
+        })
         setPuntos([])
         setCargando(true)
 
-        fetch("http://127.0.0.1:8000/recogerrutaaqui", {
-            method: "get", headers: {
-                Accept: "application/json",
-                "Content-type": "application/json",
-                "Access-Control-Allow-Origin": "*",
-            },
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                const keys = Object.keys(data);
-                if (keys.length > 0 && keys[0] === 'ruta') {
-                    setEditando(true)
-                }
-                console.log(data)
-            });
+        fetch(`http://127.0.0.1:8000/encontrar-ruta/${idRuta}`, { method: 'post', body: body, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', } })
+        .then(response => response.json())
+        .then(data => {
+            setNombre(data.data.nombre);
+            setDescripcion(data.data.descripcion);
+            setImagen(data.data.imagen);
+            data.data.publica == 1 ? setCheckCheckbox(true) : setCheckCheckbox(false);
+            setChecked(data.data.puntos_interes.map(punto => (punto.id_punto_interes)));
+
+
+        });
 
 
 
@@ -58,9 +56,10 @@ export const Formulario = ({setActiveButton}) => {
         })
             .then((response) => response.json())
             .then((data) => {
-                setPuntos(data.data.map(punto => ({ ...punto, seleccionado: false })));
+                setPuntos(data.data);
                 setCargando(false)
             });
+       
     }, []);
 
 
@@ -91,7 +90,7 @@ export const Formulario = ({setActiveButton}) => {
                 token: cookies.session.token
             })
 
-            fetch('http://127.0.0.1:8000/planificar-ruta', { method: 'post', body: body, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', } })
+            fetch(`http://127.0.0.1:8000/editar-ruta/${idRuta}`, { method: 'put', body: body, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', } })
                 .then(response => response.json())
                 .then(data => {
                     console.log(data)
@@ -116,7 +115,7 @@ export const Formulario = ({setActiveButton}) => {
                                 label="Nombre"
                                 variant="outlined"
                                 fullWidth
-                                value={usuario.nombre}
+                                value={nombre}
                                 onChange={
                                     (e) => {
                                         setNombre(e.target.value)
@@ -132,6 +131,7 @@ export const Formulario = ({setActiveButton}) => {
                                 size="lg" name="Size"
                                 color="neutral"
                                 minRows={2}
+                                value={descripcion}
                                 onChange={
                                     (e) => {
                                         setDescripcion(e.target.value)
@@ -148,7 +148,7 @@ export const Formulario = ({setActiveButton}) => {
                                 <Grid container style={{ justifyContent: 'center', alignItems: 'center', height: '100%' }}>
                                     <CircularProgress />
                                 </Grid>
-                            ) : (<Eleccion puntos={puntos} setPuntos={setPuntos} setChecked={setChecked} />)}
+                            ) : (<Eleccion puntos={puntos} setPuntos={setPuntos} setChecked={setChecked} checked = {checked} />)}
                         </Grid>
                         <Grid item xs={12}>
                             <label style={{ width: "100%" }}>
@@ -174,8 +174,8 @@ export const Formulario = ({setActiveButton}) => {
                                     value={checkCheckbox}
                                     onChange={(e) => setCheckCheckbox(!checkCheckbox)}
                                 >
-                                    <FormControlLabel  control={<Radio value={true} />} label="Pública" />
-                                    <FormControlLabel  control={<Radio value={false} />} label="Privada" />
+                                    <FormControlLabel  control={<Radio  value={true}/>} label="Pública" />
+                                    <FormControlLabel  control={<Radio value={false}/>} label="Privada" />
                                 </RadioGroup>
                             </FormControl>
                         </Grid>
@@ -195,7 +195,7 @@ export const Formulario = ({setActiveButton}) => {
                                 }}
                                 onClick={handlePlanificar}
                             >
-                                {editando ? 'Editar ruta' : 'Crear ruta'}
+                                Editar ruta
                             </Button>
                         </Grid >
                     </Grid>

@@ -6,6 +6,7 @@ import Login from "./Login/Login";
 import Registro from "./Registro/Registro";
 import PlayfairDisplay from "./assets/fonts/PlayfairDisplay-VariableFont_wght.ttf";
 import Descubre from "./Descubre/Descubre";
+import {Editar} from "./Editar/Editar";
 import { useState, useEffect } from "react";
 import Itinerarios from "./Itinerarios/Itinerarios";
 import { CssBaseline } from "@mui/material";
@@ -100,6 +101,7 @@ function App() {
           ></Route>
           <Route path="/itinerarios" element={<Itinerarios logout={logout} activeButton={activeButton} setActiveButton={setActiveButton} />}></Route>
           <Route path="/planificar" element={<Planificar logout={logout} activeButton={activeButton} setActiveButton={setActiveButton} />}></Route>
+          <Route path="/editar/:id" element={<Editar logout={logout} activeButton={activeButton} setActiveButton={setActiveButton}></Editar>}></Route>
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
