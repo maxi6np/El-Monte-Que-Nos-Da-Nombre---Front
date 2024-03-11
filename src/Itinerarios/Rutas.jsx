@@ -60,8 +60,20 @@ export default function Rutas({ setPuntosSeleccionados, setActiveButton }) {
             })
     }
 
-    const handleDelete = () => {
+    const handleDelete = (ruta) => {
+        let confirmar = confirm('¿Desea eliminar la ruta seleccionada?');
+        if (confirmar) {
+            let body = JSON.stringify({
+                id_ruta: ruta.id_ruta
+            })
 
+            fetch('http://127.0.0.1:8000/borrar-ruta', { method: 'delete', body: body, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', } })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                    window.location.reload();
+                })
+        }
     }
 
     const mostrarPuntos = (ruta_id) => {

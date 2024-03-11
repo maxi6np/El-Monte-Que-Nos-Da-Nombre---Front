@@ -30,6 +30,7 @@ function Tarjetas({ puntos, selectPoint, setSelectPoint }) {
 
   return (
     <div style={{ maxHeight: "100vh", overflowY: "auto" }}>
+      {console.log(puntos)}
       {puntos.map((punto) => (
         <Card
           onClick={() => setSelectPoint(punto)}
@@ -93,7 +94,6 @@ function Tarjetas({ puntos, selectPoint, setSelectPoint }) {
                     spacing={0}
                     style={{ display: "flex", justifyContent: "space-between" }}
                   >
-                    {console.log(punto.trabajos)}
                     {punto.trabajos != '' ? (
                       punto.trabajos.map((trabajo, index) => (
                         <React.Fragment key={index}>
