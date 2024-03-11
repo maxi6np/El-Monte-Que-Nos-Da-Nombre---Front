@@ -1,6 +1,6 @@
 import AutoStoriesIcon from "@mui/icons-material/AutoStories";
 import DescriptionIcon from "@mui/icons-material/Description";
-import { CardActionArea, Grid, List, ListItem } from "@mui/material";
+import { CardActionArea, Grid, List, ListItem, Button } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -11,7 +11,7 @@ import React, { useState } from "react";
 function Tarjetas({ puntos, selectPoint, setSelectPoint }) {
   const [openModal, setOpenModal] = useState(false);
   const [modalContent, setModalContent] = useState("");
-  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState('');
+  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState([]);
 
   const mostrarPunto = (punto_id) => {
     const ptoSeleccionado = puntos.find(
@@ -30,7 +30,7 @@ function Tarjetas({ puntos, selectPoint, setSelectPoint }) {
 
   return (
     <div style={{ maxHeight: "100vh", overflowY: "auto" }}>
-      {console.log(puntos)}
+
       {puntos.map((punto) => (
         <Card
           onClick={() => setSelectPoint(punto)}
@@ -140,7 +140,7 @@ function Tarjetas({ puntos, selectPoint, setSelectPoint }) {
                                         component: "link",
                                       }}
                                       onClick={() => {
-                                        setCategoriaSeleccionada(categoria);
+                                        setCategoriaSeleccionada(trabajo);
                                         mostrarModal(categoria.descripcion);
                                       }}
                                     >
@@ -178,7 +178,64 @@ function Tarjetas({ puntos, selectPoint, setSelectPoint }) {
             overflow: "auto",
           }}
         >
-          <p>{categoriaSeleccionada.nombre}</p>
+          <h3>{categoriaSeleccionada.nombre}</h3>
+          {/* <p>
+            <DescriptionIcon />
+            {console.log(categoriaSeleccionada)}
+            {categoriaSeleccionada.texto.split(' ').length > 25 ? (expandedRuta[categoriaSeleccionada.id_categoria]
+              ? categoriaSeleccionada.texto
+              : `${categoriaSeleccionada.texto
+                .split(" ")
+                .slice(0, 25)
+                .join(" ")}...`) : categoriaSeleccionada.texto}
+            <Button
+              onClick={() => toggleExpand(categoriaSeleccionada.id_ruta)}
+              color="primary"
+              size="small"
+              style={{ textTransform: "none" }}
+              sx={{
+                display:
+                  categoriaSeleccionada.texto.split(" ").length <= 25
+                    ? "none"
+                    : "block",
+              }}
+            >
+              {expandedRuta[categoriaSeleccionada.id_ruta]
+                ? "Ver menos"
+                : "Ver más"}
+            </Button>
+          </p> */}
+          {(() => {
+            switch (categoriaSeleccionada.tipo) {
+              case 'texto':
+                let url = categoriaSeleccionada.URL;
+                let urlModificada = url.substring(url.indexOf('/') + 1);
+                return (
+                  <a
+                    href={categoriaSeleccionada.URL}
+                    download={categoriaSeleccionada.URL}
+                    target="_blank"
+                  >
+                    <Button
+                      sx={{
+                        margin: '2rem 0 0 0',
+                        backgroundColor: '#00897b',
+                      }}
+                    >
+                      <p style={{ color: 'white' }}>
+                        {urlModificada}
+                      </p>
+                    </Button>
+                  </a>
+                );
+              case 'audio':
+                return <audio controls style={{ width: '50vw', height: '90%' }} src={categoriaSeleccionada.URL} />;
+              case 'video':
+                return <video controls style={{ width: '100%', maxHeight: '90%' }} src={categoriaSeleccionada.URL} />;
+              default:
+                return null;
+            }
+          })()}
         </div>
       </Modal>
     </div>
