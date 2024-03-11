@@ -8,10 +8,10 @@ import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { React, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
-import Footer from "../Footer";
 import LogoFinalBanner from "../img/logo_final_Banner.png";
 import MapaPuntos from "./MapaPuntos";
 import Tarjetas from "./Tarjetas";
+import Footer from "../Footer";
 
 function Descubre({ logout, activeButton, setActiveButton }) {
   const [cookies, setCookie, removeCookie] = useCookies(["session"]);
