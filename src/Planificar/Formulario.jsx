@@ -43,6 +43,7 @@ export const Formulario = ({setActiveButton}) => {
             }
             const data = await response.json();
             console.log(data);
+            setImagen(file.name)
         } catch (error) {
             console.error('Error uploading file:', error);
         }

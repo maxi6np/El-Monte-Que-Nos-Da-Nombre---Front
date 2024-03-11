@@ -179,32 +179,6 @@ function Tarjetas({ puntos, selectPoint, setSelectPoint }) {
           }}
         >
           <h3>{categoriaSeleccionada.nombre}</h3>
-          {/* <p>
-            <DescriptionIcon />
-            {console.log(categoriaSeleccionada)}
-            {categoriaSeleccionada.texto.split(' ').length > 25 ? (expandedRuta[categoriaSeleccionada.id_categoria]
-              ? categoriaSeleccionada.texto
-              : `${categoriaSeleccionada.texto
-                .split(" ")
-                .slice(0, 25)
-                .join(" ")}...`) : categoriaSeleccionada.texto}
-            <Button
-              onClick={() => toggleExpand(categoriaSeleccionada.id_ruta)}
-              color="primary"
-              size="small"
-              style={{ textTransform: "none" }}
-              sx={{
-                display:
-                  categoriaSeleccionada.texto.split(" ").length <= 25
-                    ? "none"
-                    : "block",
-              }}
-            >
-              {expandedRuta[categoriaSeleccionada.id_ruta]
-                ? "Ver menos"
-                : "Ver más"}
-            </Button>
-          </p> */}
           <p>{categoriaSeleccionada.texto}</p>
           {(() => {
             switch (categoriaSeleccionada.tipo) {
