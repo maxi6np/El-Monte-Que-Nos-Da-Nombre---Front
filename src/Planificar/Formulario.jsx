@@ -172,10 +172,10 @@ export const Formulario = ({setActiveButton}) => {
                                     aria-labelledby="demo-controlled-radio-buttons-group"
                                     name="controlled-radio-buttons-group"
                                     value={checkCheckbox}
-                                    onChange={(e) => setCheckCheckbox(e.target.value)}
+                                    onChange={(e) => setCheckCheckbox(!checkCheckbox)}
                                 >
-                                    <FormControlLabel value={true} control={<Radio />} label="Pública" />
-                                    <FormControlLabel value={false} control={<Radio />} label="Privada" />
+                                    <FormControlLabel  control={<Radio value={true} />} label="Pública" />
+                                    <FormControlLabel  control={<Radio value={false} />} label="Privada" />
                                 </RadioGroup>
                             </FormControl>
                         </Grid>

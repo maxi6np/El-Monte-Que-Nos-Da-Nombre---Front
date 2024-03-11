@@ -22,7 +22,14 @@ import { styled } from "@mui/system";
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
-import { useNavigate } from "react-router-dom";
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import { styled } from '@mui/system';
+import Stack from '@mui/material/Stack';
+import { useNavigate } from 'react-router-dom';
+import { Link } from "react-router-dom";
+
+
 
 export default function Rutas({ setPuntosSeleccionados, setActiveButton }) {
   const [rutas, setRutas] = useState([]);
@@ -42,28 +49,35 @@ export default function Rutas({ setPuntosSeleccionados, setActiveButton }) {
     minWidth: 0,
   });
 
-  const handleEdit = (ruta) => {
-    let body = JSON.stringify({
-      ruta: ruta,
-    });
+    const handleEdit = (ruta) => {
+        let body = JSON.stringify({
+            token: cookies.session.token
+        })
 
-    fetch("http://127.0.0.1:8000/encontrar-ruta", {
-      method: "post",
-      body: body,
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        navigate("/planificar");
-        setActiveButton("Planificar");
-      });
-  };
+        fetch(`http://127.0.0.1:8000/encontrar-ruta/${ruta.id_ruta}`, { method: 'post', body: body, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', } })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                navigate('/planificar');
+                setActiveButton('Planificar')
+            })
+    }
 
-  const handleDelete = () => {};
+    const handleDelete = (ruta) => {
+        let confirmar = confirm('¿Desea eliminar la ruta seleccionada?');
+        if (confirmar) {
+            let body = JSON.stringify({
+                id_ruta: ruta.id_ruta
+            })
+
+            fetch('http://127.0.0.1:8000/borrar-ruta', { method: 'delete', body: body, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', } })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                    window.location.reload();
+                })
+        }
+    }
 
   const mostrarPuntos = (ruta_id) => {
     const rutaSeleccionada = rutas.find((ruta) => ruta.id_ruta == ruta_id);
