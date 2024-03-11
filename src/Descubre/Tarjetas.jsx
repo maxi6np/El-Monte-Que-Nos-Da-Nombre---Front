@@ -205,6 +205,7 @@ function Tarjetas({ puntos, selectPoint, setSelectPoint }) {
                 : "Ver más"}
             </Button>
           </p> */}
+          <p>{categoriaSeleccionada.texto}</p>
           {(() => {
             switch (categoriaSeleccionada.tipo) {
               case 'texto':
