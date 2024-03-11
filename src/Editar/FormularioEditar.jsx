@@ -30,16 +30,16 @@ export const FormularioEditar = ({ setActiveButton, idRuta }) => {
         setCargando(true)
 
         fetch(`http://127.0.0.1:8000/encontrar-ruta/${idRuta}`, { method: 'post', body: body, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', } })
-        .then(response => response.json())
-        .then(data => {
-            setNombre(data.data.nombre);
-            setDescripcion(data.data.descripcion);
-            setImagen(data.data.imagen_principal);
-            data.data.publica == 1 ? setCheckCheckbox(true) : setCheckCheckbox(false);
-            setChecked(data.data.puntos_interes.map(punto => (punto.id_punto_interes)));
+            .then(response => response.json())
+            .then(data => {
+                setNombre(data.data.nombre);
+                setDescripcion(data.data.descripcion);
+                setImagen(data.data.imagen_principal);
+                data.data.publica == 1 ? setCheckCheckbox(true) : setCheckCheckbox(false);
+                setChecked(data.data.puntos_interes.map(punto => (punto.id_punto_interes)));
 
 
-        });
+            });
 
 
 
@@ -58,7 +58,7 @@ export const FormularioEditar = ({ setActiveButton, idRuta }) => {
                 setPuntos(data.data);
                 setCargando(false)
             });
-       
+
     }, []);
 
 
@@ -147,8 +147,9 @@ export const FormularioEditar = ({ setActiveButton, idRuta }) => {
                                 <Grid container style={{ justifyContent: 'center', alignItems: 'center', height: '100%' }}>
                                     <CircularProgress />
                                 </Grid>
-                            ) : (<Eleccion puntos={puntos} setPuntos={setPuntos} setChecked={setChecked} checked = {checked} />)}
+                            ) : (<Eleccion puntos={puntos} setPuntos={setPuntos} setChecked={setChecked} checked={checked} />)}
                         </Grid>
+
                         <Grid item xs={12}>
                             <label style={{ width: "100%" }}>
                                 Imagen
@@ -163,20 +164,32 @@ export const FormularioEditar = ({ setActiveButton, idRuta }) => {
                                 />
                             </label>
                         </Grid>
-                        <Button
-                                type="button"
-                                variant="contained"
-                                fullWidth
-                                style={{ marginTop: "20px" }}
-                                sx={{
-                                    bgcolor: 'red',
-                                    
-                                }}
-                                onClick={(e) => {setImagen(''); e.target.style.display = 'none'}}
-                            >
-                                Eliminar imagen
-                            </Button>
+                        <Grid xs={12} gap={'1em'} display="flex" justifyContent="end" alignItems="center" sx={{marginTop:'1em'}}>
+                            {imagen != '' && <Grid item xs={6} >
+                                <h6>Imagen antigua</h6>
+                                <img
+                                    src={'/' + imagen}
+                                    alt='imagen actual'
+                                    style={{ height: "100%", width: "100%" }}
 
+                                />
+                            </Grid>}
+                            <Grid item xs={5}>
+                                <Button
+                                    type="button"
+                                    variant="contained"
+                                    fullWidth
+                                    
+                                    sx={{
+                                        bgcolor: 'red',
+
+                                    }}
+                                    onClick={(e) => { setImagen(''); e.target.style.display = 'none' }}
+                                >
+                                    Eliminar imagen
+                                </Button>
+                            </Grid>
+                        </Grid>
                         <Grid item xs={12}>
                             <FormControl>
                                 <label>Visibilidad*</label>
@@ -186,8 +199,8 @@ export const FormularioEditar = ({ setActiveButton, idRuta }) => {
                                     value={checkCheckbox}
                                     onChange={(e) => setCheckCheckbox(!checkCheckbox)}
                                 >
-                                    <FormControlLabel  control={<Radio  value={true}/>} label="Pública" />
-                                    <FormControlLabel  control={<Radio value={false}/>} label="Privada" />
+                                    <FormControlLabel control={<Radio value={true} />} label="Pública" />
+                                    <FormControlLabel control={<Radio value={false} />} label="Privada" />
                                 </RadioGroup>
                             </FormControl>
                         </Grid>
