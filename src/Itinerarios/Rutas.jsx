@@ -347,11 +347,11 @@ export default function Rutas({ setPuntosSeleccionados, setActiveButton }) {
                           </p>
                           {cookies.session && (
                             <Stack direction="row" spacing={2}>
-                              <CircleButton
+                              <Link to ={`/editar/${ruta.id_ruta}`}> <CircleButton
                                 sx={{ backgroundColor: "#FFA500" }}
                                 startIcon={<EditIcon sx={{ color: "white" }} />}
-                                onClick={() => handleEdit(ruta)}
-                              />
+                             
+                              /></Link>
                               <CircleButton
                                 sx={{ backgroundColor: "#FF6347" }}
                                 endIcon={
