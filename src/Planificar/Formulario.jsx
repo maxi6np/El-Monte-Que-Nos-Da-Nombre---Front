@@ -24,27 +24,33 @@ export const Formulario = ({setActiveButton}) => {
     const [cookies, setCookie, removeCookie] = useCookies('session')
     const [editando, setEditando] = useState(false)
 
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        setImagen(e.target.files[0])
+        uploadFile(file);
+    };
+
+    const uploadFile = async (file) => {
+        const formData = new FormData();
+        formData.append('file', file);
+        try {
+            const response = await fetch('http://127.0.0.1:8000/subir-imagen', {
+                method: 'POST',
+                body: formData
+            });
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            console.log(data);
+        } catch (error) {
+            console.error('Error uploading file:', error);
+        }
+    };
+
     useEffect(() => {
         setPuntos([])
         setCargando(true)
-
-        fetch("http://127.0.0.1:8000/recogerrutaaqui", {
-            method: "get", headers: {
-                Accept: "application/json",
-                "Content-type": "application/json",
-                "Access-Control-Allow-Origin": "*",
-            },
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                const keys = Object.keys(data);
-                if (keys.length > 0 && keys[0] === 'ruta') {
-                    setEditando(true)
-                }
-                console.log(data)
-            });
-
-
 
         let body2 = JSON.stringify({
             token: (cookies.session ? cookies.session.token : '')
@@ -156,10 +162,7 @@ export const Formulario = ({setActiveButton}) => {
                                 <Input
                                     variant='outlined'
                                     type="file"
-                                    onChange={(e) => {
-                                        setImagen(e.target.files[0]);
-                                        setError(false);
-                                    }}
+                                    onChange={handleFileChange}
                                     fullWidth
                                 />
                             </label>
@@ -195,7 +198,7 @@ export const Formulario = ({setActiveButton}) => {
                                 }}
                                 onClick={handlePlanificar}
                             >
-                                {editando ? 'Editar ruta' : 'Crear ruta'}
+                                Crear ruta
                             </Button>
                         </Grid >
                     </Grid>

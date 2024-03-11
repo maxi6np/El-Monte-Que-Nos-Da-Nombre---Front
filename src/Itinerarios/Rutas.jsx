@@ -54,7 +54,7 @@ export default function Rutas({ setPuntosSeleccionados, setActiveButton }) {
             .then(response => response.json())
             .then(data => {
                 console.log(data)
-                navigate('/planificar');
+                navigate(`/editar/:${ruta.id_ruta}`);
                 setActiveButton('Planificar')
             })
     }
