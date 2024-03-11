@@ -45,20 +45,6 @@ export default function Rutas({ setPuntosSeleccionados, setActiveButton }) {
     minWidth: 0,
   });
 
-    const handleEdit = (ruta) => {
-        let body = JSON.stringify({
-            token: cookies.session.token
-        })
-
-        fetch(`http://127.0.0.1:8000/encontrar-ruta/${ruta.id_ruta}`, { method: 'post', body: body, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', } })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data)
-                navigate('/planificar');
-                setActiveButton('Planificar')
-            })
-    }
-
     const handleDelete = (ruta) => {
         let confirmar = confirm('¿Desea eliminar la ruta seleccionada?');
         if (confirmar) {
@@ -146,7 +132,6 @@ export default function Rutas({ setPuntosSeleccionados, setActiveButton }) {
   }, []);
 
   useEffect(() => {
-    console.log(rutas);
     const nuevasFiltradas = [];
     rutas.forEach((ruta) => {
       let cumple = 0;
