@@ -35,7 +35,7 @@ export const FormularioEditar = ({ setActiveButton, idRuta }) => {
         .then(data => {
             setNombre(data.data.nombre);
             setDescripcion(data.data.descripcion);
-            setImagen(data.data.imagen);
+            setImagen(new File());
             data.data.publica == 1 ? setCheckCheckbox(true) : setCheckCheckbox(false);
             setChecked(data.data.puntos_interes.map(punto => (punto.id_punto_interes)));
 
@@ -156,6 +156,7 @@ export const FormularioEditar = ({ setActiveButton, idRuta }) => {
                                 <Input
                                     variant='outlined'
                                     type="file"
+                                    value={imagen}
                                     onChange={(e) => {
                                         setImagen(e.target.files[0]);
                                         setError(false);
