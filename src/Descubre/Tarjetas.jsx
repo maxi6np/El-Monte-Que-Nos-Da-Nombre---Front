@@ -7,6 +7,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 import React, { useState } from "react";
+import SchoolIcon from "@mui/icons-material/School";
 
 function Tarjetas({ puntos, selectPoint, setSelectPoint,CentrarMapa, setLatLong }) {
   const [openModal, setOpenModal] = useState(false);
@@ -81,6 +82,16 @@ function Tarjetas({ puntos, selectPoint, setSelectPoint,CentrarMapa, setLatLong 
                     </span>
                   </span>
                 </p>
+                <p>
+                  <SchoolIcon
+                    sx={{
+                      fontSize: "1.5rem",
+                      marginLeft: "0.2rem",
+                    }}
+                  />{" "}
+                  <strong style={{ fontSize: "1.2rem" }}>Cursos: </strong>
+                  
+                </p>
                 <>
                   <AutoStoriesIcon
                     sx={{
@@ -97,27 +108,7 @@ function Tarjetas({ puntos, selectPoint, setSelectPoint,CentrarMapa, setLatLong 
                     {punto.trabajos != "" ? (
                       punto.trabajos.map((trabajo, index) => (
                         <React.Fragment key={index}>
-                          <Grid
-                            item
-                            xs={6}
-                            style={{
-                              paddingLeft: "5rem",
-                              justifyContent: "center",
-                              textAlign: "center",
-                            }}
-                          >
-                            <List>
-                              {trabajo.categoriasTrabajos.map(
-                                (categoria, index) => (
-                                  <ListItem key={index}>
-                                    <p style={{ margin: 0 }}>
-                                      {categoria.nombre}
-                                    </p>{" "}
-                                  </ListItem>
-                                )
-                              )}
-                            </List>
-                          </Grid>
+                          
                           <Grid
                             item
                             xs={6}
@@ -144,7 +135,7 @@ function Tarjetas({ puntos, selectPoint, setSelectPoint,CentrarMapa, setLatLong 
                                         mostrarModal(categoria.descripcion);
                                       }}
                                     >
-                                      {categoria.descripcion}
+                                      {categoria.nombre}
                                     </p>{" "}
                                   </ListItem>
                                 )
