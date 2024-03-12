@@ -13,13 +13,16 @@ import LogoFinalBanner from "../img/logo_final_Banner.png";
 import MapaPuntos from "./MapaPuntos";
 import Tarjetas from "./Tarjetas";
 import { useTheme } from "@mui/material/styles";
-import Hidden from "@mui/material/Hidden";
+import { useMap, useMapEvent } from "react-leaflet";
 
 function Descubre({ logout, activeButton, setActiveButton }) {
   const [cookies, setCookie, removeCookie] = useCookies(["session"]);
   const [puntos, setPuntos] = useState([]);
   const [selectPoint, setSelectPoint] = useState([]);
   const [cargando, setCargando] = useState(false);
+  const latlongBase = [43.3736, -5.8412];
+  const [latlong, setLatLong] = useState(latlongBase);
+  
 
   useEffect(() => {
     let body = JSON.stringify({
@@ -43,6 +46,19 @@ function Descubre({ logout, activeButton, setActiveButton }) {
         setCargando(false);
       });
   }, []);
+
+  const CentrarMapa = ({latlong}) => {
+
+
+    const map = useMap();
+    useEffect(() => {
+      map.setView(latlong);
+    }, [latlong]);
+
+
+
+
+  }
 
  const theme = useTheme();
 
@@ -299,8 +315,11 @@ function Descubre({ logout, activeButton, setActiveButton }) {
             {puntos != null && (
               <Tarjetas
                 puntos={puntos}
+                latlong={latlong}
+                setLatLong={setLatLong}
                 selectPoint={selectPoint}
                 setSelectPoint={setSelectPoint}
+                CentrarMapa={CentrarMapa}
               />
             )}
           </div>
@@ -314,8 +333,11 @@ function Descubre({ logout, activeButton, setActiveButton }) {
         {/* Mapa */}
         <Grid container item xs={12} sm={12} md={12} lg={7} xl={7}>
           <MapaPuntos
-            setSelectPoint={setSelectPoint}
+            latlong={latlong}
             selectPoint={selectPoint}
+            setSelectPoint={setSelectPoint}
+            CentrarMapa={CentrarMapa}
+            latlongBase={latlongBase}
           />
         </Grid>
       </Grid>

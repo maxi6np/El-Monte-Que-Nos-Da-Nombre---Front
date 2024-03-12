@@ -9,7 +9,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { useCookies } from 'react-cookie';
 
 
-export const Formulario = ({setActiveButton}) => {
+export const Formulario = ({ setActiveButton }) => {
     const [usuario, setUsuario] = useState({});
     const [nombre, setNombre] = useState("");
     const [descripcion, setDescripcion] = useState("");
@@ -34,7 +34,7 @@ export const Formulario = ({setActiveButton}) => {
         const formData = new FormData();
         formData.append('file', file);
         try {
-            const response = await fetch('http://127.0.0.1:8000/subir-imagen', {
+            const response = await fetch(`http://127.0.0.1:8000/subir-imagen/{}`, {
                 method: 'POST',
                 body: formData
             });
@@ -75,7 +75,8 @@ export const Formulario = ({setActiveButton}) => {
         e.preventDefault();
         setChecked([])
         setError(false);
-
+        console.log(imagen)
+        console.log(checked)
         if (
             [
                 nombre,
@@ -89,28 +90,29 @@ export const Formulario = ({setActiveButton}) => {
             setError(true);
         } else {
 
-            let body = JSON.stringify({
-                nombre: nombre,
-                descripcion: descripcion,
-                puntos: checked,
-                imagen_principal: imagen,
-                publica: checkCheckbox ? 1 : 0,
-                token: cookies.session.token
-            })
+            const formdata = new FormData();
+            formdata.append("nombre", nombre);
+            formdata.append("imagen_principal", imagen);
+            formdata.append("descripcion", descripcion);
+            formdata.append("publica", checkCheckbox ? 1 : 0);
+            checked.forEach((id) => {
+                formdata.append("puntos[]", id);
+            });
+            formdata.append("token", cookies.session.token);
+            for (const value of formdata.values()) {
+                console.log(value);
+              }
+            const requestOptions = {
+                method: "POST",
+                headers: {  'Access-Control-Allow-Origin': '*', },
+                body: formdata,
+                redirect: "follow"
+            };
 
-            fetch('http://127.0.0.1:8000/planificar-ruta', { method: 'post', body: body, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', } })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data)
-                    if (data.message === 'Ruta creada correctamente') {
-                        navigate("/itinerarios");
-                        setActiveButton('Itinerarios')
-                        setEditando(false)
-                    } else {
-                        setMensaje(data.message);
-                        setError(true);
-                    }
-                })
+            fetch("http://127.0.0.1:8000/planificar-ruta", requestOptions)
+                .then((response) => response.text())
+                .then((result) => console.log(result))
+                .catch((error) => console.error(error));
         }
     };
     return (
@@ -163,7 +165,7 @@ export const Formulario = ({setActiveButton}) => {
                                 <Input
                                     variant='outlined'
                                     type="file"
-                                    onChange={handleFileChange}
+                                    onChange={(e) => setImagen(e.target.files[0])}
                                     fullWidth
                                 />
                             </label>
@@ -178,8 +180,8 @@ export const Formulario = ({setActiveButton}) => {
                                     value={checkCheckbox}
                                     onChange={(e) => setCheckCheckbox(!checkCheckbox)}
                                 >
-                                    <FormControlLabel  control={<Radio value={true} />} label="Pública" />
-                                    <FormControlLabel  control={<Radio value={false} />} label="Privada" />
+                                    <FormControlLabel control={<Radio value={true} />} label="Pública" />
+                                    <FormControlLabel control={<Radio value={false} />} label="Privada" />
                                 </RadioGroup>
                             </FormControl>
                         </Grid>

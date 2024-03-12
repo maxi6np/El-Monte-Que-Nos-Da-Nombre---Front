@@ -8,10 +8,11 @@ import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 import React, { useState } from "react";
 
-function Tarjetas({ puntos, selectPoint, setSelectPoint }) {
+function Tarjetas({ puntos, selectPoint, setSelectPoint,CentrarMapa, setLatLong }) {
   const [openModal, setOpenModal] = useState(false);
   const [modalContent, setModalContent] = useState("");
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState([]);
+
 
   const mostrarPunto = (punto_id) => {
     const ptoSeleccionado = puntos.find(
@@ -32,7 +33,7 @@ function Tarjetas({ puntos, selectPoint, setSelectPoint }) {
     <Grid container style={{ maxHeight: "100vh", overflowY: "auto" }}>
       {puntos.map((punto) => (
         <Card
-          onClick={() => setSelectPoint(punto)}
+          onClick={() => {setLatLong([punto.latitud, punto.longitud]); setSelectPoint(punto)}}
           key={punto.id_punto_interes}
           sx={{
             margin: "auto",
