@@ -24,7 +24,7 @@ function MarkersRutas({ puntos, puntosSeleccionados }) {
                                     marker.latitud + 0.0005,
                                     marker.longitud + 0.001
                                 ],
-                                18
+                                
                             );
                         }
                     }}

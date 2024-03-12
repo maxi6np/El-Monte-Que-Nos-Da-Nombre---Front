@@ -36,6 +36,7 @@ export default function Rutas({ setPuntosSeleccionados, setActiveButton }) {
   const [filtradas, setFiltradas] = useState([]);
   const [progreso, setProgreso] = useState("todas");
   const [cargando, setCargando] = useState(false);
+  const [requestID, setRequestID] = useState('');
   const navigate = useNavigate();
 
   const CircleButton = styled(Button)({
@@ -126,6 +127,7 @@ export default function Rutas({ setPuntosSeleccionados, setActiveButton }) {
       .then((data) => {
         setRutas(data.data);
         setCategorias(data.categoriasPuntos);
+        setRequestID(data.request_user_id)
         Ordenar(ordenarPor, data.data);
         setCargando(false);
       });
@@ -330,7 +332,7 @@ export default function Rutas({ setPuntosSeleccionados, setActiveButton }) {
                                 : "Ver más"}
                             </Button>
                           </p>
-                          {cookies.session && (
+                          {cookies.session && ( requestID == ruta.id_usuario && (
                             <Stack direction="row" spacing={2}>
                               <Link to={`/editar/${ruta.id_ruta}`}> <CircleButton
                                 onClick={()=>setActiveButton('/planificar')}
@@ -346,7 +348,7 @@ export default function Rutas({ setPuntosSeleccionados, setActiveButton }) {
                                 onClick={() => handleDelete(ruta)}
                               />
                             </Stack>
-                          )}
+                          ))}
                         </Typography>
                       </Grid>
                     </Grid>

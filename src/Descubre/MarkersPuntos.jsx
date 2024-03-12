@@ -9,6 +9,7 @@ function MarkersPuntos({ puntos, selectPoint }) {
             <Marker
                 key={index}
                 position={[marker.latitud, marker.longitud]}
+                
                 eventHandlers={{
                     click: () => {
                         map.setView(
