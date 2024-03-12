@@ -13,6 +13,7 @@ import LogoFinalBanner from "../img/logo_final_Banner.png";
 import MapaRutas from "./MapaRutas";
 import Rutas from "./Rutas";
 
+
 function Itinerarios({ logout, activeButton, setActiveButton }) {
   const [cookies, setCookie, removeCookie] = useCookies("session");
   const [puntosSeleccionados, setPuntosSeleccionados] = useState([]);
