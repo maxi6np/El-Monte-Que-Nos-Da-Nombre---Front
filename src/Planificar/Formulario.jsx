@@ -101,17 +101,21 @@ export const Formulario = ({ setActiveButton }) => {
             formdata.append("token", cookies.session.token);
             for (const value of formdata.values()) {
                 console.log(value);
-              }
+            }
             const requestOptions = {
                 method: "POST",
-                headers: {  'Access-Control-Allow-Origin': '*', },
+                headers: { 'Access-Control-Allow-Origin': '*', },
                 body: formdata,
                 redirect: "follow"
             };
 
             fetch("http://127.0.0.1:8000/planificar-ruta", requestOptions)
                 .then((response) => response.text())
-                .then((result) => console.log(result))
+                .then((data) => {
+                    console.log(data)
+                    navigate("/itinerarios");
+                    setActiveButton('Itinerarios')
+                })
                 .catch((error) => console.error(error));
         }
     };
