@@ -45,21 +45,21 @@ export default function Rutas({ setPuntosSeleccionados, setActiveButton }) {
     minWidth: 0,
   });
 
-    const handleDelete = (ruta) => {
-        let confirmar = confirm('¿Desea eliminar la ruta seleccionada?');
-        if (confirmar) {
-            let body = JSON.stringify({
-                id_ruta: ruta.id_ruta
-            })
+  const handleDelete = (ruta) => {
+    let confirmar = confirm('¿Desea eliminar la ruta seleccionada?');
+    if (confirmar) {
+      let body = JSON.stringify({
+        id_ruta: ruta.id_ruta
+      })
 
-            fetch('http://127.0.0.1:8000/borrar-ruta', { method: 'delete', body: body, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', } })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data)
-                    window.location.reload();
-                })
-        }
+      fetch('http://127.0.0.1:8000/borrar-ruta', { method: 'delete', body: body, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', } })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data)
+          window.location.reload();
+        })
     }
+  }
 
   const mostrarPuntos = (ruta_id) => {
     const rutaSeleccionada = rutas.find((ruta) => ruta.id_ruta == ruta_id);
@@ -309,9 +309,9 @@ export default function Rutas({ setPuntosSeleccionados, setActiveButton }) {
                               ? expandedRuta[ruta.id_ruta]
                                 ? ruta.descripcion
                                 : `${ruta.descripcion
-                                    .split(" ")
-                                    .slice(0, 25)
-                                    .join(" ")}...`
+                                  .split(" ")
+                                  .slice(0, 25)
+                                  .join(" ")}...`
                               : ruta.descripcion}
                             <Button
                               onClick={() => toggleExpand(ruta.id_ruta)}
@@ -332,10 +332,11 @@ export default function Rutas({ setPuntosSeleccionados, setActiveButton }) {
                           </p>
                           {cookies.session && (
                             <Stack direction="row" spacing={2}>
-                              <Link to ={`/editar/${ruta.id_ruta}`}> <CircleButton
+                              <Link to={`/editar/${ruta.id_ruta}`}> <CircleButton
+                                onClick={()=>setActiveButton('/planificar')}
                                 sx={{ backgroundColor: "#FFA500" }}
                                 startIcon={<EditIcon sx={{ color: "white" }} />}
-                             
+
                               /></Link>
                               <CircleButton
                                 sx={{ backgroundColor: "#FF6347" }}
