@@ -8,10 +8,11 @@ import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { React, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
+import Footer from "../Footer";
 import LogoFinalBanner from "../img/logo_final_Banner.png";
 import MapaPuntos from "./MapaPuntos";
 import Tarjetas from "./Tarjetas";
-import Footer from "../Footer";
+import { useTheme } from "@mui/material/styles";
 
 function Descubre({ logout, activeButton, setActiveButton }) {
   const [cookies, setCookie, removeCookie] = useCookies(["session"]);
@@ -42,22 +43,16 @@ function Descubre({ logout, activeButton, setActiveButton }) {
       });
   }, []);
 
+ const theme = useTheme();
+
   return (
     <div>
       <Grid container spacing={2}>
-        <Grid item sm={12} md={12} lg={12}>
+        <Grid item xs={12} sm={12} md={12} lg={12}>
           <AppBar position="static" sx={{ backgroundColor: "#004d40" }}>
             <Toolbar sx={{ width: "100%" }}>
               <Grid2 container sx={{ width: "100%" }}>
-                <Grid2
-                  item
-                  sm={2}
-                  md={2}
-                  lg={4}
-                  display="flex"
-                  justifyContent="start"
-                  alignItems="center"
-                >
+                <Grid2 container item xs={12} sm={2} md={2} lg={4} xl={4}>
                   <Box
                     component="div"
                     sx={{
@@ -66,25 +61,35 @@ function Descubre({ logout, activeButton, setActiveButton }) {
                       marginTop: "1rem",
                       marginBottom: "1rem",
                       marginLeft: "1rem",
+                      [theme.breakpoints.down("sm")]: {
+                        marginLeft: "auto",
+                        marginRight: "auto",
+                      },
                     }}
-                    item
                   >
                     <Link to="/">
                       {" "}
                       <img
                         src={LogoFinalBanner}
                         alt="IES MONTE NARANCO"
-                        style={{ height: "100%", width: "100%" }}
+                        style={{
+                          height: "100%",
+                          width: "100%",
+                          display: "block",
+                        }}
                         onClick={() => setActiveButton("Inicio")}
                       />
                     </Link>
                   </Box>
                 </Grid2>
                 <Grid2
+                  container
                   item
+                  xs={12}
                   sm={10}
-                  md={6}
+                  md={10}
                   lg={4}
+                  xl={4}
                   display="flex"
                   justifyContent="center"
                   alignItems="center"
@@ -92,19 +97,34 @@ function Descubre({ logout, activeButton, setActiveButton }) {
                   <Typography
                     variant="h5"
                     component="div"
-                    sx={{ textAlign: "center" }}
+                    sx={{
+                      textAlign: "center",
+                    }}
                   >
                     EL MONTE QUE NOS DA NOMBRE
                   </Typography>
                 </Grid2>
                 <Grid2
+                  container
                   item
-                  sm={9}
-                  md={4}
+                  xs={12}
+                  sm={12}
+                  md={12}
                   lg={4}
+                  xl={4}
                   display="flex"
                   justifyContent="end"
                   alignItems="center"
+                  sx={{
+                    [theme.breakpoints.down("md")]: {
+                      justifyContent: "center",
+                      alignItems: "center",
+                    },
+                    [theme.breakpoints.down("lg")]: {
+                      justifyContent: "center",
+                      alignItems: "center",
+                    },
+                  }}
                 >
                   <Box
                     component="div"
@@ -175,7 +195,7 @@ function Descubre({ logout, activeButton, setActiveButton }) {
       </Grid>
 
       <Grid container spacing={2}>
-        <Grid item sm={12} md={12}>
+        <Grid item xs={12} sm={12} md={12} lg={12}>
           <AppBar position="static" sx={{ backgroundColor: "#004d40" }}>
             <Toolbar
               sx={{
