@@ -14,6 +14,7 @@ import MapaPuntos from "./MapaPuntos";
 import Tarjetas from "./Tarjetas";
 import { useTheme } from "@mui/material/styles";
 import { useMap, useMapEvent } from "react-leaflet";
+import Hidden from "@mui/material/Hidden";
 
 function Descubre({ logout, activeButton, setActiveButton }) {
   const [cookies, setCookie, removeCookie] = useCookies(["session"]);
