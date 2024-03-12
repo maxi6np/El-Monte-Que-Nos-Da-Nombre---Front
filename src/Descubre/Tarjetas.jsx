@@ -1,6 +1,6 @@
 import AutoStoriesIcon from "@mui/icons-material/AutoStories";
 import DescriptionIcon from "@mui/icons-material/Description";
-import { CardActionArea, Grid, List, ListItem, Button } from "@mui/material";
+import { Button, CardActionArea, Grid, List, ListItem } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -29,8 +29,7 @@ function Tarjetas({ puntos, selectPoint, setSelectPoint }) {
   };
 
   return (
-    <div style={{ maxHeight: "100vh", overflowY: "auto" }}>
-
+    <Grid container style={{ maxHeight: "100vh", overflowY: "auto" }}>
       {puntos.map((punto) => (
         <Card
           onClick={() => setSelectPoint(punto)}
@@ -94,15 +93,15 @@ function Tarjetas({ puntos, selectPoint, setSelectPoint }) {
                     spacing={0}
                     style={{ display: "flex", justifyContent: "space-between" }}
                   >
-                    {punto.trabajos != '' ? (
+                    {punto.trabajos != "" ? (
                       punto.trabajos.map((trabajo, index) => (
                         <React.Fragment key={index}>
                           <Grid
                             item
                             xs={6}
                             style={{
-                              paddingLeft: '5rem',
-                              justifyContent: 'center',
+                              paddingLeft: "5rem",
+                              justifyContent: "center",
                               textAlign: "center",
                             }}
                           >
@@ -152,7 +151,8 @@ function Tarjetas({ puntos, selectPoint, setSelectPoint }) {
                             </List>
                           </Grid>
                         </React.Fragment>
-                      ))) : (
+                      ))
+                    ) : (
                       <p>Aún no hay trabajos disponibles</p>
                     )}
                   </Grid>
@@ -182,9 +182,9 @@ function Tarjetas({ puntos, selectPoint, setSelectPoint }) {
           <p>{categoriaSeleccionada.texto}</p>
           {(() => {
             switch (categoriaSeleccionada.tipo) {
-              case 'texto':
+              case "texto":
                 let url = categoriaSeleccionada.URL;
-                let urlModificada = url.substring(url.indexOf('/') + 1);
+                let urlModificada = url.substring(url.indexOf("/") + 1);
                 return (
                   <a
                     href={categoriaSeleccionada.URL}
@@ -193,27 +193,37 @@ function Tarjetas({ puntos, selectPoint, setSelectPoint }) {
                   >
                     <Button
                       sx={{
-                        margin: '2rem 0 0 0',
-                        backgroundColor: '#00897b',
+                        margin: "2rem 0 0 0",
+                        backgroundColor: "#00897b",
                       }}
                     >
-                      <p style={{ color: 'white' }}>
-                        {urlModificada}
-                      </p>
+                      <p style={{ color: "white" }}>{urlModificada}</p>
                     </Button>
                   </a>
                 );
-              case 'audio':
-                return <audio controls style={{ width: '50vw', height: '90%' }} src={categoriaSeleccionada.URL} />;
-              case 'video':
-                return <video controls style={{ width: '100%', maxHeight: '90%' }} src={categoriaSeleccionada.URL} />;
+              case "audio":
+                return (
+                  <audio
+                    controls
+                    style={{ width: "50vw", height: "90%" }}
+                    src={categoriaSeleccionada.URL}
+                  />
+                );
+              case "video":
+                return (
+                  <video
+                    controls
+                    style={{ width: "100%", maxHeight: "90%" }}
+                    src={categoriaSeleccionada.URL}
+                  />
+                );
               default:
                 return null;
             }
           })()}
         </div>
       </Modal>
-    </div>
+    </Grid>
   );
 }
 
