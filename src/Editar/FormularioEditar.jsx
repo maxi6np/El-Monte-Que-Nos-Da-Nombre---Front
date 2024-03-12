@@ -22,6 +22,7 @@ export const FormularioEditar = ({ setActiveButton, idRuta }) => {
     const [cargando, setCargando] = useState(false);
     const [cookies, setCookie, removeCookie] = useCookies('session')
     const [editando, setEditando] = useState(false)
+    const [imagenAntigua, setImagenAntigua] = useState('');
 
     useEffect(() => {
         let body = JSON.stringify({
@@ -37,6 +38,7 @@ export const FormularioEditar = ({ setActiveButton, idRuta }) => {
                 setImagen(data.data.imagen_principal);
                 data.data.publica == 1 ? setCheckCheckbox(true) : setCheckCheckbox(false);
                 setChecked(data.data.puntos_interes.map(punto => (punto.id_punto_interes)));
+                setImagenAntigua(data.data.imagen_principal);
 
 
             });
@@ -66,7 +68,8 @@ export const FormularioEditar = ({ setActiveButton, idRuta }) => {
         e.preventDefault();
         setChecked([])
         setError(false);
-
+        console.log(imagen)
+        console.log(checked)
         if (
             [
                 nombre,
@@ -80,20 +83,29 @@ export const FormularioEditar = ({ setActiveButton, idRuta }) => {
             setError(true);
         } else {
 
-            let body = JSON.stringify({
-                nombre: nombre,
-                descripcion: descripcion,
-                puntos: checked,
-                imagen_principal: imagen,
-                publica: checkCheckbox ? 1 : 0,
-                token: cookies.session.token
-            })
+            const formdata = new FormData();
+            formdata.append("nombre", nombre);
+            formdata.append("imagen_principal", imagen);
+            formdata.append("descripcion", descripcion);
+            formdata.append("publica", checkCheckbox ? 1 : 0);
+            checked.forEach((id) => {
+                formdata.append("puntos[]", id);
+            });
+            formdata.append("token", cookies.session.token);
+            for (const value of formdata.values()) {
+                console.log(value);
+            }
+            const requestOptions = {
+                method: "POST",
+                headers: { 'Access-Control-Allow-Origin': '*', },
+                body: formdata,
+                redirect: "follow"
+            };
 
-            fetch(`http://127.0.0.1:8000/editar-ruta/${idRuta}`, { method: 'put', body: body, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', } })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data)
-                    if (data.message === 'Ruta creada correctamente') {
+            fetch(`http://127.0.0.1:8000/editar-ruta/${idRuta}?_method=PUT`, requestOptions)
+                .then((response) => response.text())
+                .then((data) => {
+                    if (data.message === 'Ruta actualizada correctamente') {
                         navigate("/itinerarios");
                         setActiveButton('Itinerarios')
                         setEditando(false)
@@ -102,8 +114,10 @@ export const FormularioEditar = ({ setActiveButton, idRuta }) => {
                         setError(true);
                     }
                 })
+                .catch((error) => console.error(error));
         }
     };
+
     return (
         <div style={{ width: '40vw', margin: 'auto', marginTop: '6rem', height: '100%' }}>
             <Grid container spacing={1}>
@@ -164,12 +178,12 @@ export const FormularioEditar = ({ setActiveButton, idRuta }) => {
                                 />
                             </label>
                         </Grid>
-                        <Grid xs={12} gap={'1em'} display="flex" justifyContent="end" alignItems="center" sx={{marginTop:'1em'}}>
+                        <Grid xs={12} gap={'1em'} display="flex" justifyContent="end" alignItems="center" sx={{ marginTop: '1em' }}>
                             {imagen != '' && <Grid item xs={6} >
                                 <h6>Imagen antigua</h6>
                                 <img
-                                    src={'/' + imagen}
-                                    alt='imagen actual'
+                                    src={!imagenAntigua.includes('http:') ? '/' + imagenAntigua : imagenAntigua}
+                                    alt='imagen antigua'
                                     style={{ height: "100%", width: "100%" }}
 
                                 />
@@ -179,7 +193,7 @@ export const FormularioEditar = ({ setActiveButton, idRuta }) => {
                                     type="button"
                                     variant="contained"
                                     fullWidth
-                                    
+
                                     sx={{
                                         bgcolor: 'red',
 
