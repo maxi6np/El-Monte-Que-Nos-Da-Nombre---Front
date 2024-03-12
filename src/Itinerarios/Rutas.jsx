@@ -184,7 +184,7 @@ export default function Rutas({ setPuntosSeleccionados, setActiveButton }) {
         </Grid>
       ) : (
         <>
-          <Grid container spacing={2}>
+          <Grid container spacing={2} >
             {cookies.session && (
               <Grid item xs={4}>
                 <FormControl fullWidth sx={{ marginBottom: "2rem" }}>

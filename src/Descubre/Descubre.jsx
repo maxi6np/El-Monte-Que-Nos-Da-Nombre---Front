@@ -333,6 +333,7 @@ function Descubre({ logout, activeButton, setActiveButton }) {
 
         {/* Mapa */}
         <Grid container item xs={12} sm={12} md={12} lg={7} xl={7}>
+          <span>Click derecho para ver todos los puntos</span>
           <MapaPuntos
             latlong={latlong}
             selectPoint={selectPoint}
