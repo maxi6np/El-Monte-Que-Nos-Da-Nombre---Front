@@ -1,5 +1,6 @@
 import AutoStoriesIcon from "@mui/icons-material/AutoStories";
 import DescriptionIcon from "@mui/icons-material/Description";
+import SchoolIcon from "@mui/icons-material/School";
 import { Button, CardActionArea, Grid, List, ListItem } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -7,13 +8,17 @@ import CardMedia from "@mui/material/CardMedia";
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 import React, { useState } from "react";
-import SchoolIcon from "@mui/icons-material/School";
 
-function Tarjetas({ puntos, selectPoint, setSelectPoint,CentrarMapa, setLatLong }) {
+function Tarjetas({
+  puntos,
+  selectPoint,
+  setSelectPoint,
+  CentrarMapa,
+  setLatLong,
+}) {
   const [openModal, setOpenModal] = useState(false);
   const [modalContent, setModalContent] = useState("");
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState([]);
-
 
   const mostrarPunto = (punto_id) => {
     const ptoSeleccionado = puntos.find(
@@ -34,7 +39,10 @@ function Tarjetas({ puntos, selectPoint, setSelectPoint,CentrarMapa, setLatLong 
     <Grid container style={{ maxHeight: "100vh", overflowY: "auto" }}>
       {puntos.map((punto) => (
         <Card
-          onClick={() => {setLatLong([punto.latitud, punto.longitud]); setSelectPoint(punto)}}
+          onClick={() => {
+            setLatLong([punto.latitud, punto.longitud]);
+            setSelectPoint(punto);
+          }}
           key={punto.id_punto_interes}
           sx={{
             margin: "auto",
@@ -90,7 +98,51 @@ function Tarjetas({ puntos, selectPoint, setSelectPoint,CentrarMapa, setLatLong 
                     }}
                   />{" "}
                   <strong style={{ fontSize: "1.2rem" }}>Cursos: </strong>
-                  
+                  <Grid
+                    container
+                    spacing={0}
+                    style={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    {punto.trabajos != "" ? (
+                      punto.trabajos.map((trabajo, index) => (
+                        <React.Fragment key={index}>
+                          <Grid
+                            item
+                            xs={6}
+                            style={{
+                              paddingLeft: "1.5rem",
+                              paddingRight: "3rem",
+                              textAlign: "center",
+                            }}
+                          >
+                            <List>
+                              {trabajo.categoriasTrabajos.map(
+                                (categoria, index) => (
+                                  <ListItem key={index}>
+                                    <p
+                                      style={{
+                                        margin: 0,
+                                        color: "black",
+                                        fontSize: "1.1rem",
+                                      }}
+                                      onClick={() => {
+                                        setCategoriaSeleccionada(trabajo);
+                                        mostrarModal(categoria.descripcion);
+                                      }}
+                                    >
+                                      {categoria.nombre}
+                                    </p>{" "}
+                                  </ListItem>
+                                )
+                              )}
+                            </List>
+                          </Grid>
+                        </React.Fragment>
+                      ))
+                    ) : (
+                      <p>Aún no hay cursos disponibles</p>
+                    )}
+                  </Grid>
                 </p>
                 <>
                   <AutoStoriesIcon
@@ -108,40 +160,23 @@ function Tarjetas({ puntos, selectPoint, setSelectPoint,CentrarMapa, setLatLong 
                     {punto.trabajos != "" ? (
                       punto.trabajos.map((trabajo, index) => (
                         <React.Fragment key={index}>
-                          
-                          <Grid
-                            item
-                            xs={6}
+                          <p
+                            key={index}
                             style={{
-                              paddingLeft: "1.5rem",
-                              paddingRight: "3rem",
-                              textAlign: "center",
+                              margin: 10,
+                              color: "blue",
+                              textDecoration: "underline",
+                              cursor: "pointer",
+                              component: "link",
+                              fontSize: "1.1rem",
+                            }}
+                            onClick={() => {
+                              setCategoriaSeleccionada(trabajo);
+                              mostrarModal(trabajo.nombre);
                             }}
                           >
-                            <List>
-                              {trabajo.categoriasTrabajos.map(
-                                (categoria, index) => (
-                                  <ListItem key={index}>
-                                    <p
-                                      style={{
-                                        margin: 0,
-                                        color: "blue",
-                                        textDecoration: "underline",
-                                        cursor: "pointer",
-                                        component: "link",
-                                      }}
-                                      onClick={() => {
-                                        setCategoriaSeleccionada(trabajo);
-                                        mostrarModal(categoria.descripcion);
-                                      }}
-                                    >
-                                      {categoria.nombre}
-                                    </p>{" "}
-                                  </ListItem>
-                                )
-                              )}
-                            </List>
-                          </Grid>
+                            {trabajo.nombre}
+                          </p>{" "}
                         </React.Fragment>
                       ))
                     ) : (
