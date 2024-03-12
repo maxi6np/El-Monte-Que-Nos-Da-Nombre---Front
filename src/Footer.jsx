@@ -11,6 +11,7 @@ function Footer() {
       <Grid
         item
         xs={12}
+        sm={12}
         md={12}
         lg={12}
         sx={{
@@ -24,6 +25,7 @@ function Footer() {
           <Grid
             item
             xs={12}
+            sm={12}
             md={12}
             lg={6}
             textAlign={{
@@ -67,6 +69,7 @@ function Footer() {
           <Grid
             item
             xs={12}
+            sm={12}
             md={12}
             lg={6}
             textAlign={{
@@ -107,7 +110,7 @@ function Footer() {
             </div>
           </Grid>
         </Grid>
-        <Grid item xs={12} md={12} lg={12}>
+        <Grid item xs={12} sm={12} md={12} lg={12}>
           <Typography
             variant="body1"
             align="center"
