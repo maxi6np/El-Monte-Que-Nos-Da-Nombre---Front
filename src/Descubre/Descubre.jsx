@@ -14,6 +14,7 @@ import MapaPuntos from "./MapaPuntos";
 import Tarjetas from "./Tarjetas";
 import { useTheme } from "@mui/material/styles";
 import { useMap, useMapEvent } from "react-leaflet";
+import Hidden from "@mui/material/Hidden";
 
 function Descubre({ logout, activeButton, setActiveButton }) {
   const [cookies, setCookie, removeCookie] = useCookies(["session"]);
@@ -298,7 +299,7 @@ function Descubre({ logout, activeButton, setActiveButton }) {
 
       <Grid container spacing={2} sx={{ marginTop: 2, marginBottom: 2 }}>
         {/* Tarjetas */}
-        <Grid item xs={12} md={4.5}>
+        <Grid item xs={12} sm={12} md={12} lg={4.5} xl={4.5}>
           <div style={{ position: "relative", height: "100%" }}>
             {cargando && (
               <div
@@ -326,10 +327,12 @@ function Descubre({ logout, activeButton, setActiveButton }) {
         </Grid>
 
         {/* Columna de relleno */}
-        <Grid item xs={0} md={0.5}></Grid>
+        <Hidden mdDown>
+          <Grid container item lg={0.5} xl={0.5}></Grid>
+        </Hidden>
 
         {/* Mapa */}
-        <Grid item xs={12} md={7}>
+        <Grid container item xs={12} sm={12} md={12} lg={7} xl={7}>
           <MapaPuntos
             latlong={latlong}
             selectPoint={selectPoint}
