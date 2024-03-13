@@ -53,7 +53,7 @@ export default function Rutas({ setPuntosSeleccionados, setActiveButton }) {
         id_ruta: ruta.id_ruta
       })
 
-      fetch('http://127.0.0.1:8000/borrar-ruta', { method: 'delete', body: body, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', } })
+      fetch('http://' + import.meta.env.VITE_APP_PETICION_IP + ':8000/borrar-ruta', { method: 'delete', body: body, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', } })
         .then(response => response.json())
         .then(data => {
           console.log(data)
@@ -114,7 +114,7 @@ export default function Rutas({ setPuntosSeleccionados, setActiveButton }) {
     });
 
     setCargando(true);
-    fetch("http://127.0.0.1:8000/get-rutas", {
+    fetch('http://' + import.meta.env.VITE_APP_PETICION_IP + ':8000/get-rutas', {
       method: "post",
       body: body,
       headers: {
@@ -276,7 +276,7 @@ export default function Rutas({ setPuntosSeleccionados, setActiveButton }) {
                         <CardMedia
                           component="img"
                           height="100%"
-                          image={ruta.imagen_principal}
+                          image={ruta.imagen_principal != null ? ('http://' + import.meta.env.VITE_APP_PETICION_IP + ':8000' + ruta.imagen_principal) : ruta.puntos_interes[0].imagen}
                           alt={ruta.nombre}
                         />
                       </Grid>

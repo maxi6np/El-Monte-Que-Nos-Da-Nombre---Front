@@ -24,7 +24,7 @@ function MapaRutas({ puntosSeleccionados, setPuntosSeleccionados }) {
     let body = JSON.stringify({
       token: (cookies.session ? cookies.session.token : '')
   })
-    fetch("http://127.0.0.1:8000/mapa-puntos", { method: "post", body: body,
+    fetch('http://' + import.meta.env.VITE_APP_PETICION_IP + ':8000/mapa-puntos', { method: "post", body: body,
     headers: {
         Accept: "application/json",
         "Content-type": "application/json",

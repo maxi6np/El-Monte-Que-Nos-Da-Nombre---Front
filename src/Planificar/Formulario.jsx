@@ -24,31 +24,6 @@ export const Formulario = ({ setActiveButton }) => {
     const [cookies, setCookie, removeCookie] = useCookies('session')
     const [editando, setEditando] = useState(false)
 
-    const handleFileChange = (e) => {
-        const file = e.target.files[0];
-        setImagen(e.target.files[0])
-        uploadFile(file);
-    };
-
-    const uploadFile = async (file) => {
-        const formData = new FormData();
-        formData.append('file', file);
-        try {
-            const response = await fetch(`http://127.0.0.1:8000/subir-imagen/{}`, {
-                method: 'POST',
-                body: formData
-            });
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            const data = await response.json();
-            console.log(data);
-            setImagen(file.name)
-        } catch (error) {
-            console.error('Error uploading file:', error);
-        }
-    };
-
     useEffect(() => {
         setPuntos([])
         setCargando(true)
@@ -56,7 +31,7 @@ export const Formulario = ({ setActiveButton }) => {
         let body2 = JSON.stringify({
             token: (cookies.session ? cookies.session.token : '')
         })
-        fetch("http://127.0.0.1:8000/puntos-trabajos", {
+        fetch('http://' + import.meta.env.VITE_APP_PETICION_IP + ':8000/puntos-trabajos', {
             method: "post", body: body2, headers: {
                 Accept: "application/json",
                 "Content-type": "application/json",
@@ -73,7 +48,6 @@ export const Formulario = ({ setActiveButton }) => {
 
     const handlePlanificar = (e) => {
         e.preventDefault();
-        setChecked([])
         setError(false);
         console.log(imagen)
         console.log(checked)
@@ -92,7 +66,7 @@ export const Formulario = ({ setActiveButton }) => {
 
             const formdata = new FormData();
             formdata.append("nombre", nombre);
-            formdata.append("imagen_principal", imagen);
+            imagen != undefined ? formdata.append("imagen_principal", imagen) : formdata.append('imagen_principal', '');
             formdata.append("descripcion", descripcion);
             formdata.append("publica", checkCheckbox ? 1 : 0);
             checked.forEach((id) => {
@@ -109,12 +83,17 @@ export const Formulario = ({ setActiveButton }) => {
                 redirect: "follow"
             };
 
-            fetch("http://127.0.0.1:8000/planificar-ruta", requestOptions)
-                .then((response) => response.text())
+            fetch('http://' + import.meta.env.VITE_APP_PETICION_IP + ':8000/planificar-ruta', requestOptions)
+                .then((response) => response.json())
                 .then((data) => {
-                    console.log(data)
-                    navigate("/itinerarios");
-                    setActiveButton('Itinerarios')
+                    if (data.message == 'Ruta creada correctamente') {
+                        console.log(data)
+                        navigate("/itinerarios");
+                        setActiveButton('Itinerarios')
+                    }else{
+                        setMensaje(data.message);
+                        setError(true);
+                    }
                 })
                 .catch((error) => console.error(error));
         }

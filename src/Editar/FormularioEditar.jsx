@@ -30,15 +30,15 @@ export const FormularioEditar = ({ setActiveButton, idRuta }) => {
         })
         setCargando(true)
 
-        fetch(`http://127.0.0.1:8000/encontrar-ruta/${idRuta}`, { method: 'post', body: body, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', } })
+        fetch(`http://` + import.meta.env.VITE_APP_PETICION_IP + `:8000/encontrar-ruta/${idRuta}`, { method: 'post', body: body, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', } })
             .then(response => response.json())
             .then(data => {
                 setNombre(data.data.nombre);
                 setDescripcion(data.data.descripcion);
-                setImagen(data.data.imagen_principal);
+                data.data.imagen_principal != null ? setImagen(data.data.imagen_principal) : setImagen('');
                 data.data.publica == 1 ? setCheckCheckbox(true) : setCheckCheckbox(false);
                 setChecked(data.data.puntos_interes.map(punto => (punto.id_punto_interes)));
-                setImagenAntigua(data.data.imagen_principal);
+                data.data.imagen_principal != null ? setImagenAntigua(data.data.imagen_principal) : setImagenAntigua('');
 
 
             });
@@ -48,7 +48,7 @@ export const FormularioEditar = ({ setActiveButton, idRuta }) => {
         let body2 = JSON.stringify({
             token: (cookies.session ? cookies.session.token : '')
         })
-        fetch("http://127.0.0.1:8000/puntos-trabajos", {
+        fetch('http://' + import.meta.env.VITE_APP_PETICION_IP + ':8000/puntos-trabajos', {
             method: "post", body: body2, headers: {
                 Accept: "application/json",
                 "Content-type": "application/json",
@@ -66,7 +66,6 @@ export const FormularioEditar = ({ setActiveButton, idRuta }) => {
 
     const handlePlanificar = (e) => {
         e.preventDefault();
-        setChecked([])
         setError(false);
         console.log(imagen)
         console.log(checked)
@@ -85,7 +84,11 @@ export const FormularioEditar = ({ setActiveButton, idRuta }) => {
 
             const formdata = new FormData();
             formdata.append("nombre", nombre);
-            formdata.append("imagen_principal", imagen);
+            if (imagen != undefined) {
+                formdata.append("imagen_principal", imagen);
+            } else {
+                formdata.append('imagen_principal', imagenAntigua);
+            }
             formdata.append("descripcion", descripcion);
             formdata.append("publica", checkCheckbox ? 1 : 0);
             checked.forEach((id) => {
@@ -102,10 +105,10 @@ export const FormularioEditar = ({ setActiveButton, idRuta }) => {
                 redirect: "follow"
             };
 
-            fetch(`http://127.0.0.1:8000/editar-ruta/${idRuta}?_method=PUT`, requestOptions)
-                .then((response) => response.text())
+            fetch(`http://` + import.meta.env.VITE_APP_PETICION_IP + `:8000/editar-ruta/${idRuta}?_method=PUT`, requestOptions)
+                .then((response) => response.json())
                 .then((data) => {
-                    if (data.message === 'Ruta actualizada correctamente') {
+                    if (data.message == 'Ruta actualizada correctamente') {
                         navigate("/itinerarios");
                         setActiveButton('Itinerarios')
                         setEditando(false)
@@ -172,6 +175,7 @@ export const FormularioEditar = ({ setActiveButton, idRuta }) => {
                                     type="file"
                                     onChange={(e) => {
                                         setImagen(e.target.files[0]);
+                                        imagen == undefined && setImagen('');
                                         setError(false);
                                     }}
                                     fullWidth
@@ -179,16 +183,16 @@ export const FormularioEditar = ({ setActiveButton, idRuta }) => {
                             </label>
                         </Grid>
                         <Grid xs={12} gap={'1em'} display="flex" justifyContent="end" alignItems="center" sx={{ marginTop: '1em' }}>
-                            {imagen != '' && <Grid item xs={6} >
+                            {imagen != '' && imagenAntigua != '' && <Grid item xs={6} >
                                 <h6>Imagen antigua</h6>
                                 <img
-                                    src={!imagenAntigua.includes('http:') ? '/' + imagenAntigua : imagenAntigua}
+                                    src={!imagenAntigua.includes('rutas') ? ('http://' + import.meta.env.VITE_APP_PETICION_IP + ':8000' + imagenAntigua) : imagenAntigua}
                                     alt='imagen antigua'
                                     style={{ height: "100%", width: "100%" }}
 
                                 />
                             </Grid>}
-                            <Grid item xs={5}>
+                            {imagenAntigua != '' && <Grid item xs={5}>
                                 <Button
                                     type="button"
                                     variant="contained"
@@ -198,11 +202,11 @@ export const FormularioEditar = ({ setActiveButton, idRuta }) => {
                                         bgcolor: 'red',
 
                                     }}
-                                    onClick={(e) => { setImagen(''); e.target.style.display = 'none' }}
+                                    onClick={(e) => { setImagen(''); setImagenAntigua(''); e.target.style.display = 'none' }}
                                 >
                                     Eliminar imagen
                                 </Button>
-                            </Grid>
+                            </Grid>}
                         </Grid>
                         <Grid item xs={12}>
                             <FormControl>
