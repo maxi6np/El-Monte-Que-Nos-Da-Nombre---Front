@@ -57,7 +57,7 @@ const Registro = () => {
         fecha_nacimiento: fechaNacimiento
       })
 
-      fetch('http://127.0.0.1:8000/register', { method: 'post', body: body, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', } })
+      fetch('http://' + import.meta.env.VITE_APP_PETICION_IP + ':8000/register', { method: 'post', body: body, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', } })
         .then(response => response.json())
         .then(data => {
           console.log(data)
