@@ -73,7 +73,6 @@ export const Formulario = ({ setActiveButton }) => {
 
     const handlePlanificar = (e) => {
         e.preventDefault();
-        setChecked([])
         setError(false);
         console.log(imagen)
         console.log(checked)
@@ -92,7 +91,7 @@ export const Formulario = ({ setActiveButton }) => {
 
             const formdata = new FormData();
             formdata.append("nombre", nombre);
-            formdata.append("imagen_principal", imagen);
+            imagen != undefined ? formdata.append("imagen_principal", imagen) : formdata.append('imagen_principal', '');
             formdata.append("descripcion", descripcion);
             formdata.append("publica", checkCheckbox ? 1 : 0);
             checked.forEach((id) => {
