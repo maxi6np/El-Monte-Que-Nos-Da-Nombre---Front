@@ -85,7 +85,11 @@ export const FormularioEditar = ({ setActiveButton, idRuta }) => {
 
             const formdata = new FormData();
             formdata.append("nombre", nombre);
+            if (imagen != undefined){
             formdata.append("imagen_principal", imagen);
+            }else{
+                formdata.append('imagen_principal', imagenAntigua);
+            }
             formdata.append("descripcion", descripcion);
             formdata.append("publica", checkCheckbox ? 1 : 0);
             checked.forEach((id) => {
@@ -103,9 +107,9 @@ export const FormularioEditar = ({ setActiveButton, idRuta }) => {
             };
 
             fetch(`http://127.0.0.1:8000/editar-ruta/${idRuta}?_method=PUT`, requestOptions)
-                .then((response) => response.text())
+                .then((response) => response.json())
                 .then((data) => {
-                    if (data.message === 'Ruta actualizada correctamente') {
+                    if (data.message == 'Ruta actualizada correctamente') {
                         navigate("/itinerarios");
                         setActiveButton('Itinerarios')
                         setEditando(false)
@@ -172,6 +176,7 @@ export const FormularioEditar = ({ setActiveButton, idRuta }) => {
                                     type="file"
                                     onChange={(e) => {
                                         setImagen(e.target.files[0]);
+                                        imagen == undefined && setImagen('');
                                         setError(false);
                                     }}
                                     fullWidth
@@ -179,7 +184,7 @@ export const FormularioEditar = ({ setActiveButton, idRuta }) => {
                             </label>
                         </Grid>
                         <Grid xs={12} gap={'1em'} display="flex" justifyContent="end" alignItems="center" sx={{ marginTop: '1em' }}>
-                            {imagen != '' && <Grid item xs={6} >
+                            {imagen != '' && imagenAntigua != '' && <Grid item xs={6} >
                                 <h6>Imagen antigua</h6>
                                 <img
                                     src={!imagenAntigua.includes('http:') ? '/' + imagenAntigua : imagenAntigua}
@@ -198,7 +203,7 @@ export const FormularioEditar = ({ setActiveButton, idRuta }) => {
                                         bgcolor: 'red',
 
                                     }}
-                                    onClick={(e) => { setImagen(''); e.target.style.display = 'none' }}
+                                    onClick={(e) => { setImagen(''); setImagenAntigua(''); e.target.style.display = 'none' }}
                                 >
                                     Eliminar imagen
                                 </Button>
