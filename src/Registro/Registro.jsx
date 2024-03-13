@@ -1,10 +1,16 @@
-import { Button, Container, Grid, TextField, ThemeProvider, createTheme } from "@mui/material";
+import {
+  Button,
+  Container,
+  Grid,
+  TextField,
+  ThemeProvider,
+  createTheme,
+} from "@mui/material";
 import { useState } from "react";
 import Error from "../Error";
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import LogoFinal from '../img/logo_final.png';
-
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import LogoFinal from "../img/logo_final.png";
 
 const Registro = () => {
   const [usuario, setUsuario] = useState({});
@@ -20,7 +26,7 @@ const Registro = () => {
   const navigate = useNavigate();
 
   const handleRegistrar = (e) => {
-    let reg = new RegExp(/^[\w-.]+@([\w-]+.)+[\w-]{2,4}$/)
+    let reg = new RegExp(/^[\w-.]+@([\w-]+.)+[\w-]{2,4}$/);
     setError(false);
     e.preventDefault();
 
@@ -42,20 +48,19 @@ const Registro = () => {
       setMensaje("Las contraseñas no coinciden");
     } else if (contrasenia.length < 8) {
       setError(true);
-      setMensaje("La contraseña debe tener más de 8 caracteres")
+      setMensaje("La contraseña debe tener más de 8 caracteres");
     } else if (!reg.test(email)) {
-      setError(true)
-      setMensaje('Introduzca un email válido')
+      setError(true);
+      setMensaje("Introduzca un email válido");
     } else {
-
       let body = JSON.stringify({
         nombre_usuario: nombreUsuario,
         email: email,
         password: contrasenia,
         nombre: nombre,
         apellidos: apellidos,
-        fecha_nacimiento: fechaNacimiento
-      })
+        fecha_nacimiento: fechaNacimiento,
+      });
 
       fetch('http://' + import.meta.env.VITE_APP_PETICION_IP + '/register', { method: 'post', body: body, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', } })
         .then(response => response.json())
@@ -67,27 +72,45 @@ const Registro = () => {
             setMensaje(data.message);
             setError(true);
           }
-        })
+        });
     }
   };
 
   return (
-    <Container sx={{ display: 'flex' }}>
-      <Grid container spacing={1} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '2rem' }}>
+    <Container
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        flexDirection: { xs: "column", lg: "row" },
+      }}
+    >
+      <Grid
+        item
+        xs={12}
+        sm={12}
+        md={12}
+        lg={6}
+        xl={6}
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "auto",
+          order: { xs: 2, lg: 1 },
+        }}
+      >
         <form>
-          <Grid container spacing={1}>
+          <Grid container spacing={2}>
             <Grid item xs={12} md={6}>
               <TextField
                 label="Nombre"
                 variant="outlined"
                 fullWidth
                 value={usuario.nombre}
-                onChange={
-                  (e) => {
-                    setNombre(e.target.value)
-                    setError(false)
-                  }
-                }
+                onChange={(e) => {
+                  setNombre(e.target.value);
+                  setError(false);
+                }}
                 required
               />
             </Grid>
@@ -98,8 +121,8 @@ const Registro = () => {
                 fullWidth
                 value={usuario.apellidos}
                 onChange={(e) => {
-                  setApellidos(e.target.value)
-                  setError(false)
+                  setApellidos(e.target.value);
+                  setError(false);
                 }}
                 required
               />
@@ -111,8 +134,8 @@ const Registro = () => {
                 fullWidth
                 value={usuario.nombreUsuario}
                 onChange={(e) => {
-                  setNombreUsuario(e.target.value)
-                  setError(false)
+                  setNombreUsuario(e.target.value);
+                  setError(false);
                 }}
                 required
               />
@@ -125,8 +148,8 @@ const Registro = () => {
                 fullWidth
                 value={usuario.email}
                 onChange={(e) => {
-                  setEmail(e.target.value)
-                  setError(false)
+                  setEmail(e.target.value);
+                  setError(false);
                 }}
                 required
               />
@@ -143,13 +166,13 @@ const Registro = () => {
                 }}
                 value={usuario.fechaNacimiento}
                 onChange={(e) => {
-                  setFechaNacimiento(e.target.value)
-                  setError(false)
+                  setFechaNacimiento(e.target.value);
+                  setError(false);
                 }}
                 required
               />
             </Grid>
-            <Grid item xs={12} >
+            <Grid item xs={12}>
               <TextField
                 label="Contraseña"
                 type="password"
@@ -157,8 +180,8 @@ const Registro = () => {
                 fullWidth
                 value={usuario.contrasenia}
                 onChange={(e) => {
-                  setContrasenia(e.target.value)
-                  setError(false)
+                  setContrasenia(e.target.value);
+                  setError(false);
                 }}
                 required
               />
@@ -171,46 +194,64 @@ const Registro = () => {
                 fullWidth
                 value={usuario.confirmarContrasenia}
                 onChange={(e) => {
-                  setConfirmarContrasenia(e.target.value)
-                  setError(false)
+                  setConfirmarContrasenia(e.target.value);
+                  setError(false);
                 }}
                 required
               />
-            </Grid >
+            </Grid>
             <Grid item xs={12}>
               {error && <Error>{mensaje}</Error>}
 
               <Button
                 type="submit"
                 variant="contained"
-
                 fullWidth
                 style={{ marginTop: "20px" }}
                 sx={{
-                  bgcolor: 'primary.main',
-                  ':hover': {
-                    bgcolor: 'primary.light'
-                  }
+                  bgcolor: "primary.main",
+                  ":hover": {
+                    bgcolor: "primary.light",
+                  },
                 }}
                 onClick={handleRegistrar}
-
               >
                 Registrarse
               </Button>
-            </Grid >
+            </Grid>
           </Grid>
-          <div style={{ marginTop: '1rem', textAlign: 'center' }} >
-            <p>¿Ya tienes cuenta? <Link to='/login'>Inicia sesión</Link></p>
-            <p><Link to='/'>Volver a la página principal</Link></p>
+          <div style={{ marginTop: "1rem", textAlign: "center" }}>
+            <p>
+              ¿Ya tienes cuenta? <Link to="/login">Inicia sesión</Link>
+            </p>
+            <p>
+              <Link to="/">Volver a la página principal</Link>
+            </p>
           </div>
         </form>
-
       </Grid>
 
-      <Container maxWidth='sm' sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-        <Link to='/'><img src={LogoFinal} alt="IES MONTE NARANCO" /></Link>
-      </Container>
-
+      <Grid
+        item
+        xs={12}
+        sm={12}
+        md={12}
+        lg={6}
+        xl={6}
+        maxWidth="sm"
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: { xs: "auto", lg: "100vh" },
+          marginBottom: { xs: "2rem", lg: 0 },
+          order: { xs: 1, lg: 2 },
+        }}
+      >
+        <Link to="/">
+          <img src={LogoFinal} alt="IES MONTE NARANCO" />
+        </Link>
+      </Grid>
     </Container>
   );
 };

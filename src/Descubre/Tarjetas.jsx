@@ -104,41 +104,51 @@ function Tarjetas({
                     style={{ display: "flex", justifyContent: "space-between" }}
                   >
                     {punto.trabajos != "" ? (
-                      punto.trabajos.map((trabajo, index) => (
-                        <React.Fragment key={index}>
-                          <Grid
-                            item
-                            xs={6}
-                            style={{
-                              paddingLeft: "1.5rem",
-                              paddingRight: "3rem",
-                              textAlign: "center",
-                            }}
-                          >
-                            <List>
-                              {trabajo.categoriasTrabajos.map(
-                                (categoria, index) => (
-                                  <ListItem key={index}>
-                                    <p
-                                      style={{
-                                        margin: 0,
-                                        color: "black",
-                                        fontSize: "1.1rem",
-                                      }}
-                                      onClick={() => {
-                                        setCategoriaSeleccionada(trabajo);
-                                        mostrarModal(categoria.descripcion);
-                                      }}
-                                    >
-                                      {categoria.nombre}
-                                    </p>{" "}
-                                  </ListItem>
-                                )
-                              )}
-                            </List>
-                          </Grid>
-                        </React.Fragment>
-                      ))
+                      punto.trabajos.map((trabajo, index) => {
+                         const trabajosMostrados = [];
+                        return (
+                          <React.Fragment key={index}>
+                            <Grid
+                              item
+                              xs={6}
+                              style={{
+                                paddingLeft: "1.5rem",
+                                paddingRight: "3rem",
+                                textAlign: "center",
+                              }}
+                            >
+                              <List>
+                                {trabajo.categoriasTrabajos.map(
+                                  (categoria, index) => {
+                                    if (
+                                      !trabajosMostrados.includes(
+                                        categoria.nombre
+                                      )
+                                    ) {
+                                      trabajosMostrados.push(categoria.nombre);
+                                      return (
+                                        <ListItem key={index}>
+                                          <p
+                                            style={{
+                                              margin: 0,
+                                              color: "black",
+                                              fontSize: "1.1rem",
+                                            }}
+                                          >
+                                            {trabajosMostrados}
+                                          </p>{" "}
+                                        </ListItem>
+                                      );
+                                    } else {
+                                      return null;
+                                    }
+                                  }
+                                )}
+                              </List>
+                            </Grid>
+                          </React.Fragment>
+                        );
+                      })
                     ) : (
                       <p>Aún no hay cursos disponibles</p>
                     )}
