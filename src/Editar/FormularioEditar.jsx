@@ -35,10 +35,10 @@ export const FormularioEditar = ({ setActiveButton, idRuta }) => {
             .then(data => {
                 setNombre(data.data.nombre);
                 setDescripcion(data.data.descripcion);
-                setImagen(data.data.imagen_principal);
+                data.data.imagen_principal != null ? setImagen(data.data.imagen_principal) : setImagen('');
                 data.data.publica == 1 ? setCheckCheckbox(true) : setCheckCheckbox(false);
                 setChecked(data.data.puntos_interes.map(punto => (punto.id_punto_interes)));
-                setImagenAntigua(data.data.imagen_principal);
+                data.data.imagen_principal != null ? setImagenAntigua(data.data.imagen_principal) : setImagenAntigua('');
 
 
             });
@@ -66,7 +66,6 @@ export const FormularioEditar = ({ setActiveButton, idRuta }) => {
 
     const handlePlanificar = (e) => {
         e.preventDefault();
-        setChecked([])
         setError(false);
         console.log(imagen)
         console.log(checked)
@@ -85,9 +84,9 @@ export const FormularioEditar = ({ setActiveButton, idRuta }) => {
 
             const formdata = new FormData();
             formdata.append("nombre", nombre);
-            if (imagen != undefined){
-            formdata.append("imagen_principal", imagen);
-            }else{
+            if (imagen != undefined) {
+                formdata.append("imagen_principal", imagen);
+            } else {
                 formdata.append('imagen_principal', imagenAntigua);
             }
             formdata.append("descripcion", descripcion);
@@ -193,7 +192,7 @@ export const FormularioEditar = ({ setActiveButton, idRuta }) => {
 
                                 />
                             </Grid>}
-                            <Grid item xs={5}>
+                            {imagenAntigua != '' && <Grid item xs={5}>
                                 <Button
                                     type="button"
                                     variant="contained"
@@ -207,7 +206,7 @@ export const FormularioEditar = ({ setActiveButton, idRuta }) => {
                                 >
                                     Eliminar imagen
                                 </Button>
-                            </Grid>
+                            </Grid>}
                         </Grid>
                         <Grid item xs={12}>
                             <FormControl>

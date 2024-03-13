@@ -276,7 +276,7 @@ export default function Rutas({ setPuntosSeleccionados, setActiveButton }) {
                         <CardMedia
                           component="img"
                           height="100%"
-                          image={ruta.imagen_principal}
+                          image={ruta.imagen_principal != null ? ruta.imagen_principal : ruta.puntos_interes[0].imagen}
                           alt={ruta.nombre}
                         />
                       </Grid>
