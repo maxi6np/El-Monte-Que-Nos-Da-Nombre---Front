@@ -22,41 +22,33 @@ function Login() {
     text-align: center;
   `;
 
-  const login = (usuario, contraseña) => {
-    if ([usuario, contraseña].includes("")) {
-      setError(true);
-      setMensaje("Rellene ambos campos");
-    } else {
-      let body = JSON.stringify({
-        email: usuario,
-        password: contraseña,
-      });
-
-      fetch("http://" + import.meta.env.VITE_APP_PETICION_IP + ":8000/login", {
-        method: "post",
-        body: body,
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-        },
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.message == "correcto") {
-            setCookie(
-              "session",
-              { token: data.token, username: data.username },
-              { path: "/" }
-            );
-            navigate("/");
-          } else {
-            setMensaje(data.message);
+    const login = (usuario, contraseña) => {
+       
+        if ([usuario, contraseña].includes('')) {
             setError(true);
-          }
-        });
+            setMensaje('Rellene ambos campos');
+        }
+        else {
+            let body = JSON.stringify({
+                email: usuario,
+                password: contraseña
+            })
+
+            fetch('http://' + import.meta.env.VITE_APP_PETICION_IP + '/login', { method: 'post', body: body, headers: { 'Accept': 'application/json', 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', } })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message == 'correcto') {
+                        setCookie('session', { token: data.token, username: data.username }, { path: '/' });
+                        navigate("/");
+
+                    } else {
+                        setMensaje(data.message)
+                        setError(true);
+                    }
+                })
+        }
     }
-  };
+
 
   return (
     <Container

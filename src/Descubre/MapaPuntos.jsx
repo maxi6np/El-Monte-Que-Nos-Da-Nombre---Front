@@ -25,7 +25,7 @@ function MapaPuntos({ setSelectPoint, selectPoint, CentrarMapa, latlong, latlong
     let body = JSON.stringify({
       token: (cookies.session ? cookies.session.token : '')
     })
-    fetch('http://' + import.meta.env.VITE_APP_PETICION_IP + ':8000/mapa-puntos', {
+    fetch('http://' + import.meta.env.VITE_APP_PETICION_IP + '/mapa-puntos', {
       method: "post", body: body,
       headers: {
         Accept: "application/json",

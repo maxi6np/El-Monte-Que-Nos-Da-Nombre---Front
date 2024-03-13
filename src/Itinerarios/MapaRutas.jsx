@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { MapContainer, TileLayer, useMapEvents } from "react-leaflet";
 import MarkersRutas from "./MarkersRutas";
+import Leyenda from "./Leyenda";
 
 function MapaRutas({ puntosSeleccionados, setPuntosSeleccionados }) {
   const [puntos, setPuntos] = useState([]);
@@ -24,7 +25,7 @@ function MapaRutas({ puntosSeleccionados, setPuntosSeleccionados }) {
     let body = JSON.stringify({
       token: (cookies.session ? cookies.session.token : '')
   })
-    fetch('http://' + import.meta.env.VITE_APP_PETICION_IP + ':8000/mapa-puntos', { method: "post", body: body,
+    fetch('http://' + import.meta.env.VITE_APP_PETICION_IP + '/mapa-puntos', { method: "post", body: body,
     headers: {
         Accept: "application/json",
         "Content-type": "application/json",
@@ -49,6 +50,7 @@ function MapaRutas({ puntosSeleccionados, setPuntosSeleccionados }) {
         />
 
         <MarkersRutas puntos={puntos} puntosSeleccionados={puntosSeleccionados}></MarkersRutas>
+        <Leyenda></Leyenda>
         <ZoomReset />
       </MapContainer>
     </>

@@ -31,7 +31,7 @@ export const Formulario = ({ setActiveButton }) => {
         let body2 = JSON.stringify({
             token: (cookies.session ? cookies.session.token : '')
         })
-        fetch('http://' + import.meta.env.VITE_APP_PETICION_IP + ':8000/puntos-trabajos', {
+        fetch('http://' + import.meta.env.VITE_APP_PETICION_IP + '/puntos-trabajos', {
             method: "post", body: body2, headers: {
                 Accept: "application/json",
                 "Content-type": "application/json",

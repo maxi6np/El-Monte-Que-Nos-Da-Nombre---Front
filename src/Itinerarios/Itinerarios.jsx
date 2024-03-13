@@ -270,6 +270,7 @@ function Itinerarios({ logout, activeButton, setActiveButton }) {
 
         {/* Mapa */}
         <Grid item xs={12} md={7}>
+          <span>CLick derecho para volver a ver todos los puntos</span><br></br>
           <MapaRutas
             puntosSeleccionados={puntosSeleccionados}
             setPuntosSeleccionados={setPuntosSeleccionados}
