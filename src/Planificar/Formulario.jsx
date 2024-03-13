@@ -110,11 +110,16 @@ export const Formulario = ({ setActiveButton }) => {
             };
 
             fetch("http://127.0.0.1:8000/planificar-ruta", requestOptions)
-                .then((response) => response.text())
+                .then((response) => response.json())
                 .then((data) => {
-                    console.log(data)
-                    navigate("/itinerarios");
-                    setActiveButton('Itinerarios')
+                    if (data.message == 'Ruta creada correctamente') {
+                        console.log(data)
+                        navigate("/itinerarios");
+                        setActiveButton('Itinerarios')
+                    }else{
+                        setMensaje(data.message);
+                        setError(true);
+                    }
                 })
                 .catch((error) => console.error(error));
         }
