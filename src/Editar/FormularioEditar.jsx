@@ -186,7 +186,7 @@ export const FormularioEditar = ({ setActiveButton, idRuta }) => {
                             {imagen != '' && imagenAntigua != '' && <Grid item xs={6} >
                                 <h6>Imagen antigua</h6>
                                 <img
-                                    src={!imagenAntigua.includes('http:') ? '/' + imagenAntigua : imagenAntigua}
+                                    src={!imagenAntigua.includes('rutas') ? ('http://' + import.meta.env.VITE_APP_PETICION_IP + ':8000' + imagenAntigua) : imagenAntigua}
                                     alt='imagen antigua'
                                     style={{ height: "100%", width: "100%" }}
 
