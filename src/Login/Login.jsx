@@ -66,11 +66,11 @@ function Login() {
                         <Grid container spacing={2}>
                             <Grid xs={12} >
                                 <InputLabel htmlFor="usuario">Email</InputLabel>
-                                <Input fullWidth id="usuario" type="text" required value={usuario} onChange={(e) => {setError(false); setUsuario(e.target.value)}} />
+                                <Input fullWidth id="usuario" type="text"  value={usuario} onChange={(e) => {setError(false); setUsuario(e.target.value)}} />
                             </Grid>
                             <Grid xs={12}>
                                 <InputLabel htmlFor="contraseña">Contraseña</InputLabel>
-                                <Input fullWidth id="contraseña" type="password" required value={contraseña} onChange={(e) => {setError(false); setContraseña(e.target.value)}} />
+                                <Input fullWidth id="contraseña" type="password" value={contraseña} onChange={(e) => {setError(false); setContraseña(e.target.value)}} />
                             </Grid>
                             <Grid xs={12}>
                             {error && <Error>{mensaje}</Error>}
