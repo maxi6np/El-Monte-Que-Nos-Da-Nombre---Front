@@ -53,7 +53,7 @@ export default function Rutas({ setPuntosSeleccionados, setActiveButton }) {
         id_ruta: ruta.id_ruta
       })
 
-      fetch('http://' + import.meta.env.VITE_APP_PETICION_IP + ':8000/borrar-ruta', { method: 'delete', body: body, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', } })
+      fetch('http://' + import.meta.env.VITE_APP_PETICION_IP + '/borrar-ruta', { method: 'delete', body: body, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', } })
         .then(response => response.json())
         .then(data => {
           console.log(data)
@@ -114,7 +114,7 @@ export default function Rutas({ setPuntosSeleccionados, setActiveButton }) {
     });
 
     setCargando(true);
-    fetch('http://' + import.meta.env.VITE_APP_PETICION_IP + ':8000/get-rutas', {
+    fetch('http://' + import.meta.env.VITE_APP_PETICION_IP + '/get-rutas', {
       method: "post",
       body: body,
       headers: {
@@ -273,14 +273,16 @@ export default function Rutas({ setPuntosSeleccionados, setActiveButton }) {
                   <CardContent>
                     <Grid container spacing={2}>
                       <Grid item xs={12} md={5}>
-                        <CardMedia
+                        {!expandedRuta[ruta.id_ruta] && <CardMedia
                           component="img"
                           height="100%"
-                          image={ruta.imagen_principal != null ? ('http://' + import.meta.env.VITE_APP_PETICION_IP + ':8000' + ruta.imagen_principal) : ruta.puntos_interes[0].imagen}
+                          
+                          image={ruta.imagen_principal != null ? (ruta.imagen_principal.includes('uploads') ? 'http://' + import.meta.env.VITE_APP_PETICION_IP + '/' + ruta.imagen_principal : ruta.imagen_principal) : ruta.puntos_interes[0].imagen}
                           alt={ruta.nombre}
-                        />
+                          
+                        />}
                       </Grid>
-                      <Grid item xs={12} md={7}>
+                      <Grid item xs={12} md={!expandedRuta[ruta.id_ruta] ? 7 : 12}>
                         <Typography
                           gutterBottom
                           variant="h4"

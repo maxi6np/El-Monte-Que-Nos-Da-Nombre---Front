@@ -38,7 +38,7 @@ function Login() {
                 password: contraseña
             })
 
-            fetch('http://' + import.meta.env.VITE_APP_PETICION_IP + ':8000/login', { method: 'post', body: body, headers: { 'Accept': 'application/json', 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', } })
+            fetch('http://' + import.meta.env.VITE_APP_PETICION_IP + '/login', { method: 'post', body: body, headers: { 'Accept': 'application/json', 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', } })
                 .then(response => response.json())
                 .then(data => {
                     if (data.message == 'correcto') {

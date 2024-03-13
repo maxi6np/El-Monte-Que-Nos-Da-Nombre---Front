@@ -32,7 +32,7 @@ function Descubre({ logout, activeButton, setActiveButton }) {
 
     setCargando(true);
     setPuntos([]);
-    fetch('http://' + import.meta.env.VITE_APP_PETICION_IP + ':8000/puntos-trabajos', {
+    fetch('http://' + import.meta.env.VITE_APP_PETICION_IP + '/puntos-trabajos', {
       method: "post",
       body: body,
       headers: {
