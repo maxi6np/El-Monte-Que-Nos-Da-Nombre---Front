@@ -7,6 +7,8 @@ import CheckIcon from '@mui/icons-material/Check';
 import { MapContainer, TileLayer, useMapEvents } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { Marker, Popup, useMap } from "react-leaflet";
+import Bicon from "../img/marker-icon-blue.png";
+import { Icon } from "leaflet";
 
 
 export default function Eleccion({ puntos, setPuntos, setChecked }) {
@@ -98,7 +100,7 @@ export default function Eleccion({ puntos, setPuntos, setChecked }) {
                                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                                     />
                                     {selectedPoint && (
-                                        <Marker position={[selectedPoint.latitud, selectedPoint.longitud]}></Marker>
+                                        <Marker  icon={new Icon({iconUrl:Bicon})} position={[selectedPoint.latitud, selectedPoint.longitud]}></Marker>
                                     )}
                                 </MapContainer>
                             </div>
