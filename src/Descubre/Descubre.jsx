@@ -32,7 +32,7 @@ function Descubre({ logout, activeButton, setActiveButton }) {
 
     setCargando(true);
     setPuntos([]);
-    fetch('http://' + import.meta.env.VITE_APP_PETICION_IP + ':8000/puntos-trabajos', {
+    fetch('http://' + import.meta.env.VITE_APP_PETICION_IP + '/puntos-trabajos', {
       method: "post",
       body: body,
       headers: {
@@ -299,7 +299,7 @@ function Descubre({ logout, activeButton, setActiveButton }) {
 
       <Grid container spacing={2} sx={{ marginTop: 2, marginBottom: 2 }}>
         {/* Tarjetas */}
-        <Grid item xs={12} sm={12} md={12} lg={4.5} xl={4.5}>
+        <Grid item xs={4.5} sm={4.5} md={4.5} lg={4.5} xl={4.5}>
           <div style={{ position: "relative", height: "100%" }}>
             {cargando && (
               <div
@@ -328,11 +328,11 @@ function Descubre({ logout, activeButton, setActiveButton }) {
 
         {/* Columna de relleno */}
         <Hidden mdDown>
-          <Grid container item lg={0.5} xl={0.5}></Grid>
+          <Grid container item xs={0.5} sm={0.5} md={0.5} lg={0.5} xl={0.5}></Grid>
         </Hidden>
 
         {/* Mapa */}
-        <Grid container item xs={12} sm={12} md={12} lg={7} xl={7}>
+        <Grid container item xs={7} sm={7} md={7} lg={7} xl={7}>
           <span>Click derecho para ver todos los puntos</span>
           <MapaPuntos
             latlong={latlong}

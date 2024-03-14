@@ -30,7 +30,7 @@ export const FormularioEditar = ({ setActiveButton, idRuta }) => {
         })
         setCargando(true)
 
-        fetch(`http://` + import.meta.env.VITE_APP_PETICION_IP + `:8000/encontrar-ruta/${idRuta}`, { method: 'post', body: body, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', } })
+        fetch(`http://` + import.meta.env.VITE_APP_PETICION_IP + `/encontrar-ruta/${idRuta}`, { method: 'post', body: body, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', } })
             .then(response => response.json())
             .then(data => {
                 setNombre(data.data.nombre);
@@ -48,7 +48,7 @@ export const FormularioEditar = ({ setActiveButton, idRuta }) => {
         let body2 = JSON.stringify({
             token: (cookies.session ? cookies.session.token : '')
         })
-        fetch('http://' + import.meta.env.VITE_APP_PETICION_IP + ':8000/puntos-trabajos', {
+        fetch('http://' + import.meta.env.VITE_APP_PETICION_IP + '/puntos-trabajos', {
             method: "post", body: body2, headers: {
                 Accept: "application/json",
                 "Content-type": "application/json",
@@ -105,7 +105,7 @@ export const FormularioEditar = ({ setActiveButton, idRuta }) => {
                 redirect: "follow"
             };
 
-            fetch(`http://` + import.meta.env.VITE_APP_PETICION_IP + `:8000/editar-ruta/${idRuta}?_method=PUT`, requestOptions)
+            fetch(`http://` + import.meta.env.VITE_APP_PETICION_IP + `/editar-ruta/${idRuta}?_method=PUT`, requestOptions)
                 .then((response) => response.json())
                 .then((data) => {
                     if (data.message == 'Ruta actualizada correctamente') {
@@ -186,7 +186,7 @@ export const FormularioEditar = ({ setActiveButton, idRuta }) => {
                             {imagen != '' && imagenAntigua != '' && <Grid item xs={6} >
                                 <h6>Imagen antigua</h6>
                                 <img
-                                    src={!imagenAntigua.includes('rutas') ? ('http://' + import.meta.env.VITE_APP_PETICION_IP + ':8000' + imagenAntigua) : imagenAntigua}
+                                    src={!imagenAntigua.includes('uploads') ? ('http://' + import.meta.env.VITE_APP_PETICION_IP + '/' + imagenAntigua) : imagenAntigua}
                                     alt='imagen antigua'
                                     style={{ height: "100%", width: "100%" }}
 

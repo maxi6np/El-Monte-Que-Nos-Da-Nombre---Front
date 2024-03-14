@@ -4,19 +4,24 @@ import Gicon from "../img/marker-icon-green.png";
 import Bicon from "../img/marker-icon-blue.png";
 import { useCookies } from 'react-cookie';
 import { blue } from '@mui/material/colors';
+import { useEffect } from 'react';
 
 function MarkersRutas({ puntos, puntosSeleccionados }) {
     const map = useMap();
     const puntosAUsar = (puntosSeleccionados.length > 0) ? puntosSeleccionados : puntos;
-    const greenIcon = new L.Icon({iconUrl:(Gicon)})
-    const blueIcon = new L.Icon({iconUrl:(Bicon)})
+    const greenIcon = new L.Icon({ iconUrl: (Gicon) })
+    const blueIcon = new L.Icon({ iconUrl: (Bicon) })
     const [cookies, setCookie, removeCookie] = useCookies('session');
+    
+    
+
+    
     return (
         puntosAUsar.length > 0 &&
         puntosAUsar.map((marker, index) => {
             return (
                 <Marker
-                    icon={ cookies.session ? ((marker.visitados.length > 0) ? greenIcon : blueIcon) : blueIcon}
+                    icon={cookies.session ? ((marker.visitados.length > 0) ? greenIcon : blueIcon) : blueIcon}
                     eventHandlers={{
                         click: () => {
                             map.setView(
@@ -24,7 +29,7 @@ function MarkersRutas({ puntos, puntosSeleccionados }) {
                                     marker.latitud + 0.0005,
                                     marker.longitud + 0.001
                                 ],
-                                
+
                             );
                         }
                     }}

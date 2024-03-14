@@ -53,7 +53,7 @@ export default function Rutas({ setPuntosSeleccionados, setActiveButton }) {
         id_ruta: ruta.id_ruta
       })
 
-      fetch('http://' + import.meta.env.VITE_APP_PETICION_IP + ':8000/borrar-ruta', { method: 'delete', body: body, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', } })
+      fetch('http://' + import.meta.env.VITE_APP_PETICION_IP + '/borrar-ruta', { method: 'delete', body: body, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', } })
         .then(response => response.json())
         .then(data => {
           console.log(data)
@@ -114,7 +114,7 @@ export default function Rutas({ setPuntosSeleccionados, setActiveButton }) {
     });
 
     setCargando(true);
-    fetch('http://' + import.meta.env.VITE_APP_PETICION_IP + ':8000/get-rutas', {
+    fetch('http://' + import.meta.env.VITE_APP_PETICION_IP + '/get-rutas', {
       method: "post",
       body: body,
       headers: {
@@ -184,9 +184,9 @@ export default function Rutas({ setPuntosSeleccionados, setActiveButton }) {
         </Grid>
       ) : (
         <>
-          <Grid container spacing={2} >
+          <Grid container spacing={2}>
             {cookies.session && (
-              <Grid item xs={4}>
+              <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>
                 <FormControl fullWidth sx={{ marginBottom: "2rem" }}>
                   <InputLabel id="select-progreso-label">Progreso</InputLabel>
                   <Select
@@ -205,7 +205,7 @@ export default function Rutas({ setPuntosSeleccionados, setActiveButton }) {
                 </FormControl>
               </Grid>
             )}
-            <Grid item xs={4}>
+            <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>
               <FormControl fullWidth sx={{ marginBottom: "2rem" }}>
                 <InputLabel id="select-ordenacion-label">
                   Ordenar por
@@ -229,7 +229,7 @@ export default function Rutas({ setPuntosSeleccionados, setActiveButton }) {
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>
               <FormControl fullWidth sx={{ marginBottom: "2rem" }}>
                 <InputLabel id="select-categoria-label">
                   Mostrar por categoria
@@ -273,14 +273,29 @@ export default function Rutas({ setPuntosSeleccionados, setActiveButton }) {
                   <CardContent>
                     <Grid container spacing={2}>
                       <Grid item xs={12} md={5}>
-                        <CardMedia
-                          component="img"
-                          height="100%"
-                          image={ruta.imagen_principal != null ? ('http://' + import.meta.env.VITE_APP_PETICION_IP + ':8000' + ruta.imagen_principal) : ruta.puntos_interes[0].imagen}
-                          alt={ruta.nombre}
-                        />
+                        {!expandedRuta[ruta.id_ruta] && (
+                          <CardMedia
+                            component="img"
+                            height="100%"
+                            image={
+                              ruta.imagen_principal != null
+                                ? ruta.imagen_principal.includes("uploads")
+                                  ? "http://" +
+                                    import.meta.env.VITE_APP_PETICION_IP +
+                                    "/" +
+                                    ruta.imagen_principal
+                                  : ruta.imagen_principal
+                                : ruta.puntos_interes[0].imagen
+                            }
+                            alt={ruta.nombre}
+                          />
+                        )}
                       </Grid>
-                      <Grid item xs={12} md={7}>
+                      <Grid
+                        item
+                        xs={12}
+                        md={!expandedRuta[ruta.id_ruta] ? 7 : 12}
+                      >
                         <Typography
                           gutterBottom
                           variant="h4"
@@ -311,9 +326,9 @@ export default function Rutas({ setPuntosSeleccionados, setActiveButton }) {
                               ? expandedRuta[ruta.id_ruta]
                                 ? ruta.descripcion
                                 : `${ruta.descripcion
-                                  .split(" ")
-                                  .slice(0, 25)
-                                  .join(" ")}...`
+                                    .split(" ")
+                                    .slice(0, 25)
+                                    .join(" ")}...`
                               : ruta.descripcion}
                             <Button
                               onClick={() => toggleExpand(ruta.id_ruta)}
@@ -332,23 +347,35 @@ export default function Rutas({ setPuntosSeleccionados, setActiveButton }) {
                                 : "Ver más"}
                             </Button>
                           </p>
-                          {cookies.session && ( requestID == ruta.id_usuario && (
+                          {cookies.session && requestID == ruta.id_usuario && (
                             <Stack direction="row" spacing={2}>
-                              <Link to={`/editar/${ruta.id_ruta}`}> <CircleButton
-                                onClick={()=>setActiveButton('/planificar')}
-                                sx={{ backgroundColor: "#FFA500" }}
-                                startIcon={<EditIcon sx={{ color: "white" }} />}
-
-                              /></Link>
+                              <Link to={`/editar/${ruta.id_ruta}`}>
+                                {" "}
+                                <CircleButton
+                                  onClick={() => setActiveButton("/planificar")}
+                                  sx={{ backgroundColor: "#FFA500" }}
+                                  startIcon={
+                                    <EditIcon
+                                      sx={{
+                                        color: "white",
+                                        marginLeft: "1rem",
+                                      }}
+                                    />
+                                  }
+                                />
+                              </Link>
                               <CircleButton
                                 sx={{ backgroundColor: "#FF6347" }}
                                 endIcon={
-                                  <DeleteIcon sx={{ color: "white" }} f />
+                                  <DeleteIcon
+                                    sx={{ color: "white", marginRight: "0.85rem" }}
+                                    f
+                                  />
                                 }
                                 onClick={() => handleDelete(ruta)}
                               />
                             </Stack>
-                          ))}
+                          )}
                         </Typography>
                       </Grid>
                     </Grid>

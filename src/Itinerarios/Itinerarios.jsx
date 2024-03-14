@@ -256,7 +256,7 @@ function Itinerarios({ logout, activeButton, setActiveButton }) {
 
       <Grid container spacing={2} sx={{ marginTop: 2, marginBottom: 2 }}>
         {/* Tarjetas */}
-        <Grid item xs={12} md={4.5}>
+        <Grid item xs={4.5} sm={4.5} md={4.5} lg={4.5} xl={4.5}>
           <div style={{ position: "relative", height: "100%", marginLeft:'1rem'}}>
             <Rutas
               setPuntosSeleccionados={setPuntosSeleccionados}
@@ -266,10 +266,11 @@ function Itinerarios({ logout, activeButton, setActiveButton }) {
         </Grid>
 
         {/* Columna de relleno */}
-        <Grid item xs={0} md={0.5}></Grid>
+        <Grid item xs={0.5} sm={0.5} md={0.5} lg={0.5} xl={0.5}></Grid>
 
         {/* Mapa */}
-        <Grid item xs={12} md={7}>
+        <Grid item xs={7} sm={7} md={7} lg={7} xl={7}>
+          <span>CLick derecho para volver a ver todos los puntos</span><br></br>
           <MapaRutas
             puntosSeleccionados={puntosSeleccionados}
             setPuntosSeleccionados={setPuntosSeleccionados}
