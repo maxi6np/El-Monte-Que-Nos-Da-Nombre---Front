@@ -183,16 +183,16 @@ export const FormularioEditar = ({ setActiveButton, idRuta }) => {
                             </label>
                         </Grid>
                         <Grid xs={12} gap={'1em'} display="flex" justifyContent="end" alignItems="center" sx={{ marginTop: '1em' }}>
-                            {imagen != '' && imagenAntigua != '' && <Grid item xs={6} >
+                            {imagen != '' && imagenAntigua != '' && imagenAntigua.includes('uploads') &&  <Grid item xs={6} >
                                 <h6>Imagen antigua</h6>
                                 <img
-                                    src={imagenAntigua.includes('uploads') ? ('http://' + import.meta.env.VITE_APP_PETICION_IP + '/' + imagenAntigua) :  imagenAntigua}
+                                    src={'http://' + import.meta.env.VITE_APP_PETICION_IP + '/' + imagenAntigua}
                                     alt='imagen antigua'
                                     style={{ height: "100%", width: "100%" }}
 
                                 />
                             </Grid>}
-                            {imagenAntigua != '' && <Grid item xs={5}>
+                            {imagenAntigua != '' && imagenAntigua.includes('uploads') && <Grid item xs={5}>
                                 <Button
                                     type="button"
                                     variant="contained"
