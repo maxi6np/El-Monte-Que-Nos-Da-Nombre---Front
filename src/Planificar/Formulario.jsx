@@ -83,7 +83,7 @@ export const Formulario = ({ setActiveButton }) => {
                 redirect: "follow"
             };
 
-            fetch('http://' + import.meta.env.VITE_APP_PETICION_IP + ':8000/planificar-ruta', requestOptions)
+            fetch('http://' + import.meta.env.VITE_APP_PETICION_IP + '/planificar-ruta', requestOptions)
                 .then((response) => response.json())
                 .then((data) => {
                     if (data.message == 'Ruta creada correctamente') {

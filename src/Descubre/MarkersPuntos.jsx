@@ -1,4 +1,6 @@
 import { Marker, Popup, useMap } from "react-leaflet";
+import Bicon from "../img/marker-icon-blue.png";
+import { Icon } from "leaflet";
 
 function MarkersPuntos({ puntos, selectPoint }) {
     const map = useMap();
@@ -8,6 +10,7 @@ function MarkersPuntos({ puntos, selectPoint }) {
         puntosAUsar.map((marker, index) => (
             <Marker
                 key={index}
+                icon={new Icon({iconUrl:Bicon})}
                 position={[marker.latitud, marker.longitud]}
                 
                 eventHandlers={{

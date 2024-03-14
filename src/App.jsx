@@ -75,7 +75,7 @@ function App() {
   }, []);
 
   const logout = () => {
-    fetch("http://127.0.0.1:8000/logout", {
+    fetch('http://' + import.meta.env.VITE_APP_PETICION_IP + '/logout', {
       method: "post",
       headers: {
         Accept: "application/json",
