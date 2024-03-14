@@ -1,7 +1,6 @@
 import AutoStoriesIcon from "@mui/icons-material/AutoStories";
 import DescriptionIcon from "@mui/icons-material/Description";
-import SchoolIcon from "@mui/icons-material/School";
-import { Button, CardActionArea, Grid, List, ListItem } from "@mui/material";
+import { Button, CardActionArea, Grid } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -19,6 +18,7 @@ function Tarjetas({
   const [openModal, setOpenModal] = useState(false);
   const [modalContent, setModalContent] = useState("");
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState([]);
+  const categoriasMostradas = [];
 
   const mostrarPunto = (punto_id) => {
     const ptoSeleccionado = puntos.find(
@@ -89,70 +89,6 @@ function Tarjetas({
                       {punto.descripcion}
                     </span>
                   </span>
-                </p>
-                <p>
-                  <SchoolIcon
-                    sx={{
-                      fontSize: "1.5rem",
-                      marginLeft: "0.2rem",
-                    }}
-                  />{" "}
-                  <strong style={{ fontSize: "1.2rem" }}>Cursos: </strong>
-                  <Grid
-                    container
-                    spacing={0}
-                    style={{ display: "flex", justifyContent: "space-between" }}
-                  >
-                    {punto.trabajos != "" ? (
-                      punto.trabajos.map((trabajo, index) => {
-                         const trabajosMostrados = [];
-                        return (
-                          <React.Fragment key={index}>
-                            <Grid
-                              item
-                              xs={6}
-                              style={{
-                                paddingLeft: "1.5rem",
-                                paddingRight: "3rem",
-                                textAlign: "center",
-                              }}
-                            >
-                              <List>
-                                {trabajo.categoriasTrabajos.map(
-                                  (categoria, index) => {
-                                    if (
-                                      !trabajosMostrados.includes(
-                                        categoria.nombre
-                                      )
-                                    ) {
-                                      trabajosMostrados.push(categoria.nombre);
-                                      return (
-                                        <ListItem key={index}>
-                                          <p
-                                            style={{
-                                              margin: 0,
-                                              color: "black",
-                                              fontSize: "1.1rem",
-                                            }}
-                                          >
-                                            {trabajosMostrados}
-                                          </p>{" "}
-                                        </ListItem>
-                                      );
-                                    } else {
-                                      return null;
-                                    }
-                                  }
-                                )}
-                              </List>
-                            </Grid>
-                          </React.Fragment>
-                        );
-                      })
-                    ) : (
-                      <p>Aún no hay cursos disponibles</p>
-                    )}
-                  </Grid>
                 </p>
                 <>
                   <AutoStoriesIcon
